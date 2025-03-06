@@ -22,10 +22,10 @@ const HeroSection: React.FC = () => {
         <meta name="robots" content="index, follow" />
       </Head>
       <section
-        className="relative w-full h-screen mt-20 flex flex-col justify-center items-center "
+        className="relative w-full h-screen flex flex-col justify-start items-start "
         role="banner"
       >
-        <div className="absolute inset-0 bg-transparent bg-opacity-50 flex flex-col justify-center items-center text-gray-800 px-6 sm:px-12 md:px-16">
+        <div className="absolute inset-0 bg-transparent bg-opacity-50 flex flex-col justify-start items-center text-gray-800 px-6 sm:px-12 md:px-16 mt-40">
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-center"
             aria-label="Track Your Pet's Health and Wellness"

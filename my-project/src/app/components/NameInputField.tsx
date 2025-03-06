@@ -11,7 +11,7 @@ const NameInputField: React.FC = () => {
       <input
         id="pet-name"
         type="text"
-        placeholder="Enter pet's name"
+        placeholder="Peachie"
         className="w-full py-2 border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center "
       />
     </div>
