@@ -12,7 +12,7 @@ import settingsIcon from '/public/settings.png';
 const MobileMenu: React.FC = () => {
 
   return (
-<div className="fixed z-50 w-full px-[15px] sm:w-full md:w-full lg:w-full xl:w-full max-w-full h-16 border-black -translate-x-1/2 bg-gray-400 backdrop-blur-md left-1/2 dark:bg-pink-200 backdrop-blue-md dark:border-black bottom-0 md:top-2">
+<div className="fixed z-50 w-full px-[15px] sm:w-full md:w-full lg:w-full xl:w-full max-w-full h-16 border-black -translate-x-1/2 bg-blue-500 left-1/2 dark:bg-gray-500 backdrop-blue-md dark:border-black bottom-0 md:top-2">
 
       <div className="grid h-full max-w-lg grid-cols-6 mx-auto gap-x-8 ">
 

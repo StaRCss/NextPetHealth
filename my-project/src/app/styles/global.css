@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 /* Reset some default styles */
 body,
 h1,
@@ -42,11 +41,8 @@ a {
 
 /* Add some styling for buttons */
 button {
-    border-width: 1px;
     cursor: pointer;
-    background-color: #0070f3;
-    /* Primary button color */
-    color: #fff;
+    /* Primary button color *
 }
 
 button:hover {
@@ -61,3 +57,4 @@ button:hover {
 }
 
 /* Add more custom styles as needed */
+
