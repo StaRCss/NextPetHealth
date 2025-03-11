@@ -1,7 +1,6 @@
 
 "use client";
 import React from 'react';
-import { Avatar } from "flowbite-react";
 
 import { Card, Dropdown } from "flowbite-react";
 import Image from "next/image";

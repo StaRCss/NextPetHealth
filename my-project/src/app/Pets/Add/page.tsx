@@ -1,6 +1,6 @@
 'use client'; // Ensures the code runs on the client-side for Next.js
 import { useRouter } from "next/navigation";
-import { useForm, Controller, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import PetTypeSelector from "@/app/components/PetTypeSelector";
 import UploadImageField from "@/app/components/UploadImageField";
 import NameInputField from "@/app/components/NameInputField";
@@ -11,7 +11,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 // Define the types for the form values
-type PetFormValues = {
+export type PetFormValues = {
   petType: string;
   name: string;
   gender: string;
@@ -37,7 +37,7 @@ export default function AddPetForm() {
   });
 
   // Destructure required methods from the useForm hook
-  const { handleSubmit, control } = methods;
+  const { handleSubmit } = methods;
 
   // Handle form submission and log the form data
   const onSubmit = (data: PetFormValues) => {
@@ -57,7 +57,7 @@ export default function AddPetForm() {
         
         {/* Header and Cancel button */}
         <div className="flex flex-row justify-between">
-          <div className="flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
             <h2 className="text-3xl text-gray-700 font-bold">Add a new pet</h2>
             <h3 className="text-gray-700">Everything about your buddy!</h3>
           </div>
@@ -73,31 +73,20 @@ export default function AddPetForm() {
 
         {/* Wrap the form with FormProvider to share the form state */}
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">            
             {/* Pet Type Selector */}
-            <Controller
-              name="petType"
-              control={control}
-              render={({ field }) => <PetTypeSelector {...field} />}
-            />
-
+              <PetTypeSelector />           
             {/* Fields for uploading image and entering name & gender */}
             <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
-              <UploadImageField control={control} /> {/* Image upload field */}
+              <UploadImageField/> {/* Image upload field */}
               <div className="flex flex-col items-center w-1/2">
-                <NameInputField control={control} /> {/* Name input field */}
-                <GenderCheckboxField control={control} /> {/* Gender checkbox */}
+                <NameInputField/> {/* Name input field */}
+                <GenderCheckboxField/> {/* Gender checkbox */}
               </div>
             </div>
-
             {/* Fields for birthday and breed */}
             <div className="flex flex-row items-evenly border-b border-gray-300 gap-4 pb-4">
-              <Controller
-                name="birthday"
-                control={control}
-                render={({ field }) => <BirthdayInputField value={field.value} onChange={field.onChange} />}
-              /> {/* Birthday input field */}
+              <BirthdayInputField/>{/* Birthday input field */}
               <BreedInputField /> {/* Breed input field */}
             </div>
 

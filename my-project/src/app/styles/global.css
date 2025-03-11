@@ -4,23 +4,6 @@
 
 
 /* Reset some default styles */
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-ol,
-li,
-a,
- {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-    /* Replace with your preferred font */
-}
 
 /* Set up basic global styles */
 body {
@@ -42,12 +25,6 @@ a {
 /* Add some styling for buttons */
 button {
     cursor: pointer;
-    /* Primary button color *
-}
-
-button:hover {
-    background-color:#0070f3
-    /* Darker shade on hover */
 }
 
 /* Responsive container */

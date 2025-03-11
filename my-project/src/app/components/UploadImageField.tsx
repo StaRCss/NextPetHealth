@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { MdCloudUpload } from "react-icons/md";
+import { PetFormValues } from "../Pets/Add/page";
 
-interface UploadImageFieldProps {
-  control: any; // React Hook Form control
-}
 
-const UploadImageField: React.FC<UploadImageFieldProps> = ({ control }) => {
+const UploadImageField: React.FC = () => {
+  const { control } = useFormContext<PetFormValues>();
   const [preview, setPreview] = useState<string | null>(null);
 
   return (

@@ -1,68 +1,55 @@
-"use client"; // Ensures the code runs on the client-side for Next.js
+"use client";
 
 import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import { PetFormValues } from "../Pets/Add/page"; // Adjust path if needed
 
-// Define props interface for the component
-interface BirthdayInputFieldProps {
-  value: Date | null; // Current value of the date
-  onChange: (date: Date | null) => void; // Function to update the date
-}
+const BirthdayInputField: React.FC = () => {
+  const { control } = useFormContext<PetFormValues>();
 
-const BirthdayInputField: React.FC<BirthdayInputFieldProps> = ({ value, onChange }) => {
-  // Handles the date change and passes the updated date back to the parent component
-  const handleDateChange = (date: Dayjs | null) => {
-    onChange(date ? date.toDate() : null);
-  };
+  if (!control) return null; // Prevents crashes if useFormContext isn't available
 
   return (
     <div className="flex flex-col items-center w-1/2 mt-4 mb-4 select-none">
-      {/* Custom Label - Styled Like Other Fields */}
+      {/* ✅ Fix: Ensure label has a matching "htmlFor" */}
       <label htmlFor="pet-birthday" className="block text-sm font-medium text-gray-700 mb-2">
         Pet Birthday
       </label>
 
-      {/* LocalizationProvider ensures proper date formatting for different locales */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <MobileDatePicker
-          // Set the value of the date picker, converting from Date to Dayjs for internal state
-          value={value ? dayjs(value) : null}
-          // Handle the date change
-          onChange={handleDateChange}
-          // Set default value for the picker (can be removed if not needed)
-          defaultValue={dayjs("2025-02-02")}
-          
-          // Customize the styling of the TextField inside MobileDatePicker
-          slotProps={{
-            textField: {
-              sx: {
-                width: "100%", // Full width
-                height: "42px", // Fixed height for uniformity
-                minHeight: "42px", // Prevent resizing issues
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "16px", // Rounded corners
-                  border: "1px solid #d1d5db", // Tailwind gray-300 for border color
-                  backgroundColor: "white", // Ensures no unwanted background color
-                  overflow: "hidden", // Prevents border clipping
-                  transition: "none", // Stops unwanted animations during state changes
-                  "&:hover": {
-                    borderColor: "#d1d5db", // Border color on hover remains consistent
-                  },
-                  "&.Mui-focused": {
-                    borderColor: "#3b82f6", // Tailwind blue-500 for focused border color
-                    boxShadow: "none", // Removes default focus glow
+        <Controller
+          name="birthday"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <MobileDatePicker
+              value={value ? dayjs(value) : null}
+              onChange={(date: Dayjs | null) => onChange(date ? date.toDate() : null)}
+              slotProps={{
+                textField: {
+                  id: "pet-birthday",
+                  sx: {
+                    width: "100%",
+                    height: "42px",
+                    minHeight: "42px",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "16px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "white",
+                      overflow: "hidden",
+                      transition: "none",
+                      "&:hover": { borderColor: "#d1d5db" },
+                      "&.Mui-focused": { borderColor: "#3b82f6", boxShadow: "none" },
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": { border: "none" },
                   },
                 },
-                // Remove the default MUI outline (notched outline) to improve aesthetics
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-              },
-            },
-          }}
+              }}
+            />
+          )}
         />
       </LocalizationProvider>
     </div>
