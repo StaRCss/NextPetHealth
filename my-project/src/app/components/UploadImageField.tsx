@@ -1,14 +1,12 @@
 "use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { MdCloudUpload } from "react-icons/md";
-import { PetFormValues } from "../Pets/Add/page";
-
+import Image from "next/image";
 
 const UploadImageField: React.FC = () => {
-  const { control } = useFormContext<PetFormValues>();
-  const [preview, setPreview] = useState<string | null>(null);
+  const { control, setValue, watch } = useFormContext();
+  const preview = watch("image"); // Get image preview from form state
 
   return (
     <Controller
@@ -22,7 +20,14 @@ const UploadImageField: React.FC = () => {
             aria-label="Upload Pet Image"
           >
             {preview ? (
-              <img src={preview} alt="Pet Preview" className="w-full h-full object-cover rounded-[20px]" />
+              <Image
+                src={preview} 
+                alt="Pet Preview"
+                className="w-full h-full object-cover rounded-[20px]"
+                loading="lazy"
+                width={256}  // Specify width
+                height={256} // Specify height
+              />
             ) : (
               <>
                 <MdCloudUpload className="text-blue-400 text-4xl mb-2" />
@@ -40,11 +45,8 @@ const UploadImageField: React.FC = () => {
                 const file = e.target.files?.[0] || null;
                 onChange(file); // Update React Hook Form state
                 if (file) {
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setPreview(reader.result as string);
-                  };
-                  reader.readAsDataURL(file);
+                   const fileUrl = URL.createObjectURL(file);
+                  setValue("image", fileUrl); // More efficient preview
                 }
               }}
             />

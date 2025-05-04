@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { PetFormValues } from "../Pets/Add/page";
+import { PetFormValues } from "../components/AddPetForm";
 
 const GenderField: React.FC = () => {
   const { control } = useFormContext<PetFormValues>();
@@ -32,7 +32,7 @@ const GenderField: React.FC = () => {
                 type="radio"
                 value="male"
                 checked={field.value === "male"}
-                onChange={() => field.onChange("male")}
+                onChange={field.onChange}
                 className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">Male</span>
@@ -46,7 +46,7 @@ const GenderField: React.FC = () => {
                 type="radio"
                 value="female"
                 checked={field.value === "female"}
-                onChange={() => field.onChange("female")}
+                onChange={field.onChange}
                 className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">Female</span>

@@ -15,23 +15,5 @@ body {
 }
 
 
-/* Add some general styles for links */
-a {
-    text-decoration: none;
-    color: inherit;
-    /* Links will inherit the color of their parent */
-}
 
-/* Add some styling for buttons */
-button {
-    cursor: pointer;
-}
-
-/* Responsive container */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Add more custom styles as needed */
 

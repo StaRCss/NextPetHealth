@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs, { Dayjs } from "dayjs";
-import { PetFormValues } from "../Pets/Add/page"; // Adjust path if needed
+import { PetFormValues } from "../components/AddPetForm"; // Adjust path if needed
 
 const BirthdayInputField: React.FC = () => {
   const { control } = useFormContext<PetFormValues>();
@@ -15,7 +15,6 @@ const BirthdayInputField: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-1/2 mt-4 mb-4 select-none">
-      {/* ✅ Fix: Ensure label has a matching "htmlFor" */}
       <label htmlFor="pet-birthday" className="block text-sm font-medium text-gray-700 mb-2">
         Pet Birthday
       </label>
@@ -27,7 +26,11 @@ const BirthdayInputField: React.FC = () => {
           render={({ field: { value, onChange } }) => (
             <MobileDatePicker
               value={value ? dayjs(value) : null}
-              onChange={(date: Dayjs | null) => onChange(date ? date.toDate() : null)}
+              onChange={(date: Dayjs | null) => {
+                // Convert the selected date to a string in 'YYYY-MM-DD' format
+                const formattedDate = date ? date.startOf("day").toISOString().split("T")[0] : null;
+                onChange(formattedDate); // Ensure the value is a string (YYYY-MM-DD)
+              }}
               slotProps={{
                 textField: {
                   id: "pet-birthday",

@@ -1,6 +1,6 @@
 import { MdPets } from "react-icons/md"; // Import MdPets icon from react-icons
 import AddPetButton from "../components/AddPetButton"; // Adjust the path based on your project structure
-import PetCard from "../Pets/Components/PetCard"; // Adjust the path based on your project structure
+import PetCard from "../components/PetCard"; // Adjust the path based on your project structure
 
 export default function MyPetsPage() {
   const numberOfPets = 3; // You can dynamically fetch the number of pets
