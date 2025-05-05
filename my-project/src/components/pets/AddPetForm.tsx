@@ -1,13 +1,13 @@
 'use client';
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import React from "react";
-import UploadImageField from '@/app/components/UploadImageField';
-import NameInputField from '@/app/components/NameInputField';
-import GenderCheckboxField from '@/app/components/GenderCheckboxField';
-import PetTypeSelector from '@/app/components/PetTypeSelector';
-import BreedInputField from '@/app/components/BreedInputField';
-import BirthdayInputField from '@/app/components/BirthdayInputField';
-import SubmitButton from '@/app/components/SubmitButton';
+import UploadImageField from '@/components/pets/fields/UploadImageField';
+import NameInputField from '@/components/pets/fields/NameInputField';
+import GenderCheckboxField from '@/components/pets/fields/GenderCheckboxField';
+import PetTypeSelector from '@/components/pets/fields/PetTypeSelector';
+import BreedInputField from '@/components/pets/fields/BreedInputField';
+import BirthdayInputField from '@/components/pets/fields/BirthdayInputField';
+import SubmitButton from '@/components/pets/fields/SubmitButton';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { petFormSchema } from "@/lib/validations/PetFormSchema"; // Import your Zod schema
 

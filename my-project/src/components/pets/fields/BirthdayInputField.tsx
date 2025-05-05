@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs, { Dayjs } from "dayjs";
-import { PetFormValues } from "../components/AddPetForm"; // Adjust path if needed
+import { PetFormValues } from "../AddPetForm"; // Adjust path if needed
 
 const BirthdayInputField: React.FC = () => {
   const { control } = useFormContext<PetFormValues>();
