@@ -1,32 +1,28 @@
 // src/app/page.tsx
-import React from 'react';
-import dynamic from 'next/dynamic';
 import { Metadata } from 'next';
+import HeroSection from '@/components/landing/hero';
+import FeaturesSection from '@/components/landing/features/featuresSection';
+import Footer from '@/components/landing/footer/Footer';
 
-// Export metadata for this page
 export const metadata: Metadata = {
   title: "Track Your Pet's Health and Wellness",
-  description: "Easily monitor your pet's health, diet, and activities all in one place. Track their wellness and ensure they stay happy and healthy.",
-  keywords: "pet health, pet tracker, pet wellness, pet care, monitor pets",
+  description: "Easily monitor your pet's health, diet, and activities all in one place.",
   openGraph: {
     title: "Track Your Pet's Health and Wellness",
     description: "Monitor your pet's health, diet, and activities all in one place.",
-    url: "https://yourwebsite.com", // Replace with your actual URL
+    url: "https://yourwebsite.com",
   },
   robots: "index, follow",
 };
 
-// Dynamically import HeroSection for performance optimization
-const HeroSection = dynamic(() => import('../components/landing/hero'), {
-  ssr: true, // Ensures it is still server-side rendered for SEO
-  loading: () => <div>Loading...</div>, // Optional: add a loading spinner for user experience
-});
-
 const Page: React.FC = () => {
   return (
-    <div>
+    <main>
       <HeroSection />
-    </div>
+      <FeaturesSection />
+      <Footer/>
+      {/* Add more sections as needed */}
+    </main>
   );
 };
 
