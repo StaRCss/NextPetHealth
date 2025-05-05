@@ -9,4 +9,3 @@ export const petFormSchema = z.object({
   birthday: z.string().nullable(),
   image: z.instanceof(File).optional(),
 });
-

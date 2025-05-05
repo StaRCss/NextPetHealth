@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { PetFormValues } from "../components/AddPetForm";
+import { PetFormValues } from "../AddPetForm";
 
 const NameInputField = () => {
   const { register } = useFormContext<PetFormValues>(); 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { PetFormValues } from "../components/AddPetForm";
+import { PetFormValues } from "../AddPetForm";
 
 const GenderField: React.FC = () => {
   const { control } = useFormContext<PetFormValues>();

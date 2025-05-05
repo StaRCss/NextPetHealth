@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import AddPetForm from "@/app/components/AddPetForm";
-import CancelButton from "@/app/components/CancelButton";
-import Header from "@/app/components/Header";
+import AddPetForm from "@/components/pets/AddPetForm";
+import CancelButton from "@/components/pets/fields/CancelButton";
+import Header from "@/components/pets/fields/Header";
 
 
 async function handleAddPet(formData: FormData) {
