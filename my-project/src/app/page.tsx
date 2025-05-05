@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 // Dynamically import HeroSection for performance optimization
-const HeroSection = dynamic(() => import('./Hero/hero'), {
+const HeroSection = dynamic(() => import('../components/landing/hero'), {
   ssr: true, // Ensures it is still server-side rendered for SEO
   loading: () => <div>Loading...</div>, // Optional: add a loading spinner for user experience
 });
