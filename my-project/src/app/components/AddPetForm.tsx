@@ -9,7 +9,7 @@ import BreedInputField from '@/app/components/BreedInputField';
 import BirthdayInputField from '@/app/components/BirthdayInputField';
 import SubmitButton from '@/app/components/SubmitButton';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { petFormSchema } from "@/app/components/PetFormSchema"; // Import your Zod schema
+import { petFormSchema } from "@/lib/validations/PetFormSchema"; // Import your Zod schema
 
 export type PetFormValues = {
   petType: string;
