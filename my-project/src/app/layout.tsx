@@ -1,5 +1,5 @@
 
-import "./styles/global.css";
+import "../styles/global.css";
 import ClientLayout from "../components/layout/ClientLayout"; // Import the Client Component
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
