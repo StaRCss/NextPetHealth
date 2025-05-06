@@ -10,7 +10,8 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {/* Hide Navbar on Add Pet page */}
-      {pathname !== "/Pets/Add" && <Navbar />}
+      {pathname !== "/Pets/Add" && pathname !== "/login" && <Navbar />}
+      
       {children}
     </>
   );
