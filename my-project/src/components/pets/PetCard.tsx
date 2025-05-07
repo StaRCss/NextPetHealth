@@ -5,7 +5,16 @@ import React from 'react';
 import { Card, Dropdown } from "flowbite-react";
 import Image from "next/image";
 
-export function PetCard() {
+
+type PetData = 
+  {
+    name: string;
+    age: number;
+    breed: string;
+  }
+;
+
+export function PetCard({name, age, breed}: PetData) {
   return (
     <div className="flex flex-col items-center ">
     <Card className="w-5/6 m-6 md:w-1/2 lg:w-1/3 ">
@@ -44,9 +53,9 @@ export function PetCard() {
           src="/tata.jpg"
           width="96"
           className="mb-3 p-1 w-24 h-24 rounded-full bg-cyan-500 shadow-lg object-cover sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-38 lg:h-38" />
-        <h5 className="mb-1 text-xl font-bold text-gray-900 dark:text-gray-900">Tata</h5>
-        <span className="text-sm text-gray-500 dark:text-gray-400">Fat</span>
-        <span className="text-sm text-gray-500 dark:text-gray-400">Fat</span>
+        <h5 className="mb-1 text-xl font-bold text-gray-900 dark:text-gray-900">{name}</h5>
+        <span className="text-sm text-gray-500 dark:text-gray-400">{age}</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">{breed}</span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">Fat</span>
                         <span className="text-sm text-gray-500 dark:text-gray-400">Fat</span>
         <span className="text-sm text-gray-500 dark:text-gray-400">Fat</span>
