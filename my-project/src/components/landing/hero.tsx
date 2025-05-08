@@ -13,13 +13,13 @@ const HeroSection: React.FC = () => {
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-center"
           aria-label="Track Your Pets Health and Wellness"
         >
-          Track Your Pet's Health and Wellness
+          Track Your Pets Health and Wellness
         </h1>
         <p
           className="text-lg sm:text-xl mb-6 text-center"
           aria-label="Monitor your pets health, diet, and activities all in one place."
         >
-          Easily monitor your pet's health, diet, and activities all in one place.
+          Easily monitor your pets health, diet, and activities all in one place.
         </p>
         <Link
           href="/login"

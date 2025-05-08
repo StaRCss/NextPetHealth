@@ -12,7 +12,7 @@ type PetData =
     age: number;
     breed: string;
   }
-;
+
 
 export function PetCard({name, age, breed}: PetData) {
   return (

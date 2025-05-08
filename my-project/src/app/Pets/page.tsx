@@ -2,8 +2,16 @@ import { MdPets } from "react-icons/md"; // Import MdPets icon from react-icons
 import AddPetButton from "../../components/pets/AddPetButton"; // Adjust the path based on your project structure
 import PetCard from "../../components/pets/PetCard"; // Adjust the path based on your project structure
 
+
+const pets = [
+  { name: "Tata", age: 5, breed: "European" },
+  { name: "Pour", age: 7, breed: "European" },
+  
+];
+
+
 export default function MyPetsPage() {
-  const numberOfPets = 3; // You can dynamically fetch the number of pets
+  const numberOfPets = pets.length; // You can dynamically fetch the number of pets
 
   return (
     <div className="min-h-screen">
@@ -25,7 +33,11 @@ export default function MyPetsPage() {
       </section>
 
       {/* Other content can go here */}
-      <PetCard />
+      
+        {/* Map through the pets array and render PetCard for each pet */}
+        {pets.map((pet, index) => (
+          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} />
+        ))}
 
     </div>
   );
