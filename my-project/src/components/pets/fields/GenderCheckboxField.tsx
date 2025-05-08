@@ -10,14 +10,12 @@ const GenderField: React.FC = () => {
   if (!control) return null; // Prevents errors if control is undefined
 
   return (
-    <div className="flex flex-col items-center w-full max-w-full mt-0 mb-4 select-none">
+    <fieldset className="flex flex-col items-center w-full max-w-full mt-0 mb-4 select-none">
       {/* ✅ Proper label for the group */}
-      <label
-        htmlFor="gender-male"
-        className="block text-sm font-medium text-gray-700 mb-4 text-center"
-      >
+      <legend
+        className="block text-sm font-medium text-gray-700 mb-4 text-center">
         Gender
-      </label>
+      </legend>
 
       <Controller
         name="gender"
@@ -54,7 +52,7 @@ const GenderField: React.FC = () => {
           </div>
         )}
       />
-    </div>
+    </fieldset>
   );
 };
 
