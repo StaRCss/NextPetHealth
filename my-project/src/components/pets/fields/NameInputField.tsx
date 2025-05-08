@@ -16,7 +16,6 @@ const NameInputField = () => {
         id="pet-name"
         type="text"
         placeholder="Tata"
-        aria-label="Pet Name"
         className="w-full px-4 py-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
