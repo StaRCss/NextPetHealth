@@ -4,7 +4,7 @@ import PetCard from "../../components/pets/PetCard"; // Adjust the path based on
 
 
 const pets = [
-  { name: "Tata", age: 5, breed: "European" },
+  { name: "Tata", age: 5, breed: "European", weight: "5kg",  },
   { name: "Pour", age: 7, breed: "European" },
   
 ];
@@ -36,7 +36,7 @@ export default function MyPetsPage() {
       
         {/* Map through the pets array and render PetCard for each pet */}
         {pets.map((pet, index) => (
-          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} />
+          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} weight={pet.weight} />
         ))}
 
     </div>
