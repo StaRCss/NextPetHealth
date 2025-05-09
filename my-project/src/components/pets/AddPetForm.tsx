@@ -71,7 +71,6 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
         </div>
 
         {/* Display errors from validation */}
-        {errors.petType && <p className="text-red-500 text-sm">{errors.petType.message}</p>}
         {errors.breed && <p className="text-red-500 text-sm">{errors.breed.message}</p>}
         {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday.message}</p>}
 

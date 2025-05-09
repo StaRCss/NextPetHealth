@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation';
 const CancelButton: React.FC = () => {
   const router = useRouter();
 
-  const handleCancel = () => {
+  const handleCancel = React.useCallback(() => {
     router.replace('/Pets');
-  };
+  }, [router]);
 
   return (
     <button
