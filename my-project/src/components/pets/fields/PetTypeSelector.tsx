@@ -15,6 +15,13 @@ const PetTypeSelector: React.FC = () => {
   const {control}= useFormContext();
 
   return (
+
+    <fieldset className="flex flex-col items-start w-full mt-4">
+      <legend className="block text-sm font-medium text-gray-700 mb-4">
+        Select Pet Type
+      </legend>
+
+    
     <Controller
       name="petType"
       control={control}
@@ -43,6 +50,7 @@ const PetTypeSelector: React.FC = () => {
     </div>
       )}
     />
+    </fieldset>
   );
 };
 
