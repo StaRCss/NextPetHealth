@@ -19,7 +19,6 @@ const NavItem: React.FC<{ href: string; icon: StaticImageData; alt: string; }> =
         height={48} // Equivalent to Tailwind's w-12
         className="sm:w-16 sm:h-16 md:w-18 md:h-18 object-contain hover:scale-125 transition-transform duration-200 will-change-transform"
           style={{ backfaceVisibility: 'hidden' }}
-
       />
       <span className="sr-only">{alt}</span>
     </Link>

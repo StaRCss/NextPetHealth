@@ -24,8 +24,8 @@ async function handleAddPet(formData: FormData) {
 
 export default function AddPetPage() {
   return (
-    <div className="flex justify-center items-center min-h-screen overflow-auto">
-      <div className="bg-slate-50 flex flex-col max-w-screen-md p-6 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 md:mx-auto">
+    <div className="flex justify-center items-center min-h-screen overflow-auto"> 
+      <div className="bg-slate-50 flex flex-col max-w-screen-md p-6 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 md:mx-auto"> 
       <div className="flex flex-row items-center justify-between">
       <Header title="Add Pet" subtitle="Everything about your pet" />
       <CancelButton />
