@@ -51,6 +51,8 @@ const PetTypeSelector: React.FC = () => {
                   onChange={() => field.onChange(id)}
                   className="sr-only" // Screen-reader-only class to hide visually but keep accessible
                   aria-checked={field.value === id}
+                  role="radio"
+                  tabIndex={0} // Make it focusable
                 />
                 <Icon
                   className={`h-14 w-16 ${
