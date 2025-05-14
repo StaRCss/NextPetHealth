@@ -4,11 +4,12 @@ import PetCard from "../../components/pets/PetCard"; // Adjust the path based on
 
 
 const pets = [
-  { name: "Tata", age: 5, breed: "European", weight: "5kg",  },
-  { name: "Pour", age: 7, breed: "European" },
+  { name: "Tata", age: 5, breed: "European", weight: "5kg", image: "/tata.webp" },
+  { name: "Pour", age: 7, breed: "European" , weight: "5kg" },
+  { name: "Mousoudio", age: 3, breed: "European Shorthaired Orange Playfull KItten That I Love The Most", weight: "3.5kg" },
+  
   
 ];
-
 
 export default function MyPetsPage() {
   const numberOfPets = pets.length; // You can dynamically fetch the number of pets
