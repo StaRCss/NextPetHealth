@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log('Login Data:', data);
-    router.push('/Pets'); // Redirect to Pets after login
+    router.push('/pets'); // Redirect to Pets after login
   };
 
   return (

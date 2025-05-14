@@ -46,10 +46,10 @@ export default function MyPetsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  p-4 gap-4">
         {/* Map through the pets array and render PetCard for each pet */}
 
-          {pets.map((pet, index) => {
-           const bgColor = bgColors[index % bgColors.length]; 
+          {pets.map((pet) => {
+           const bgColor = bgColors[parseInt(pet.id) % bgColors.length]; 
            return(
-          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} weight={pet.weight} image={pet.image} bgColor={bgColor}/>
+          <PetCard key={pet.id} name={pet.name} age={pet.age} breed={pet.breed} weight={pet.weight} image={pet.image} bgColor={bgColor} id={pet.id}/>
         );
     })}
       </div>

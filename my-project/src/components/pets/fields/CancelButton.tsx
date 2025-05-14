@@ -8,7 +8,7 @@ const CancelButton: React.FC = () => {
   const router = useRouter();
 
   const handleCancel = React.useCallback(() => {
-    router.replace('/Pets');
+    router.replace('/pets');
   }, [router]);
 
   return (

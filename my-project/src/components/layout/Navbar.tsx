@@ -33,7 +33,7 @@ const MobileMenu: React.FC = () => {
         <NavItem href="/" icon={homeIcon} alt="Go to Home Page" />
         
         {/* Pets Nav Page */}
-        <NavItem href="/Pets" icon={petsIcon} alt="Go to My Pets Page" />
+        <NavItem href="/pets" icon={petsIcon} alt="Go to My Pets Page" />
 
         {/* Nutrition Nav Page */}
         <NavItem href="/Nutrition" icon={nutritionIcon} alt="Go to My Pets Nutrition" />
