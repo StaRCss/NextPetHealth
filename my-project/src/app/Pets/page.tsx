@@ -4,12 +4,21 @@ import PetCard from "../../components/pets/PetCard"; // Adjust the path based on
 
 
 const pets = [
-  { name: "Tata", age: 5, breed: "European", weight: "5kg", image: "/tata.webp" },
-  { name: "Pour", age: 7, breed: "European" , weight: "5kg" },
-  { name: "Mousoudio", age: 3, breed: "European Shorthaired Orange Playfull KItten That I Love The Most", weight: "3.5kg" },
-  
-  
+  { id: "1", name: "Tata", age: 5, breed: "European", weight: "5kg", image: "/tata.webp" },
+  {id:"2", name: "Pour", age: 7, breed: "European" , weight: "5kg" },
+  {id:"3", name: "Mousoudio", age: 3, breed: "European Shorthaired Orange ", weight: "3.5kg" },
+  {id:"4", name: "Mousoudio", age: 3, breed: "European Shorthaired Orange ", weight: "3.5kg" },
+  {id:"5", name: "Mousoudio", age: 3, breed: "European Shorthaired Orange ", weight: "3.5kg" },
 ];
+
+const bgColors = [
+  "bg-pink-200",
+  "bg-green-200",
+  "bg-blue-200",
+  "bg-yellow-200",
+  "bg-orange-200",
+];
+
 
 export default function MyPetsPage() {
   const numberOfPets = pets.length; // You can dynamically fetch the number of pets
@@ -33,13 +42,17 @@ export default function MyPetsPage() {
 
       </section>
 
-      {/* Other content can go here */}
-      
         {/* Map through the pets array and render PetCard for each pet */}
-        {pets.map((pet, index) => (
-          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} weight={pet.weight} />
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  p-4 gap-4">
+        {/* Map through the pets array and render PetCard for each pet */}
 
+          {pets.map((pet, index) => {
+           const bgColor = bgColors[index % bgColors.length]; 
+           return(
+          <PetCard key={index} name={pet.name} age={pet.age} breed={pet.breed} weight={pet.weight} image={pet.image} bgColor={bgColor}/>
+        );
+    })}
+      </div>
     </div>
   );
 }
