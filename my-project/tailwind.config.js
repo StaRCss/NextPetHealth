@@ -16,7 +16,12 @@ module.exports = {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+                chewy: ['var(--font-chewy)']
+
+      }
+    },
   },
   plugins: [
     flowbite.plugin(),
