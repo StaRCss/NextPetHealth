@@ -5,7 +5,7 @@ import Link from 'next/link';
 const HeroSection: React.FC = () => {
   return (
     <section
-      className="relative w-full min-h-[75vh]  flex flex-col justify-start items-start"
+      className="relative w-full min-h-screen flex flex-col justify-start items-start bg-gradient-to-b from-purple-200 to-purple-100 bg-cover bg-center"
       role="banner"
     >
       <div className="absolute inset-0 bg-transparent bg-opacity-50 flex flex-col justify-start items-center text-gray-800 px-6 sm:px-12 md:px-16 mt-40">

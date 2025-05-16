@@ -17,8 +17,8 @@ const PetTypeSelector: React.FC = () => {
   } = useFormContext();
 
   return (
-    <fieldset className="flex flex-col items-start w-full mt-4">
-      <legend className="block text-sm font-medium text-gray-700 mb-4">
+    <fieldset className="flex flex-col items-start w-full mt-6 ml-6">
+      <legend className="block text-sm font-medium text-gray-700 mb-4 ml-16">
         Select Pet Type
       </legend>
 
@@ -29,7 +29,7 @@ const PetTypeSelector: React.FC = () => {
           <div
             role="radiogroup"
             aria-labelledby="pet-type-label"
-            className="flex flex-row items-center justify-start mt-4 space-x-4"
+            className="flex flex-row space-x-4"
           >
             {petOptions.map(({ id, label, icon: Icon }) => (
               <label

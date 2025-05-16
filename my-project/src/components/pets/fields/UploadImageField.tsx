@@ -30,9 +30,9 @@ const UploadImageField: React.FC = () => {
               />
             ) : (
               <>
-                <MdCloudUpload className="text-blue-400 text-4xl mb-2" />
-                <p className="text-sm text-gray-500 select-none">Add pet image</p>
-                <p className="text-xs text-pink-400 select-none">(Image only)</p>
+                <MdCloudUpload className="text-blue-500 text-4xl mb-2" />
+                <p className="text-sm text-gray-800 select-none">Add pet image</p>
+                <p className="text-xs text-pink-800 select-none">(Image only)</p>
               </>
             )}
             {/* Hidden File Input */}

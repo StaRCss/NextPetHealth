@@ -14,7 +14,7 @@ const pets = [
 const bgColors = [
   "bg-pink-200",
   "bg-fuchsia-200",
-  "bg-blue-200",
+  "bg-green-200",
   "bg-yellow-200",
   "bg-orange-200",
 ];
@@ -24,19 +24,19 @@ export default function MyPetsPage() {
   const numberOfPets = pets.length; // You can dynamically fetch the number of pets
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen  bg-gradient-to-b from-blue-200 to-blue-100">
       {/* Top Section Add Pet Button */}
       <section className="w-full bg-blue-400 pt-24 rounded-b-[40px] flex flex-col h-[200px]">
       
 
         {/* Bot Side (Icon + Pets + Text) */}
         <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-row justify-center gap-x-4">
-         <span className="text-fuchsia-900 text-3xl font-bold" >{numberOfPets} </span> 
+          <div className="flex flex-row justify-center mt-4 gap-x-4">
+         <span className="text-orange-500 text-3xl font-bold" >{numberOfPets} </span> 
            <h2 className="text-3xl text-white font-bold">Pets</h2>
             <MdPets className="w-8 h-8 text-fuchsia-200 mr-2" /> {/* Paw Icon */}
           </div>
-            <p className="text-lg text-white"> are waiting for you!</p>
+            <p className="text-lg text-gray-800"> are waiting for you!</p>
           </div>
 
       </section>

@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image"; 
 import Link from "next/link"; // Import Link for navigation
 
-
 type PetData = {
   name: string;
   age: number;
@@ -22,11 +21,15 @@ export function PetCard({ name, age, breed, gender, weight, image, bgColor, id }
   return (
             <Link href={`/pets/${id}`} passHref>
 
-    <div className="flex flex-1  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
+    <div className="flex flex-1  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg border-2  shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
 
       <div className={`flex flex-col w-full h-[280px]  ${bgColor} rounded-lg`}>
-
-                 {/* ✅ Clean circular image */}
+            <p className="text-xl ml-4 mt-2">
+  <span className="mr-1">{gender === 'female' ? '♀️' : gender === 'male' ? '♂️' : ''}</span>
+  
+</p>
+   
+  {/* ✅ Clean circular image */}
         <div className="relative w-32 h-32 m-auto rounded-full overflow-hidden bg-cyan-500 shadow-lg mb-3 flex items-center justify-center">
           <Image
             alt={`Picture of ${name}`}

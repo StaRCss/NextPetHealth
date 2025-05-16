@@ -70,9 +70,8 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
           <BreedInputField />
         </div>
 
-        {/* Display errors from validation */}
+        
         {errors.breed && <p className="text-red-500 text-sm">{errors.breed.message}</p>}
-        {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday.message}</p>}
 
         <div className="flex justify-center items-center m-4">
           <SubmitButton />
