@@ -17,7 +17,7 @@ const NavItem: React.FC<{ href: string; icon: StaticImageData; alt: string; }> =
         alt={alt}
         width={48} // Equivalent to Tailwind's w-12
         height={48} // Equivalent to Tailwind's w-12
-        className="sm:w-16 sm:h-16 md:w-18 md:h-18 object-contain hover:scale-125 transition-transform duration-200 will-change-transform"
+        className="w-10 h-10 md:w-14 md:h-14 object-contain hover:scale-125 transition-transform duration-200 will-change-transform"
           style={{ backfaceVisibility: 'hidden' }}
       />
       <span className="sr-only">{alt}</span>
@@ -28,9 +28,9 @@ const NavItem: React.FC<{ href: string; icon: StaticImageData; alt: string; }> =
 const MobileMenu: React.FC = () => {
 
   return (
-        <div className="fixed z-50 w-full px-[15px] sm:w-full md:w-full lg:w-full xl:w-full max-w-full h-16 border-black -translate-x-1/2 bg-blue-400 left-1/2 dark:bg-gray-500 backdrop-blue-md dark:border-black bottom-0 md:top-2">
+        <div className="fixed z-50 w-full px-[15px] sm:w-full md:w-full lg:w-full xl:w-full max-w-full h-16 md:h-20 border-black -translate-x-1/2 bg-blue-400 left-1/2 dark:bg-gray-500 backdrop-blue-md dark:border-black bottom-0 md:top-0  bg-opacity-90">
 
-      <div className="grid grid-cols-5 h-full max-w-screen-md mx-auto items-center justify-items-center gap-6 px-4 mb-6">
+      <div className="grid grid-cols-5 h-full max-w-screen-md mx-auto items-center justify-items-center gap-3 px-4 mb-6">
         <NavItem href="/pets" icon={petsIcon} alt="Go to My Pets Page" />
         <NavItem href="/Nutrition" icon={nutritionIcon} alt="Go to Nutrition" />
         <AddPetButton />
