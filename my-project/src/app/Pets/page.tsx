@@ -2,7 +2,7 @@ import PetCard from "../../components/pets/PetCard"; // Adjust the path based on
 import Footer from "@/components/landing/footer/Footer";
 
 const pets = [
-  { id: "1", name: "Tata", age: 5, gender:"female", breed: "European", weight: "125.8kg", image: "/tata.webp" },
+  { id: "1", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "/tata.webp" },
   {id:"2", name: "Pourpourichos", age: 7, gender: "male", breed: "" , weight: "7kg" },
   {id:"3", name: "Mousoudio", age: 3, breed: "Orange Crazy Playfull Kitten", gender: "male", weight: "23.5kg" },
   {id:"4", name: "Moudis", age: 5, gender:"male", breed: "Best Cat Of The World", weight: "3.5kg" },

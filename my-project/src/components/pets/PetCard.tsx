@@ -47,20 +47,20 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
           </h5>
       </div></Link>
       
-<div className="grid gap-x-14 gap-y-6  my-4 grid-cols-2 text-sm text-gray-500 dark:text-gray-400 ">
+<div className="grid gap-x-14 gap-y-6 my-4 grid-cols-2 text-sm text-gray-500 dark:text-gray-400 ">
 
   {/* Row 1: Values with fallbacks */}
  <Link
     href={`/pets/${id}/weight`}
-    className="inline-flex justify-center w-28 items-center gap-3 px-3 border-2 rounded-xl border-blue-300 bg-blue-100 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
+    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
-    {weight || <span className="opacity-0">weight</span>}
+    {weight || <span className="text-2xl">-</span>}
   </Link>
 
  <Link
     href={`/pets/${id}/logs`}
-    className="inline-flex justify-center w-28 items-center gap-3 px-3 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
+    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="logs" className="text-2xl">📝</span>
     {weight || <span className="opacity-0">weight</span>}
@@ -68,7 +68,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
 
    <Link
     href={`/pets/${id}/weight`}
-    className="inline-flex justify-center w-28 items-center gap-3 px-3 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
+    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
     {weight || <span className="opacity-0">weight</span>}
@@ -76,7 +76,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
 
    <Link
     href={`/pets/${id}/weight`}
-    className="inline-flex justify-center w-28 items-center gap-3 px-3 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
+    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
     {weight || <span className="opacity-0">weight</span>}
