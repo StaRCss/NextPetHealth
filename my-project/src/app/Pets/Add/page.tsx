@@ -25,7 +25,7 @@ async function handleAddPet(formData: FormData) {
 export default function AddPetPage() {
   return (
     <div className="relative flex justify-start items-start md:mt-10 min-h-screen "> 
-      <div className="bg-slate-50 flex flex-col max-w-screen-md max-h-fit p-6 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 md:mx-auto"> 
+      <div className="bg-slate-50 flex flex-col max-w-screen-md min-h-screen md:min-h-fit p-6 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 md:mx-auto"> 
       <div className="flex flex-row items-center justify-between">
       <Header title="Add Pet"  />
       <CancelButton />

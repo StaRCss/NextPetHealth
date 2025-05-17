@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const SubmitButton: React.FC = () => (
+const SubmitButton= React.memo (() => (
 <button type="submit" 
     onClick={() => console.log('Button Clicked')}
 
@@ -14,7 +14,7 @@ className="text-white w-1/2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-
 Add Pet
 </button>
 
-  );
+));
 
 SubmitButton.displayName = 'SubmitButton';
 

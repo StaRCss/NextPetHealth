@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { MdCloudUpload } from "react-icons/md";
 import Image from "next/image";
 
-const UploadImageField: React.FC = () => {
+const UploadImageField= React.memo( () => {
   const { control, setValue, watch } = useFormContext();
   const preview = watch("image"); // Get image preview from form state
 
@@ -55,6 +55,6 @@ const UploadImageField: React.FC = () => {
       )}
     />
   );
-};
+});
 
 export default UploadImageField;

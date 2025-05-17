@@ -1,19 +1,17 @@
 'use client';
 import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
-import { PiCatDuotone, PiDogDuotone, PiRabbitDuotone } from "react-icons/pi";
 
-// Define pet options in an array to avoid repetition
 const petOptions = [
-  { id: "cat", label: "Cat", icon: PiCatDuotone },
-  { id: "dog", label: "Dog", icon: PiDogDuotone },
-  { id: "other", label: "Other", icon: PiRabbitDuotone },
+  { id: "cat", label: "Cat", emoji: "🐱" },
+  { id: "dog", label: "Dog", emoji: "🐶" },
+  { id: "other", label: "Other", emoji: "🐰" },
 ];
 
 const PetTypeSelector: React.FC = () => {
   const {
     control,
-    formState: { errors }, // Access errors from react-hook-form
+    formState: { errors },
   } = useFormContext();
 
   return (
@@ -31,16 +29,13 @@ const PetTypeSelector: React.FC = () => {
             aria-labelledby="pet-type-label"
             className="flex flex-row space-x-4"
           >
-            {petOptions.map(({ id, label, icon: Icon }) => (
+            {petOptions.map(({ id, label, emoji }) => (
               <label
                 key={id}
                 htmlFor={id}
-                className={`cursor-pointer flex flex-col items-center justify-center h-20 w-16 border border-gray-300 rounded-[20px] mb-4 
-                ${
-                  field.value === id
-                    ? "bg-green-400 text-white"
-                    : "bg-white text-gray-700"
-                } focus-within:ring-2 focus-within:ring-blue-500`}
+                className={`cursor-pointer flex flex-col items-center justify-center h-20 w-16 border border-gray-300 rounded-[20px] mb-4 transition-all
+                  ${field.value === id ? "bg-green-400 text-white" : "bg-white text-gray-700"}
+                  focus-within:ring-2 focus-within:ring-blue-500`}
               >
                 <input
                   id={id}
@@ -49,24 +44,25 @@ const PetTypeSelector: React.FC = () => {
                   value={id}
                   checked={field.value === id}
                   onChange={() => field.onChange(id)}
-                  className="sr-only" // Screen-reader-only class to hide visually but keep accessible
+                  className="sr-only"
                   aria-checked={field.value === id}
                   role="radio"
-                  tabIndex={0} // Make it focusable
+                  tabIndex={0}
                 />
-                <Icon
-                  className={`h-14 w-16 ${
-                    field.value === id ? "text-white" : "text-pink-300"
+                <span
+                  className={`text-4xl mb-1 transition-transform ${
+                    field.value === id ? "text-white rotate-[10deg]" : "text-pink-400"
                   }`}
-                />
-                <span className="select-none">{label}</span>
+                >
+                  {emoji}
+                </span>
+                <span className="select-none text-sm">{label}</span>
               </label>
             ))}
           </div>
         )}
       />
 
-      {/* Display error message below the field */}
       {errors.petType && (
         <p className="text-red-500 text-sm mt-2">{errors.petType?.message?.toString()}</p>
       )}

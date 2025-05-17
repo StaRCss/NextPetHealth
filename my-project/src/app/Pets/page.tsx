@@ -7,6 +7,7 @@ const pets = [
   {id:"3", name: "Mousoudio", age: 3, breed: "Orange Crazy Playfull Kitten", gender: "male", weight: "23.5kg" },
   {id:"4", name: "Moudis", age: 5, gender:"male", breed: "Best Cat Of The World", weight: "3.5kg" },
   {id:"5", name: "Baris", age: 7.5, breed: "Tubby Fat Orange", weight: "8kg", gender:"male" },
+  {id:"6", name: "Rocky", age: 3, breed: "Labrador Retriever orange with white tail"}
 ];
 
 const bgColors = [

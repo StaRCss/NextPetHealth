@@ -9,7 +9,7 @@ const breedOptions = [
   "Persian", "Maine Coon", "Siamese", "Bengal", "Sphynx"
 ];
 
-const BreedInputField: React.FC = () => {
+const BreedInputField= React.memo( () => {
   const { control } = useFormContext();  // Use FormContext from React Hook Form
 
   return (
@@ -49,6 +49,6 @@ const BreedInputField: React.FC = () => {
       />
     </div>
   );
-};
+});
 
 export default BreedInputField;

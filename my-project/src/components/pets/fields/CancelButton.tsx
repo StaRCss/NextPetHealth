@@ -4,7 +4,7 @@ import React from 'react';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 
-const CancelButton: React.FC = () => {
+const CancelButton= React.memo(() => {
   const router = useRouter();
 
   const handleCancel = React.useCallback(() => {
@@ -20,6 +20,6 @@ const CancelButton: React.FC = () => {
       <IoArrowBackCircleOutline className="w-6 h-6" />
     </button>
   );
-};
+});
 
 export default React.memo(CancelButton);

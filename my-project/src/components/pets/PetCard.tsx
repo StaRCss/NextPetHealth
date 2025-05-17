@@ -2,8 +2,6 @@
 import React from "react";
 import Image from "next/image"; 
 import Link from "next/link"; // Import Link for navigation
-import { Weight } from 'lucide-react'; // Or any relevant icon
-
 
 type PetData = {
   name: string;
@@ -16,7 +14,7 @@ type PetData = {
   id: string; // Add id property
 };
 
-export function PetCard({ name, age, breed, gender, weight, image, bgColor, id }: PetData) {
+export function PetCard({ name, breed, gender, weight, image, bgColor, id }: PetData) {
 
   return (
           

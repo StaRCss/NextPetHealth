@@ -8,7 +8,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { PetFormValues } from "../AddPetForm"; // Adjust path if needed
 
-const BirthdayInputField: React.FC = () => {
+const BirthdayInputField= React.memo(() => {
   const { control } = useFormContext<PetFormValues>();
 
   if (!control) return null; // Prevents crashes if useFormContext isn't available
@@ -57,6 +57,6 @@ const BirthdayInputField: React.FC = () => {
       </LocalizationProvider>
     </div>
   );
-};
+});
 
 export default BirthdayInputField;

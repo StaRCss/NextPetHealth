@@ -2,7 +2,9 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { PetFormValues } from "../AddPetForm";
 import { useWatch } from "react-hook-form";
-const NameInputField = () => {
+
+
+const NameInputField = React.memo( () => {
   const {
     register,
     formState: { errors },
@@ -51,6 +53,6 @@ const NameInputField = () => {
       )}
     </div>
   );
-};
+});
 
 export default NameInputField;
