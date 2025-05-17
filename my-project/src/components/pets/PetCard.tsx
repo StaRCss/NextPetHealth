@@ -30,9 +30,9 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
        <div className=" w-24 h-24 md:w-32 md:h-32 m-auto rounded-full overflow-hidden bg-blue-400 shadow-lg  flex items-center justify-center">
   {image ? (
     <Image
-      alt={`Picture of ${name}`}
       src={image}
-      height={100}
+       alt={`Picture of ${name}`}
+     height={100}
       width={100}
       className="object-cover w-fit h-fit rounded-full"
     />
