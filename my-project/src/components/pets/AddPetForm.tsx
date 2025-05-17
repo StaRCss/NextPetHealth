@@ -17,7 +17,7 @@ export type PetFormValues = {
   gender: string;
   breed: string;
   birthday: string | null;
-  image?: File;
+  imageFile?: File | null;
 };
 
 const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> }) => {
@@ -31,7 +31,7 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
       gender: "",
       breed: "",
       birthday: null,
-      image: undefined,
+      imageFile: null,
     },
   });
 
@@ -47,8 +47,8 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
     formData.append("gender", data.gender);
     formData.append("breed", data.breed);
     formData.append("birthday", data.birthday || "");
-    if (data.image) {
-      formData.append("image", data.image);
+    if (data.imageFile) {
+      formData.append("image", data.imageFile);
     }
 
     await action(formData); // Send data to the server
@@ -60,6 +60,10 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
         <PetTypeSelector />
         <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
           <UploadImageField />
+          {errors.imageFile && (
+  <p className="text-red-500 text-sm">{errors.imageFile.message}</p>
+)}
+
           <div className="flex flex-col items-center w-1/2">
             <NameInputField />
             <GenderCheckboxField />
@@ -70,8 +74,9 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
           <BreedInputField />
         </div>
 
-        
+        {/* Display errors from validation */}
         {errors.breed && <p className="text-red-500 text-sm">{errors.breed.message}</p>}
+        {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday.message}</p>}
 
         <div className="flex justify-center items-center m-4">
           <SubmitButton />

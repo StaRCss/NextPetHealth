@@ -4,13 +4,24 @@ import { Controller, useFormContext } from "react-hook-form";
 import { MdCloudUpload } from "react-icons/md";
 import Image from "next/image";
 
-const UploadImageField= React.memo( () => {
-  const { control, setValue, watch } = useFormContext();
-  const preview = watch("image"); // Get image preview from form state
+const UploadImageField : React.FC = () => {
+  const { control, watch } = useFormContext();
+  const file = watch("imageFile");
+  const [preview, setPreview] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (file instanceof File) {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      return () => URL.revokeObjectURL(url);
+    } else {
+      setPreview(null);
+    }
+  }, [file]);
 
   return (
     <Controller
-      name="image"
+      name="imageFile"
       control={control}
       render={({ field: { onChange } }) => (
         <div className="flex w-1/2 flex-col items-center mt-4">
@@ -21,12 +32,12 @@ const UploadImageField= React.memo( () => {
           >
             {preview ? (
               <Image
-                src={preview} 
+                src={preview}
                 alt="Pet Preview"
                 className="w-full h-full object-cover rounded-[20px]"
                 loading="lazy"
-                width={256}  // Specify width
-                height={256} // Specify height
+                width={256}
+                height={256}
               />
             ) : (
               <>
@@ -35,26 +46,21 @@ const UploadImageField= React.memo( () => {
                 <p className="text-xs text-pink-800 select-none">(Image only)</p>
               </>
             )}
-            {/* Hidden File Input */}
             <input
               id="pet-image"
               type="file"
               accept="image/*"
               className="hidden"
               onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                onChange(file); // Update React Hook Form state
-                if (file) {
-                   const fileUrl = URL.createObjectURL(file);
-                  setValue("image", fileUrl); // More efficient preview
-                }
+                const selectedFile = e.target.files?.[0] || null;
+                onChange(selectedFile);
               }}
             />
           </label>
         </div>
       )}
     />
-  );
-});
+  )}
+
 
 export default UploadImageField;
