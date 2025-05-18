@@ -14,9 +14,9 @@ import { petFormSchema } from "@/lib/validations/PetFormSchema"; // Import your 
 export type PetFormValues = {
   petType: string;
   name: string;
-  gender: string;
-  breed: string;
-  birthday: string | null;
+  gender?: string | null;
+  breed?: string | null;
+  birthday?: string;
   imageFile?: File | null;
 };
 
@@ -30,12 +30,12 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
       name: "",
       gender: "",
       breed: "",
-      birthday: null,
-      imageFile: null,
+      birthday: "",
+      imageFile:  null,
     },
   });
 
-  const { handleSubmit, formState: { errors } } = methods;
+  const { handleSubmit } = methods;
 
   // Custom action to submit the form data
   const onSubmit: SubmitHandler<PetFormValues> = async (data) => {
@@ -44,12 +44,21 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
     const formData = new FormData();
     formData.append("petType", data.petType);
     formData.append("name", data.name);
-    formData.append("gender", data.gender);
-    formData.append("breed", data.breed);
-    formData.append("birthday", data.birthday || "");
+    if (data.gender?.trim()) {
+  formData.append("gender", data.gender.trim());
+}
+ // Default to empty string if null
+    if (data.breed?.trim()) {
+  formData.append("breed", data.breed.trim());
+}
     if (data.imageFile) {
       formData.append("image", data.imageFile);
     }
+
+    if (data.birthday?.trim()) {
+  formData.append("birthday", data.birthday.trim()); // Assuming 'YYYY-MM-DD' format
+}
+    console.log("FormData:", formData); // Log the FormData object
 
     await action(formData); // Send data to the server
   };
@@ -60,10 +69,6 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
         <PetTypeSelector />
         <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
           <UploadImageField />
-          {errors.imageFile && (
-  <p className="text-red-500 text-sm">{errors.imageFile.message}</p>
-)}
-
           <div className="flex flex-col items-center w-1/2">
             <NameInputField />
             <GenderCheckboxField />
@@ -73,11 +78,6 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
           <BirthdayInputField />
           <BreedInputField />
         </div>
-
-        {/* Display errors from validation */}
-        {errors.breed && <p className="text-red-500 text-sm">{errors.breed.message}</p>}
-        {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday.message}</p>}
-
         <div className="flex justify-center items-center m-4">
           <SubmitButton />
         </div>

@@ -5,7 +5,7 @@ import { MdCloudUpload } from "react-icons/md";
 import Image from "next/image";
 
 const UploadImageField : React.FC = () => {
-  const { control, watch } = useFormContext();
+  const { control, watch, formState:{errors} } = useFormContext();
   const file = watch("imageFile");
   const [preview, setPreview] = React.useState<string | null>(null);
 
@@ -56,6 +56,9 @@ const UploadImageField : React.FC = () => {
                 onChange(selectedFile);
               }}
             />
+                     {errors.imageFile && (
+  <p className="text-red-500 text-sm">{typeof errors.imageFile?.message === "string" ? errors.imageFile.message : ""}</p>
+)}
           </label>
         </div>
       )}

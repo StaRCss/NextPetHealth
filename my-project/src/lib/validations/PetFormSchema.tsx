@@ -8,10 +8,10 @@ dayjs.extend(isSameOrBefore);
 interface PetFormSchema {
   petType: string;
   name: string;
-  breed: string;
-  gender: string;
+  breed?: string | null;
+  gender?: string | null;
   birthday?: string;
-  imageFile?: File | null;
+  imageFile?: File | null ;
 }
 
 export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, PetFormSchema> = z.object({
@@ -19,9 +19,40 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
   name: z
     .string()
     .min(2, "Name should be at least 2 characters long")
+    .max(30, "Name should not exceed 50 characters")
+    .trim()
     .regex(/^[A-Za-z\s]+$/, "Name should only contain letters and spaces"),
-  breed: z.string().min(1, "Breed is required"),
-  gender: z.string().nonempty("Gender is required"),
+
+ breed: z
+  .string()
+  .optional()
+  .refine(
+    (val) => {
+      if (!val || val.trim() === "") return true; // allow empty or undefined
+      const trimmed = val.trim();
+      return trimmed.length >= 2 && trimmed.length <= 40;
+    },
+    {
+      message: "Breed must be between 2 and 40 characters if provided",
+    }
+  )
+  .transform((val) => val?.trim() || null)
+  .refine(
+    (val) => !val || /^[A-Za-z\s]*$/.test(val),
+    "Breed should only contain letters and spaces"
+  ),
+
+gender: z
+  .string()
+  .optional()
+  .transform((val) => val?.trim() || null) // convert empty or spaces to null
+  .refine(
+    (val) => !val || ['male', 'female'].includes(val),
+    { message: "Gender must be 'male' or 'female' if provided" }
+  ),
+
+  
+  
   birthday: z
     .string()
     .optional()
@@ -30,11 +61,9 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
       "Birthday can't be in the future"
     ),
   imageFile: z
-    .any()
-    .refine(
-      (file) => !file || file instanceof File,
-      "Invalid file" // allow empty / no file initially
-    )
+     .any()
+     .nullable()
+    .refine((file) => !file || file instanceof File, "Invalid file type")
     .refine(
       (file) => !file || file.size > 0,
       "Image file is required"
