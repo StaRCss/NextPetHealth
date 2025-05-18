@@ -22,4 +22,5 @@ const CancelButton= React.memo(() => {
   );
 });
 
+CancelButton.displayName = 'CancelButton';
 export default React.memo(CancelButton);

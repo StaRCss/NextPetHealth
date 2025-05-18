@@ -8,7 +8,7 @@ export type Pet = {
   image?: string;
 };
 
-let pets: Pet[] = [];
+const pets: Pet[] = [];
 
 export function addPet(pet: Pet) {
   pets.push(pet);

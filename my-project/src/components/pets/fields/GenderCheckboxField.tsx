@@ -4,7 +4,7 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { PetFormValues } from "../AddPetForm";
 
-const GenderField= React.memo( () => {
+const GenderField: React.FC = () => {
   const { control } = useFormContext<PetFormValues>();
 
   if (!control) return null; // Prevents errors if control is undefined
@@ -53,7 +53,7 @@ const GenderField= React.memo( () => {
         )}
       />
     </fieldset>
-  );
-});
+  )}
+
 
 export default GenderField;

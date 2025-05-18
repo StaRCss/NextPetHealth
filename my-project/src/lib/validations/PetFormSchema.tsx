@@ -1,6 +1,20 @@
 import { z } from "zod";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
-export const petFormSchema = z.object({
+dayjs.extend(isSameOrBefore);
+
+
+interface PetFormSchema {
+  petType: string;
+  name: string;
+  breed: string;
+  gender: string;
+  birthday?: string;
+  imageFile?: File | null;
+}
+
+export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, PetFormSchema> = z.object({
   petType: z.string().min(1, "Pet Type is required"),
   name: z
     .string()
@@ -8,7 +22,13 @@ export const petFormSchema = z.object({
     .regex(/^[A-Za-z\s]+$/, "Name should only contain letters and spaces"),
   breed: z.string().min(1, "Breed is required"),
   gender: z.string().nonempty("Gender is required"),
-  birthday: z.string().nullable(),
+  birthday: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || dayjs(val).isSameOrBefore(dayjs(), 'day'),
+      "Birthday can't be in the future"
+    ),
   imageFile: z
     .any()
     .refine(

@@ -4,7 +4,7 @@ import { PetFormValues } from "../AddPetForm";
 import { useWatch } from "react-hook-form";
 
 
-const NameInputField = React.memo( () => {
+const NameInputField : React.FC = () => {
   const {
     register,
     formState: { errors },
@@ -37,7 +37,7 @@ const NameInputField = React.memo( () => {
             nameValue?.trim()
       ? errors.name
         ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
-        : "border-green-500 focus:border-green-500 border-4 focus:ring-2 focus:ring-green-500"
+        : "border-green-500 focus:border-green-500 border-2 focus:ring-2 focus:ring-green-500"
       : errors.name
       ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
       : "border-gray-300 focus:ring-2 focus:ring-blue-500"
@@ -52,7 +52,7 @@ const NameInputField = React.memo( () => {
         </p>
       )}
     </div>
-  );
-});
+  )}
+
 
 export default NameInputField;

@@ -1,7 +1,6 @@
 // app/pets/[id]/page.tsx
 import Image from "next/image"; 
 
-
 // mockPet.ts
  const mockPet = {
   id: "123",
@@ -17,13 +16,12 @@ import Image from "next/image";
   bio: "Loves sunbathing and tuna treats.",
 };
 
-
-export default function PetDetailsPage(name: string, image: string, gender:string) {
+export default function PetDetailsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-sky-100 to-blue-100">
       <div className="flex flex-row items-center justify-between p-4 md:px-16 w-full h-16 md:h-32 md:mt-20 ">
-                 <h5 className=" font-chewy text-2xl md:text-4xl font-semibold text-gray-700 tracking-widest"> {mockPet.name}'s profile </h5>
+                 <h5 className=" font-chewy text-2xl md:text-4xl font-semibold text-gray-700 tracking-widest"> {mockPet.name}s profile </h5>
                  <div className="flex flex-row gap-3 md:gap-4">
                  <button className="bg-blue-500 h-8 w-8 md:h-10 md:w-10 rounded-lg md:text-3xl">✏️</button>
                  <button className="bg-blue-500 h-8 w-8 md:h-10 md:w-10 rounded-lg md:text-3xl">📤 </button>
@@ -50,8 +48,7 @@ export default function PetDetailsPage(name: string, image: string, gender:strin
            <span className="rotate-6">{mockPet.gender === 'female' ? '♀️' : mockPet.gender === 'male' ? '♂️' : ''}</span> {mockPet.petType}</p>
           <p className=" text-gray-800 "> {mockPet.age} years old {mockPet.neutered} and weights {mockPet.weight}</p>  
         </div>
-        
-        
+            
         </div>
       </div>
     
