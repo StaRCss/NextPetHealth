@@ -1,12 +1,11 @@
 'use client';
-import LoginForm from "@/components/loginform/loginform";
+import SignupForm from "@/components/signup/SignupForm";
 
 export default function Page() {
   return (
     <div>
-      <h1>Login</h1>
       {/* Your content goes here */}
-<LoginForm />
+<SignupForm />
     </div>
   );
 }

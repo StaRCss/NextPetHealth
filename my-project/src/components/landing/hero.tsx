@@ -22,7 +22,7 @@ const HeroSection: React.FC = () => {
           Easily monitor your pets health, diet, and activities all in one place.
         </p>
         <Link
-          href="/login"
+          href="/signup"
           className="bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-75"
           aria-label="Get started with tracking your pet's health"
         >
