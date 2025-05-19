@@ -66,7 +66,10 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
+
         <PetTypeSelector />
+        </div>
         <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
           <UploadImageField />
           <div className="flex flex-col items-center w-1/2">
@@ -78,7 +81,7 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
           <BirthdayInputField />
           <BreedInputField />
         </div>
-        <div className="flex justify-center items-center m-4">
+        <div className="flex justify-center items-center m-auto">
           <SubmitButton />
         </div>
       </form>

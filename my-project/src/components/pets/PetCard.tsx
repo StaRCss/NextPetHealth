@@ -18,7 +18,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
 
   return (
           
-    <div className="flex flex-1 h-[350px] md:h-[400px]  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg border-2  shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
+    <div className="flex flex-1 h-[300px] md:h-[350px]  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg border-2  shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
 
             <Link href={`/pets/${id}`} className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} rounded-lg no-underline`}>
             <div>   
@@ -47,7 +47,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
           </h5>
       </div></Link>
       
-<div className="grid gap-x-14 gap-y-6 my-4 grid-cols-2 text-sm text-gray-500 dark:text-gray-400 ">
+<div className="flex flex-row gap-16 items-center justify-center m-auto text-sm text-gray-500 dark:text-gray-400 ">
 
   {/* Row 1: Values with fallbacks */}
  <Link
@@ -65,23 +65,6 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
     <span role="image" aria-label="logs" className="text-2xl">📝</span>
     {weight || <span className="opacity-0">weight</span>}
   </Link>
-
-   <Link
-    href={`/pets/${id}/weight`}
-    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
-  >
-    <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
-    {weight || <span className="opacity-0">weight</span>}
-  </Link>
-
-   <Link
-    href={`/pets/${id}/weight`}
-    className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
-  >
-    <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
-    {weight || <span className="opacity-0">weight</span>}
-  </Link>
-
 </div>        
     </div>
     

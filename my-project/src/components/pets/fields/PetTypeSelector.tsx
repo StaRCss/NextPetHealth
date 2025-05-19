@@ -15,7 +15,7 @@ const PetTypeSelector: React.FC = () => {
   } = useFormContext();
 
   return (
-    <fieldset className="flex flex-col items-start w-full mt-6 ml-6">
+    <fieldset className="flex flex-col items-start w-full">
       <legend className="block text-sm font-medium text-gray-700 mb-4 ml-16">
         Select Pet Type
       </legend>

@@ -13,7 +13,7 @@ async function handleAddPet(formData: FormData) {
     gender: formData.get("gender"),
     breed: formData.get("breed"),
     birthday: formData.get("birthday"),
-    image: formData.get("image"),
+    imageFile: formData.get("image"),
   };
 
   console.log("Received Pet Data:", petData);
@@ -24,9 +24,9 @@ async function handleAddPet(formData: FormData) {
 
 export default function AddPetPage() {
   return (
-    <div className="relative flex justify-start items-start md:mt-10 min-h-screen "> 
-      <div className="bg-slate-50 flex flex-col max-w-screen-md min-h-screen md:min-h-fit p-6 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 md:mx-auto"> 
-      <div className="flex flex-row items-center justify-between">
+<div className="flex md:flex-col md:items-center md:justify-center min-h-[100dvh] bg-slate-50 md:bg-sky-300" >
+      <div className="bg-slate-50 flex flex-col max-w-screen-md h-fit p-6 rounded-lg md:shadow-lg w-full md:w-2/3 lg:w-1/2 "> 
+      <div className="flex flex-row items-center justify-between mb-6">
       <Header title="Add Pet"  />
       <CancelButton />
       </div>
