@@ -40,7 +40,7 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className=" flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
         <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
 
@@ -49,6 +49,7 @@ const SignupForm: React.FC = () => {
             <label className="block text-gray-600 text-sm mb-1">Email</label>
             <input
               type="email"
+              placeholder='Enter email'
               {...register('email', { required: 'Email is required' })}
               className="w-full px-4 py-2 border rounded-lg"
             />
@@ -59,6 +60,7 @@ const SignupForm: React.FC = () => {
             <label className="block text-gray-600 text-sm mb-1">Password</label>
             <input
               type="password"
+              placeholder='Create password'
               {...register('password', { required: 'Password is required' })}
               className="w-full px-4 py-2 border rounded-lg"
             />
