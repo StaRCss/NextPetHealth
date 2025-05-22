@@ -5,15 +5,17 @@ import { features } from './featuresData';
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section className="py-16 px-6 bg-transparentl,,," aria-labelledby="features-heading">
-      <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 id="features-heading" className="text-3xl font-bold">
-          Why Choose Our App?
-        </h2>
-        <p className="mt-2 text-gray-600">Everything you need to keep your pets healthy and happy</p>
+    <section className=" bg-gradient-to-b from-slate-50 via-purple-300 to-purple-500 min-h-screen" aria-labelledby="features-heading">
+      <div className=" text-center pt-16">
+        <h2 id="features-heading" className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-wider">
+        Less Clutter, More Care
+</h2>
+        <p className=" text-gray-600 text-xl font-semibold">"No guidebook for pets? No problem—theres an app."
+
+</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-1/2 gap-8 h-fit p-10 lg:pt-20 lg:pl-40">
         {features.map((feature, index) => (
           <FeatureCard key={index} {...feature} />
         ))}

@@ -5,12 +5,15 @@ import Link from 'next/link';
 const HeroSection: React.FC = () => {
   return (
     <section
-      className="relative w-full min-h-screen flex flex-col justify-start items-start bg-gradient-to-b from-purple-200 to-purple-100 bg-cover bg-center"
+      className=" min-h-screen bg-gradient-to-b from-purple-200 to-purple-100 "
       role="banner"
     >
-      <div className="absolute inset-0 bg-transparent bg-opacity-50 flex flex-col justify-start items-center text-gray-800 px-6 sm:px-12 md:px-16 mt-40">
+      <div className="flex flex-col h-screen lg:flex-row">
+
+
+      <div className="flex flex-col w-full h-full md:h-2/3 lg:h-full lg:w-1/2 text-gray-800 items-center justify-center">
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-center"
+          className=" text-4xl md:text-6xl font-bold text-center"
           aria-label="Track Your Pets Health and Wellness"
         >
           Track Your Pets Health and Wellness
@@ -28,6 +31,10 @@ const HeroSection: React.FC = () => {
         >
           <span className="block text-center">Get Started</span>
         </Link>
+      </div>
+        <div className="m-auto"> 
+          <h1>Happy Pets</h1>
+        </div>
       </div>
     </section>
   );

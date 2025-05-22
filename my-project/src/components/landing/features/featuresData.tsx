@@ -16,4 +16,20 @@ export const features = [
     title: 'Wellness Records',
     description: 'Access your pet’s health records anytime, anywhere.',
   },
+  {
+    icon: '📊',
+    title: 'Diet Management',
+    description: 'Monitor your pet’s diet and nutrition with ease.',
+  },
+  {
+    icon: '📱',
+    title: 'User-Friendly Interface',
+    description: 'Intuitive design for easy navigation and tracking.',
+  },
+  {
+    icon: '🔔',
+    title: 'Reminders & Alerts',
+    description: 'Get notified for important health checks and activities.',
+  },
+  
 ];
