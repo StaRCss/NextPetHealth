@@ -2,18 +2,25 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { signUpSchema } from "@/lib/validations/SignUpSchema"; // Import your Zod schema
+import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type SignupFormInputs = {
   email: string;
   password: string;
 };
 
+type SignUpSchema = z.infer<typeof signUpSchema>;
+
 const SignupForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormInputs>();
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+  });
 
   const router = useRouter();
 
@@ -50,7 +57,7 @@ const SignupForm: React.FC = () => {
             <input
               type="email"
               placeholder='Enter email'
-              {...register('email', { required: 'Email is required' })}
+              {...register('email')}
               className="w-full px-4 py-2 border rounded-lg"
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
@@ -61,7 +68,7 @@ const SignupForm: React.FC = () => {
             <input
               type="password"
               placeholder='Create password'
-              {...register('password', { required: 'Password is required' })}
+              {...register('password')}
               className="w-full px-4 py-2 border rounded-lg"
             />
             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
