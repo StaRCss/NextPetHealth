@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import HeroSection from '@/components/landing/hero';
 import FeaturesSection from '@/components/landing/features/featuresSection';
 import Footer from '@/components/landing/footer/Footer';
+import LandingNav from '@/components/landing/landingnav';
 
 export const metadata: Metadata = {
   title: "Track Your Pet's Health and Wellness",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 const Page: React.FC = () => {
   return (
     <main>
+      <LandingNav/>
       <HeroSection />
       <FeaturesSection />
       <Footer/>

@@ -5,7 +5,7 @@ import { features } from './featuresData';
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section className=" bg-gradient-to-b from-slate-50 via-purple-300 to-purple-500 min-h-screen" aria-labelledby="features-heading">
+    <section id="features" className="  min-h-screen" aria-labelledby="features-heading">
       <div className=" text-center pt-16">
         <h2 id="features-heading" className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-wider">
         Less Clutter, More Care
