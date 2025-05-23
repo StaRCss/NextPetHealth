@@ -1,13 +1,12 @@
+// src/app/layout.tsx
 'use client';
 
 import "../styles/global.css";
-import ClientLayout from "../components/layout/ClientLayout";
 import { Chewy } from "next/font/google";
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
-// Load the Chewy font
 const chewy = Chewy({
   subsets: ["latin"],
   weight: "400",
@@ -23,8 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="min-h-screen bg-gray-100 text-gray-800 font-sans">
-        <MantineProvider >
-          <ClientLayout>{children}</ClientLayout>
+        <MantineProvider>
+          {children}
         </MantineProvider>
       </body>
     </html>

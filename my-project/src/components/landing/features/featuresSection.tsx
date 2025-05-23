@@ -10,7 +10,7 @@ const FeaturesSection: React.FC = () => {
         <h2 id="features-heading" className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-wider">
         Less Clutter, More Care
 </h2>
-        <p className=" text-gray-600 text-xl font-semibold">"No guidebook for pets? No problem—theres an app."
+        <p className=" text-gray-600 text-xl font-semibold">No guidebook for pets? No problem—theres an app.
 
 </p>
       </div>

@@ -20,7 +20,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
           
     <div className="flex flex-1 h-[300px] md:h-[350px]  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg border-2  shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
 
-            <Link href={`/pets/${id}`} className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} rounded-lg no-underline`}>
+            <Link href={`/dashboard/pets/${id}`} className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} rounded-lg no-underline`}>
             <div>   
             <p className="text-2xl ml-2 mt-2">
             <span className="mr-1">{gender === 'female' ? '♀️' : gender === 'male' ? '♂️' : ''}</span>
@@ -51,7 +51,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
 
   {/* Row 1: Values with fallbacks */}
  <Link
-    href={`/pets/${id}/weight`}
+    href={`/dashboard/pets/${id}/weight`}
     className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
@@ -59,7 +59,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
   </Link>
 
  <Link
-    href={`/pets/${id}/logs`}
+    href={`/dashboard/pets/${id}/logs`}
     className="flex justify-evenly w-28 items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
   >
     <span role="image" aria-label="logs" className="text-2xl">📝</span>

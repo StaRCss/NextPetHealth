@@ -19,7 +19,7 @@ async function handleAddPet(formData: FormData) {
   console.log("Received Pet Data:", petData);
   // Save to DB here...
 
-  redirect("/pets"); // Navigate to Pets page after submission
+  redirect("/dashboard/pets"); // Navigate to Pets page after submission
 }
 
 export default function AddPetPage() {

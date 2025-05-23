@@ -8,7 +8,7 @@ const CancelButton= React.memo(() => {
   const router = useRouter();
 
   const handleCancel = React.useCallback(() => {
-    router.replace('/pets');
+    router.replace('/dashboard/pets');
   }, [router]);
 
   return (

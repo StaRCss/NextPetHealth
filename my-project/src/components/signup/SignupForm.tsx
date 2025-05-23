@@ -34,7 +34,7 @@ const SignupForm: React.FC = () => {
 
       if (response.ok) {
         console.log('✅ Signup success');
-        router.push('/pets'); 
+        router.push('/dashboard/pets'); 
       } else {
         const err = await response.json();
         console.error('❌ Signup error:', err);

@@ -1,4 +1,4 @@
-import PetCard from "../../components/pets/PetCard"; // Adjust the path based on your project structure
+import PetCard from "../../../components/pets/PetCard"; // Adjust the path based on your project structure
 import Footer from "@/components/landing/footer/Footer";
 
 const pets = [

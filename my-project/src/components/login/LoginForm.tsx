@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
     
         if (response.ok) {
             console.log('✅ Login success');
-            router.push('/pets'); 
+            router.push('/dashboard/pets'); 
         } else {
             const err = await response.json();
             console.error('❌ Login error:', err);
