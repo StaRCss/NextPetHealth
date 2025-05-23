@@ -28,8 +28,8 @@ const HeroSection: React.FC = () => {
           href="/signup"
           className="bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-75"
           aria-label="Get started with tracking your pet's health"
-        >
-          <span className="block text-center">Get Started</span>
+         >
+         <span className="block text-center">Get Started</span>
         </Link>
       </div>
         <div className="m-auto"> 
