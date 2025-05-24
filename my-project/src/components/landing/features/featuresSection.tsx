@@ -15,7 +15,7 @@ const FeaturesSection: React.FC = () => {
 </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-1/2 gap-8 h-fit p-10 lg:pt-20 lg:pl-40">
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-5/6 md:w-4/5 lg:w-1/2 gap-8 h-fit mx-auto m-20 lg:mx-12 ">
         {features.map((feature, index) => (
           <FeatureCard key={index} {...feature} />
         ))}

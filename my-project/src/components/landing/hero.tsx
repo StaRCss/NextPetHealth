@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
         alt="Cat and Dog"
         width={500}
         height={500}
-        className=" md:w-80 md:h-80 m-auto object-cover object-center "/>
+        className=" w-40 h-40 m-auto  object-cover object-center "/>
 
       </div>
     </section>
