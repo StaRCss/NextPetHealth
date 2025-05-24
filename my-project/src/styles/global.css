@@ -69,3 +69,24 @@ summary::-webkit-details-marker {
         transition: linear;
     }
 }
+
+.custom-shape-divider-top-1748083882 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1748083882 svg {
+    position: relative;
+    display: block;
+    width: calc(138% + 1.3px);
+    height: 92px;
+}
+
+.custom-shape-divider-top-1748083882 .shape-fill {
+    fill: whitesmoke;
+}

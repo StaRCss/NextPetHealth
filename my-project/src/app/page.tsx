@@ -4,7 +4,7 @@ import HeroSection from '@/components/landing/hero';
 import FeaturesSection from '@/components/landing/features/featuresSection';
 import Footer from '@/components/landing/footer/Footer';
 import LandingNav from '@/components/landing/landingnav';
-
+import Divider from '@/components/landing/divider';
 export const metadata: Metadata = {
   title: "Track Your Pet's Health and Wellness",
   description: "Easily monitor your pet's health, diet, and activities all in one place.",
@@ -21,7 +21,9 @@ const Page: React.FC = () => {
     <main>
       <LandingNav/>
       <HeroSection />
+      
       <FeaturesSection />
+      <Divider />
       <Footer/>
       {/* Add more sections as needed */}
     </main>
