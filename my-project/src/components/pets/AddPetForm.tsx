@@ -1,5 +1,5 @@
 'use client';
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import React from "react";
 import UploadImageField from '@/components/pets/fields/UploadImageField';
 import NameInputField from '@/components/pets/fields/NameInputField';
@@ -38,26 +38,35 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
   const { handleSubmit } = methods;
 
   // Custom action to submit the form data
-  const onSubmit: SubmitHandler<PetFormValues> = async (data) => {
+  interface OnSubmitProps {
+    petType: string;
+    name: string;
+    gender?: string | null;
+    breed?: string | null;
+    birthday?: string;
+    imageFile?: File | null;
+  }
+
+  const onSubmit = async (data: OnSubmitProps): Promise<void> => {
     console.log("Form Data:", data); // Log the form data
 
-    const formData = new FormData();
+    const formData: FormData = new FormData();
     formData.append("petType", data.petType);
     formData.append("name", data.name);
     if (data.gender?.trim()) {
-  formData.append("gender", data.gender.trim());
-}
- // Default to empty string if null
+      formData.append("gender", data.gender.trim());
+    }
+    // Default to empty string if null
     if (data.breed?.trim()) {
-  formData.append("breed", data.breed.trim());
-}
+      formData.append("breed", data.breed.trim());
+    }
     if (data.imageFile) {
       formData.append("image", data.imageFile);
     }
 
     if (data.birthday?.trim()) {
-  formData.append("birthday", data.birthday.trim()); // Assuming 'YYYY-MM-DD' format
-}
+      formData.append("birthday", data.birthday.trim()); // Assuming 'YYYY-MM-DD' format
+    }
     console.log("FormData:", formData); // Log the FormData object
 
     await action(formData); // Send data to the server
@@ -66,8 +75,7 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
-
+        <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
         <PetTypeSelector />
         </div>
         <div className="flex flex-row items-center border-b border-gray-300 gap-4 pb-4">
