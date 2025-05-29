@@ -20,7 +20,16 @@ const GenderField: React.FC = () => {
       <Controller
         name="gender"
         control={control}
-        render={({ field }) => (
+        render={({
+          field,
+        }: {
+          field: {
+            value: string;
+            onChange: (value: string) => void;
+            name: string;
+          };
+          fieldState: { error?: { message?: string } };
+        }) => (
           <div className="flex items-center justify-center space-x-4 sm:space-x-8">
             {/* ✅ Male Radio with proper label */}
             <label htmlFor="gender-male" className="flex items-center space-x-2">
@@ -30,7 +39,7 @@ const GenderField: React.FC = () => {
                 type="radio"
                 value="male"
                 checked={field.value === "male"}
-                onChange={field.onChange}
+                onChange={e => field.onChange(e.target.value)}
                 className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">Male</span>
@@ -44,7 +53,7 @@ const GenderField: React.FC = () => {
                 type="radio"
                 value="female"
                 checked={field.value === "female"}
-                onChange={field.onChange}
+                onChange={e => field.onChange(e.target.value)}
                 className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">Female</span>

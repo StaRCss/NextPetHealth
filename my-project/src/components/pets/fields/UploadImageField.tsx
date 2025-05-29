@@ -23,7 +23,7 @@ const UploadImageField : React.FC = () => {
     <Controller
       name="imageFile"
       control={control}
-      render={({ field: { onChange } }) => (
+      render={({ field: { onChange } }: { field: { onChange: (value: File | null) => void } }) => (
         <div className="flex w-1/2 flex-col items-center mt-4">
           <label
             htmlFor="pet-image"
