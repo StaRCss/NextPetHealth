@@ -1,12 +1,15 @@
 'use client';
 import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
+import { string } from "zod";
 
 const petOptions = [
   { id: "cat", label: "Cat", emoji: "🐱" },
   { id: "dog", label: "Dog", emoji: "🐶" },
   { id: "other", label: "Other", emoji: "🐰" },
 ];
+
+
 
 const PetTypeSelector: React.FC = () => {
   const {
@@ -15,19 +18,26 @@ const PetTypeSelector: React.FC = () => {
   } = useFormContext();
 
   return (
-    <fieldset className="flex flex-col items-start w-full">
-      <legend className="block text-sm font-medium text-gray-700 mb-4 ml-16">
+    <fieldset className="flex flex-col items-center w-full">
+      <legend className="block text-sm text-center font-medium text-gray-700 mb-4">
         Select Pet Type
       </legend>
 
       <Controller
         name="petType"
         control={control}
-        render={({ field }) => (
+        render={({ field } :{
+          field: {
+            value: string;
+            onChange: (value: string) => void;
+            name: string;
+          };
+          fieldState: { error?: { message?: string } };
+        }) => (
           <div
             role="radiogroup"
             aria-labelledby="pet-type-label"
-            className="flex flex-row space-x-4"
+            className="flex flex-row gap-x-8"
           >
             {petOptions.map(({ id, label, emoji }) => (
               <label
