@@ -6,10 +6,7 @@ import { signUpSchema } from "@/lib/validations/SignUpSchema"; // Import your Zo
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 
-type SignupFormInputs = {
-  email: string;
-  password: string;
-};
+
 
 type SignUpSchema = z.infer<typeof signUpSchema>;
 
@@ -24,7 +21,7 @@ const SignupForm: React.FC = () => {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
