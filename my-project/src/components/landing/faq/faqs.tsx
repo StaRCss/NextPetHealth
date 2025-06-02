@@ -17,7 +17,7 @@ const FAQsData = [
 
 export default function FAQs() {
   return (
-    <section className="py-10 bg-white w-full">
+    <section className="py-10 bg-indigo-50 w-full">
       <h1 className="text-5xl font-semibold mb-12 text-center">FAQ</h1>
       <div className="flex flex-col gap-4 bg-gradient-to-r from-pink-200 to-pink-300 border rounded-lg w-full md:w-2/3 lg:w-1/2 p-4 m-auto">
         {FAQsData.map((faq, index) => (
