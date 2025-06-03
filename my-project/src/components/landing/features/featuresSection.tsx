@@ -5,7 +5,7 @@ import { features } from './featuresData';
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section id="features" className="  min-h-screen bg-gradient-to-b from-cyan-100 to-transparent" aria-labelledby="features-heading">
+    <section id="features" className="  min-h-screen bg-gradient-to-b from-cyan-100 to-transparent flex flex-col py-10" aria-labelledby="features-heading">
       <div className="flex flex-col ">
       <div className=" text-center p-10 ">
         <h2 id="features-heading" className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-wider">
