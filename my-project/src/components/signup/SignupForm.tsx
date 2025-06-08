@@ -1,5 +1,4 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { signUpSchema } from "@/lib/validations/SignUpSchema"; // Import your Zod schema
@@ -8,10 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 
 
+interface SignupFormProps {
+  onSuccess: () => void;
+}
+
 
 type SignUpSchema = z.infer<typeof signUpSchema>;
 
-const SignupForm: React.FC = () => {
+const SignupForm: React.FC <SignupFormProps> = ({onSuccess}) => {
   const {
     register,
     handleSubmit,
@@ -20,7 +23,6 @@ const SignupForm: React.FC = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const router = useRouter();
 
   const[isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<{email?:string, password?:string, message?:string}>({});
@@ -39,7 +41,7 @@ const SignupForm: React.FC = () => {
       });
 
       if (response.ok) {
-        router.push('/dashboard/pets'); 
+        onSuccess(); // Call the success handler passed from the parent component
 
       } else {
         const errorData = await response.json();
