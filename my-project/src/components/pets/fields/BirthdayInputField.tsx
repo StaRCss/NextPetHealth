@@ -20,22 +20,14 @@ const BirthdayInputField: React.FC = () => {
         name="birthday"
         control={control}
         defaultValue={dayjs().format("YYYY-MM-DD")} // ← default today
-        render={({
-          field: { value, onChange },
-        }: {
-          field: {
-            value: string;
-            onChange: (value: string | null) => void;
-          };
-        }) => (
-          
+        render={({ field }) => (
           <DatePickerInput
-            dropdownType="modal"       
+            dropdownType="modal"
             placeholder="Pick a date"
-            value={value ? new Date(value) : null}
+            value={field.value ? new Date(field.value) : null}
             onChange={(date) => {
               const formattedDate = date ? dayjs(date).format("YYYY-MM-DD") : null;
-              onChange(formattedDate);
+              field.onChange(formattedDate);
             }}
             maxDate={new Date()} // ← No future dates
             className="w-full"

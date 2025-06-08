@@ -20,16 +20,7 @@ const GenderField: React.FC = () => {
       <Controller
         name="gender"
         control={control}
-        render={({
-          field,
-        }: {
-          field: {
-            value: string;
-            onChange: (value: string) => void;
-            name: string;
-          };
-          fieldState: { error?: { message?: string } };
-        }) => (
+        render={({ field }) => (
           <div className="flex items-center justify-center space-x-4 sm:space-x-8">
             {/* ✅ Male Radio with proper label */}
             <label htmlFor="gender-male" className="flex items-center space-x-2">

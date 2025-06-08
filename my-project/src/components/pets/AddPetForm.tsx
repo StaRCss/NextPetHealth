@@ -1,7 +1,6 @@
 'use client';
 import { useForm, FormProvider } from "react-hook-form";
 import React from "react";
-import UploadImageField from '@/components/pets/fields/UploadImageField';
 import NameInputField from '@/components/pets/fields/NameInputField';
 import GenderCheckboxField from '@/components/pets/fields/GenderCheckboxField';
 import PetTypeSelector from '@/components/pets/fields/PetTypeSelector';

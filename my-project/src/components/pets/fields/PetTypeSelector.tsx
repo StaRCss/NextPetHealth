@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
-import { string } from "zod";
 
 const petOptions = [
   { id: "cat", label: "Cat", emoji: "🐱" },
