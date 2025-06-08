@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import Link from 'next/link';
 
 const LoginForm: React.FC = () => {
     const router = useRouter();
@@ -65,7 +66,9 @@ const LoginForm: React.FC = () => {
             </button>
             </form>
             <p className="text-center text-gray-600 text-sm mt-4">
-                Don't have an account? <a href="/signup" className="text-pink-500 hover:underline">Sign Up</a></p>
+                Don't have an account?
+                 <Link href="/signup" className="text-pink-500 hover:underline">Sign Up</Link>
+                 </p>
         </div>
         </div>
     );

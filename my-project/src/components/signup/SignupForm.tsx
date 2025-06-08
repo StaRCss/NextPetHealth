@@ -1,10 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { signUpSchema } from "@/lib/validations/SignUpSchema"; // Import your Zod schema
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 
 
 
@@ -21,7 +22,11 @@ const SignupForm: React.FC = () => {
 
   const router = useRouter();
 
+  const[isLoading, setisLoading] = useState(false);
+
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
+    setisLoading(true);
+    console.log('Submitting signup data:', data);
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -40,6 +45,9 @@ const SignupForm: React.FC = () => {
     } catch (error) {
       console.error('❌ Network error:', error);
       alert('Something went wrong');
+    }
+    finally{
+      setisLoading(false);
     }
   };
 
@@ -73,16 +81,17 @@ const SignupForm: React.FC = () => {
 
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
           >
-            Create Account
+            {isLoading ? 'Creating Account...' : 'Sign Up'}
           </button>
         </form>
         <p className="text-center text-gray-600 text-sm mt-4">
           Already have an account?{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <Link href="/login" className="text-blue-600 hover:underline">
             Login
-          </a>
+          </Link>
           </p>
       </div>
     </div>
