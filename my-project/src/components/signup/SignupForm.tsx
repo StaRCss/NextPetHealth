@@ -78,6 +78,12 @@ const SignupForm: React.FC = () => {
             Create Account
           </button>
         </form>
+        <p className="text-center text-gray-600 text-sm mt-4">
+          Already have an account?{' '}
+          <a href="/login" className="text-blue-600 hover:underline">
+            Login
+          </a>
+          </p>
       </div>
     </div>
   );

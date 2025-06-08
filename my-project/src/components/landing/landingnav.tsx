@@ -33,7 +33,7 @@ export default function LandingNav() {
       
           <details className="md:hidden mx-4">
             <summary className="cursor-pointer font-semibold"><LucideMenu/></summary>
-            <div className="flex flex-col mt-2 gap-4">
+            <div className="flex flex-col mt-2 gap-4 ">
               {NavLinks.map((link) => (
                 <Link
                   key={link.href}
