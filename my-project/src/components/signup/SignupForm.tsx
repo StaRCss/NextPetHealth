@@ -5,6 +5,7 @@ import { signUpSchema } from "@/lib/validations/SignUpSchema";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
 
 interface SignupFormProps {
   onSuccess: () => void;
@@ -23,6 +24,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<{ email?: string; password?: string; message?: string }>({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
     setIsLoading(true);
@@ -76,17 +78,26 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             {serverError.message && <p className="text-red-500 text-sm">{serverError.message}</p>}
           </div>
 
-          <div>
-            <label className="block text-gray-600 text-sm mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="Create password"
-              className="w-full px-4 py-2 border rounded-lg"
-              {...register('password')}
-            />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-            {serverError.password && <p className="text-red-500 text-sm">{serverError.password}</p>}
-          </div>
+          <div className="relative">
+         <label className="block text-gray-600 text-sm mb-1">Password</label>
+           <input
+             type={showPassword ? 'text' : 'password'}
+            placeholder="Create password"
+            {...register('password')}
+             className="w-full px-4 py-2 border rounded-lg pr-10"
+                  />
+                <button
+             type="button"
+             onClick={() => setShowPassword(prev => !prev)}
+             className="absolute top-9 right-3 text-gray-600"
+             tabIndex={-1}
+                >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+
+             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+             {serverError.password && <p className="text-red-500 text-sm">{serverError.password}</p>}
+            </div>
 
           <button
             type="submit"
