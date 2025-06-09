@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import SignupForm from "@/components/signup/SignupForm";
 import Modal from "@/components/modal/Modal";
 import { useRouter } from "next/navigation";
-import { title } from "process";
 
 export default function SignupPage() {
   const[showModal, setShowModal] = useState(false);

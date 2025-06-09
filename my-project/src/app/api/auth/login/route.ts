@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient} from "@prisma/client";
-import bcript from 'bcryptjs';
+import bcrypt from 'bcryptjs';
  
 const prisma = new PrismaClient();
 export async function POST(request: Request) {
@@ -16,19 +16,24 @@ export async function POST(request: Request) {
         }
     
         // Check if user already exists
-        const existingUser = await prisma.user.findUnique({ where: { email } });
+        const existingUser = await prisma.user.findUnique({ 
+            where: { email: email.toLowerCase() } 
+        });
+
+
+
         if (!existingUser) {
         return NextResponse.json(
-            { message: "User does not exist" },
-            { status: 409 }
+            { errors: {email: "Invalid Email"} } ,
+            { status: 404 }
         );
         }
     
         // Check password
-        const isPasswordValid = await bcript.compare(password, existingUser.password);
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
         return NextResponse.json(
-            { message: "Invalid password" },
+            { errors: { password: "Invalid password" } },
             { status: 401 }
         );
         }
@@ -37,8 +42,8 @@ export async function POST(request: Request) {
         { message: "Login successful", userId: existingUser.id },
         { status: 200 }
         );
+        
     } catch (error) {
-        console.error("Login error:", error);
         return NextResponse.json(
         { message: "Internal Server Error" },
         { status: 500 }

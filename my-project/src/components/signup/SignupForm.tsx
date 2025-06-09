@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
 
-interface SignupFormProps {
+interface SignupFormProps {     
   onSuccess: () => void;
 }
 
@@ -41,7 +41,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
       if (response.ok) {
         onSuccess();
-      } else {
+      } 
+      else {
         const errorData = await response.json();
         if (errorData.errors && typeof errorData.errors === 'object') {
           setServerError(errorData.errors);
@@ -50,9 +51,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         }
       }
     } catch (error) {
-      console.error('Signup error:', error);
       setServerError({ message: 'An unexpected error occurred. Please try again later.' });
-    } finally {
+    } 
+    finally {
       setIsLoading(false);
     }
   };
@@ -60,7 +61,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   return (
     <div className="flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
