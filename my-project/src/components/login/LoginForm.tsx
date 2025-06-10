@@ -44,7 +44,7 @@ const LoginForm: React.FC = () => {
                 const errorData = await response.json();
                 if (errorData.errors && typeof errorData.errors === 'object') {
                     setServerError(errorData.errors);
-                    
+
                 } else {
                     setServerError({ message: errorData.message || 'Login failed' });
                 }
@@ -95,8 +95,8 @@ const LoginForm: React.FC = () => {
                 <button
                 type="button"
                 className="absolute right-3 top-9  text-gray-500"
-                tabIndex={-1}
                 onClick={() => setShowPassword(prev => !prev)}
+                aria-laber= {showPassword? 'Hide Password' : 'Show Password'}
                 >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>

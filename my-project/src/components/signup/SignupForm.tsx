@@ -91,7 +91,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
              type="button"
              onClick={() => setShowPassword(prev => !prev)}
              className="absolute top-9 right-3 text-gray-600"
-             tabIndex={-1}
+             aria-label= {showPassword? 'Hide Password' : 'Show Password'}
                 >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
