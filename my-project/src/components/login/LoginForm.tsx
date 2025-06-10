@@ -1,19 +1,20 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
 import React, { useState } from 'react';
-import { object, z } from 'zod';
+import {  z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { loginSchema } from '@/lib/validations/LoginSchema';
-import { console } from 'inspector';
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
+interface LoginFormProps{
+    onSuccess: () => void;
+}
 
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC<LoginFormProps> = ({onSuccess}) => {
     const {
         register,
         handleSubmit,
@@ -25,7 +26,6 @@ const LoginForm: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState<{ email?: string; password?: string; message?: string }>({});
     const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
     
     const onLogin: SubmitHandler<LoginFormData> = async (data) => {
         setServerError({});
@@ -39,7 +39,8 @@ const LoginForm: React.FC = () => {
             });
 
             if (response.ok) {
-                router.push('/dashboard/pets'); 
+                onSuccess();
+
             } else {
                 const errorData = await response.json();
                 if (errorData.errors && typeof errorData.errors === 'object') {
@@ -51,6 +52,7 @@ const LoginForm: React.FC = () => {
             }
 
         } catch (error) {
+            console.error('Server Error:' , error);
             setServerError({ message: 'An unexpected error occurred. Please try again later.' });
         }
         
@@ -96,7 +98,7 @@ const LoginForm: React.FC = () => {
                 type="button"
                 className="absolute right-3 top-9  text-gray-500"
                 onClick={() => setShowPassword(prev => !prev)}
-                aria-laber= {showPassword? 'Hide Password' : 'Show Password'}
+                aria-label= {showPassword? 'Hide Password' : 'Show Password'}
                 >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>

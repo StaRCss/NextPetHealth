@@ -51,6 +51,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         }
       }
     } catch (error) {
+      console.error('Server error:' , error);
       setServerError({ message: 'An unexpected error occurred. Please try again later.' });
     } 
     finally {
