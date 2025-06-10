@@ -19,7 +19,7 @@ const handleLoginSuccess = () => {
 };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
+    <div className="flex items-center justify-center h-screen bg-gray-100 ">
      {showForm && <LoginForm onSuccess ={handleLoginSuccess} /> }
       <Modal
       isOpen={showModal}

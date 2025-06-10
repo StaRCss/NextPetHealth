@@ -60,8 +60,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div className="flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
+    <div className="flex w-full max-w-sm flex-col items-center gap-y-8 rounded-md border border-muted bg-white px-6 py-12 shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -117,7 +116,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           </Link>
         </p>
       </div>
-    </div>
+    
   );
 };
 

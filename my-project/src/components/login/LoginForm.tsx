@@ -13,7 +13,6 @@ interface LoginFormProps{
     onSuccess: () => void;
 }
 
-
 const LoginForm: React.FC<LoginFormProps> = ({onSuccess}) => {
     const {
         register,
@@ -62,8 +61,8 @@ const LoginForm: React.FC<LoginFormProps> = ({onSuccess}) => {
     };
     
     return (
-        <div className="flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
+    
+        <div className="flex w-full max-w-sm flex-col items-center gap-y-8 rounded-md border border-muted bg-white px-6 py-12 shadow-md">
             <h2 className="text-2xl font-bold text-center text-gray-800">Welcome Back!</h2>
     
             <form onSubmit={handleSubmit(onLogin)} className="space-y-4">
@@ -120,7 +119,6 @@ const LoginForm: React.FC<LoginFormProps> = ({onSuccess}) => {
                 Dont have an account?
                  <Link href="/signup" className="text-pink-500 hover:underline">Sign Up</Link>
                  </p>
-        </div>
         </div>
     );
 }
