@@ -1,6 +1,15 @@
 import zod from "zod";
 
 export const signUpSchema = zod.object({
+
+  name: zod 
+  .string()
+  .min(1, "Name should be more than one character")
+  .max(50 ,"Name should not exceed 50 characters")
+  .trim()
+  .transform((val) => (val === "" ? undefined : val))
+  .optional(),
+
   email: zod
     .string()
     .email("Invalid email address")

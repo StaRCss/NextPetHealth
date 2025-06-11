@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
+import { error } from 'console';
 
 interface SignupFormProps {     
   onSuccess: () => void;
@@ -65,6 +66,16 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
+            <label className="block text-gray-600 text-sm mb-1">Name or Nickname</label>
+              <input
+               type="text"
+               placeholder="Enter your name"
+               {...register('name')}
+               className="w-full px-4 py-2 border rounded-lg "
+              />
+             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+              </div>
+            <div>
             <label className="block text-gray-600 text-sm mb-1">Email</label>
             <input
               type="email"

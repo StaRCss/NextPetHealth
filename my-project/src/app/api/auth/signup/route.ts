@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
@@ -6,42 +5,59 @@ import { signUpSchema } from '@/lib/validations/SignUpSchema';
 
 const prisma = new PrismaClient();
 
+// ✅ Helper to clean email
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase();
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, password } = body;
+    const { name, email, password } = body;
 
     // Validate input
-    const validation = signUpSchema.safeParse({ email, password });
+    const validation = signUpSchema.safeParse({ name, email, password });
     if (!validation.success) {
-      return NextResponse.json({ message: 'Invalid input', errors: validation.error.flatten().fieldErrors }, { status: 400 });
+      return NextResponse.json(
+        { message: 'Invalid input', errors: validation.error.flatten().fieldErrors },
+        { status: 400 }
+      );
     }
 
-    // Extract validated data
-    const { email: validatedEmail, password: validatedPassword } = validation.data;
-    
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({ where: { email: validatedEmail } });
-    console.log('Checking user:', validatedEmail, 'Found:', existingUser);
+    const validatedName = validation.data.name;
+    const validatedPassword = validation.data.password;
+
+    // ✅ USE THE HELPER to normalize email once and use it everywhere
+    const normalizedEmail = normalizeEmail(validation.data.email);
+
+    console.log('Normalized email:', normalizedEmail); // 🧪 Confirm this shows lowercase
+
+    // Check if user exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email: normalizedEmail },
+    });
 
     if (existingUser) {
-      return NextResponse.json({ message: 'Invalid email' }, { status: 409 });
+      return NextResponse.json({ message: 'Email already in use' }, { status: 409 });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(validatedPassword, 10);
 
-    // Create new user
+    // ✅ Save normalized email to DB
     const user = await prisma.user.create({
       data: {
-        email: validatedEmail,
+        name: validatedName,
+        email: normalizedEmail,
         password: hashedPassword,
       },
     });
 
+    console.log('Created user:', user); // Check this too
+
     return NextResponse.json({ message: 'User created', userId: user.id }, { status: 201 });
+
   } catch (error) {
     console.error('Signup error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 }); // 
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
