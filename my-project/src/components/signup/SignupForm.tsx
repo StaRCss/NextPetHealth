@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
-import { error } from 'console';
+
 
 interface SignupFormProps {     
   onSuccess: () => void;
