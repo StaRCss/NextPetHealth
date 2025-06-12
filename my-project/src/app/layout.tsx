@@ -6,6 +6,7 @@ import { Chewy } from "next/font/google";
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import { SessionProvider } from "next-auth/react";
 
 const chewy = Chewy({
   subsets: ["latin"],
@@ -22,9 +23,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="min-h-screen bg-gray-100 text-gray-800 font-sans">
+        <SessionProvider>
         <MantineProvider>
           {children}
         </MantineProvider>
+        </SessionProvider>
       </body>
     </html>
   );

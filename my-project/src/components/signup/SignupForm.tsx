@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
+import { signIn } from "next-auth/react"; // ⬅️ Add this
 
 
 interface SignupFormProps {     
@@ -41,9 +42,19 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       });
 
       if (response.ok) {
-        onSuccess();
-      } 
-      else {
+              // 🧠 Attempt login immediately after signup
+      const loginResult = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+        if (loginResult?.ok) {
+          onSuccess(); // ➕ Triggers modal and delayed navigation
+        } else {
+          setServerError({ message: "Signup succeeded but login failed." });
+        }
+      } else {
         const errorData = await response.json();
         if (errorData.errors && typeof errorData.errors === 'object') {
           setServerError(errorData.errors);
