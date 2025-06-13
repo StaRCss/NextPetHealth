@@ -38,7 +38,7 @@ export default async function MyPetsPage() {
   if (!session?.user?.email) {
     redirect("/login");
   }
-
+  
   // Filter pets for logged in user (by email)
 
   const petCount = pets.length;
@@ -46,17 +46,11 @@ export default async function MyPetsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-blue-100">
-      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[150px] md:h-[250px]">
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-row justify-center mt-4 gap-x-3">
-            <span className="text-orange-500 text-2xl font-bold">{petCount}</span> 
-            <h2 className="text-2xl text-white font-bold">Pets</h2>
-            <span className="text-3xl mr-2 rotate-6" role="img" aria-label="paw prints">🐾</span>
-          </div>
+      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[150px] md:h-[250px] items-center justify-center">
           <p className="text-lg text-gray-800">
-            Hey <span className="font-semibold">{userName}</span>, your {petCount} pet{petCount !== 1 ? "s" : ""} are waiting for you!
+            Hey <span className="font-bold text-gray-900">{userName}</span>, your {petCount} pet{petCount !== 1 ? "s" : ""} 🐾 are waiting for you!
           </p>
-        </div>
+        
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-2 gap-0 md:gap-4 lg:gap-6">

@@ -30,18 +30,18 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
        <div className=" w-24 h-24 md:w-32 md:h-32 m-auto rounded-full overflow-hidden bg-blue-400 shadow-lg  flex items-center justify-center">
   {image ? (
     <Image
-      src={image}
-       alt={`Picture of ${name}`}
+     src={image}
+     alt={`Picture of ${name}`}
      height={100}
-      width={100}
-      className="object-cover w-fit h-fit rounded-full"
+     width={100}
+     className="object-cover w-fit h-fit rounded-full"
     />
   ) : (
-    <span className="text-8xl mb-5">😻</span> // Emoji fallback (can change to 🐱, 🐶, 🐕, etc.)
+    <span className="text-7xl md:text-8xl mb-5">😻</span> // Emoji fallback (can change to 🐱, 🐶, 🐕, etc.)
   )}
 </div>
         
-          <h5 className="ml-6 mt-1 font-chewy text-xl font-semibold text-gray-700 tracking-widest"> {name} </h5>
+          <h5 className="ml-6 mt-1 font-chewy text-xl text-gray-700 tracking-widest"> {name} </h5>
           <h5 className="flex ml-6 text-gray-800 truncate w-[90%]">
               {breed ? `${breed} ` : <span className="invisible">Placeholder</span>}
           </h5>
