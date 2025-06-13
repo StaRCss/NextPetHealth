@@ -42,7 +42,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       });
 
       if (response.ok) {
-              // 🧠 Attempt login immediately after signup
+      // 🧠 Attempt login immediately after signup
       const loginResult = await signIn("credentials", {
         redirect: false,
         email: data.email,
@@ -50,7 +50,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       });
 
         if (loginResult?.ok) {
-          onSuccess(); // ➕ Triggers modal and delayed navigation
+          onSuccess(); // ➕ Triggers modal and navigationdelayed 
         } else {
           setServerError({ message: "Signup succeeded but login failed." });
         }
