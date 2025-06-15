@@ -3,15 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import PetCard from "../../../components/pets/PetCard"; // adjust path
-import Footer from "@/components/landing/footer/Footer";
 
 const pets = [
   { id: "1", ownerEmail: "user@example.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "/tata.webp" },
   { id: "2", ownerEmail: "user@example.com", name: "Pourpourichos", age: 7, gender: "male", breed: "" , weight: "7kg" },
-  { id: "3", ownerEmail: "other@example.com", name: "Mousoudio", age: 3, breed: "Orange Crazy Playfull Kitten", gender: "male", weight: "23.5kg" },
-  { id: "4", ownerEmail: "user@example.com", name: "Moudis", age: 5, gender:"male", breed: "Best Cat Of The World", weight: "3.5kg" },
-  { id: "5", ownerEmail: "user@example.com", name: "Baris", age: 7.5, breed: "Tubby Fat Orange", weight: "8kg", gender:"male" },
-  { id: "6", ownerEmail: "other@example.com", name: "Rocky", age: 3, breed: "Labrador Retriever orange with white tail" }
+  { id: "3", ownerEmail: "user@enxample.com", name: "Kib", age: 7, gender: "male", breed: "" , weight: "7kg" } 
 ];
 
 const bgColors = [
@@ -46,14 +42,15 @@ export default async function MyPetsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-blue-100">
-      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[120px] md:h-[230px] items-center justify-center">
+      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[120px] md:h-[230px] items-center justify-items-center ">
           <p className="text-lg text-gray-800">
-            Hey <span className="font-bold text-gray-900">{userName}</span>, your {petCount} pet{petCount !== 1 ? "s" : ""} 🐾 are waiting for you!
+            Hey <span className="font-bold text-gray-900">{userName}</span>, {petCount} pet{petCount !== 1 ? "s" : ""} 🐾 are waiting for you!
           </p>
         
       </section>
 
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 items-center justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-6 bg-red-600">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-1 items-center justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-2 lg:mt-10 xl:mt-5
+">
         {pets.map((pet, i) => {
           const bgColor = bgColors[i % bgColors.length];
           return (
@@ -72,7 +69,6 @@ export default async function MyPetsPage() {
         })}
       </div>
 
-      <Footer />
     </div>
   );
 }

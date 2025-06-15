@@ -95,3 +95,7 @@ summary::-webkit-details-marker {
 #features {
     scroll-margin-top: 100px;
 }
+
+#mobilenav {
+    scroll-margin-top : -100px;
+}
