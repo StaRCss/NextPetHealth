@@ -46,14 +46,14 @@ export default async function MyPetsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-blue-100">
-      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[150px] md:h-[250px] items-center justify-center">
+      <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[120px] md:h-[230px] items-center justify-center">
           <p className="text-lg text-gray-800">
             Hey <span className="font-bold text-gray-900">{userName}</span>, your {petCount} pet{petCount !== 1 ? "s" : ""} 🐾 are waiting for you!
           </p>
         
       </section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-2 gap-0 md:gap-4 lg:gap-6">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 items-center justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-6 bg-red-600">
         {pets.map((pet, i) => {
           const bgColor = bgColors[i % bgColors.length];
           return (

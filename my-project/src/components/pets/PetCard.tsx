@@ -18,7 +18,7 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
 
   return (
           
-    <div className="flex flex-1 h-[300px] md:h-[350px]  min-w-[250px] max-w-sm flex-col items-center bg-slate-100 rounded-lg border-2  shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
+<div className="flex h-[300px] md:h-[350px] w-[80%] xl:w-[90%] flex-col items-center justify-center bg-slate-100 rounded-lg border-2 shadow-md m-4 dark:bg-gray-500 dark:border-gray-700">
 
             <Link href={`/dashboard/pets/${id}`} className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} rounded-lg no-underline`}>
             <div>   
