@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { LucideMenu } from "lucide-react";
 import GetStarted from "./getstarted";
+import Image from "next/image";
 
 const NavLinks = [
   { href: "#features", label: "Features" },
@@ -15,7 +16,7 @@ export default function LandingNav() {
           <div className="mx-auto px-4 py-2 flex justify-between items-center">
       
           <Link href="/" >
-            <img src="/headband.png" alt="Logo" className=" h-16 w-16 md:h-20 mx-4 md:w-20 md:mx-12" />
+            <Image src="/headband.png" alt="Logo" className=" h-16 w-16 md:h-20 mx-4 md:w-20 md:mx-12" />
           </Link>
                
           <div className="hidden md:flex gap-12 mx-12">

@@ -37,7 +37,7 @@ export const authOptions = {
     strategy: "jwt" as const,
   },
   callbacks: {
-    async jwt({ token, user }: { token: any; user?: any }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       // On sign in, add user info to the token
       if (user) {
         token.id = user.id;

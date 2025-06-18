@@ -6,8 +6,11 @@ import PetCard from "../../../components/pets/PetCard"; // adjust path
 
 const pets = [
   { id: "1", ownerEmail: "user@example.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "/tata.webp" },
-  { id: "2", ownerEmail: "user@example.com", name: "Pourpourichos", age: 7, gender: "male", breed: "" , weight: "7kg" },
-  { id: "3", ownerEmail: "user@enxample.com", name: "Kib", age: 7, gender: "male", breed: "" , weight: "7kg" } 
+  { id: "2", ownerEmail: "user@hhhhh.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "" },
+  { id: "3", ownerEmail: "user@exaaaample.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "" },
+  { id: "4", ownerEmail: "user@exampkkle.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "" },
+  { id: "5", ownerEmail: "user@exattmple.com", name: "Tata", age: 5, gender:"female", breed: "European", weight: "1285.8kg", image: "" },
+
 ];
 
 const bgColors = [
@@ -29,7 +32,7 @@ type Session = {
 };
 
 export default async function MyPetsPage() {
-  const session = await getServerSession(authOptions as any) as Session;
+  const session: Session | null = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
     redirect("/login");
@@ -49,8 +52,19 @@ export default async function MyPetsPage() {
         
       </section>
 
-      <div className="w-full grid grid-cols-1 sm:grid-cols-1 items-center justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 lg:gap-2 lg:mt-10 xl:mt-5
-">
+      <div
+  className={`
+    w-full
+    px-6
+    grid 
+    grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] 
+    justify-items-center 
+    gap-10 md:gap-10 lg:gap-10 
+    mt-4 lg:mt-10 xl:mt-5 
+    mx-auto
+    ${pets.length === 1 ? 'max-w-md' : pets.length === 2 ? 'xl:max-w-screen-lg 2xl:max-w-screen-lg' : 'max-w-screen-2xl'}
+  `}
+>
         {pets.map((pet, i) => {
           const bgColor = bgColors[i % bgColors.length];
           return (
