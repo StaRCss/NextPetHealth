@@ -8,19 +8,17 @@ type PetData = {
   age: number;
   breed: string;
   gender?: string;
-  weight?: string;
   image?: string; // Optional image property
   bgColor?: string; 
   id: string; // Add id property
 };
 
-export function PetCard({ name, breed, gender, weight, image, bgColor, id }: PetData) {
+export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
 
-  return (
-          
+  return (       
     <div className="
     flex 
-    h-[300px] md:h-[350px] 
+    h-[100%] md:h-[100%] 
     w-[100%]
     flex-col items-center justify-items-center
     bg-slate-100 rounded-lg border-2 shadow-md 
@@ -52,29 +50,9 @@ export function PetCard({ name, breed, gender, weight, image, bgColor, id }: Pet
               {breed ? `${breed} ` : <span className="invisible">Placeholder</span>}
           </h5>
       </div></Link>
-      
-<div className="flex flex-col gap-1 w-full items-center justify-center m-auto text-sm text-gray-500 dark:text-gray-400">
-
-  {/* Row 1: Values with fallbacks */}
- <Link
-    href={`/dashboard/pets/${id}/weight`}
-    className="flex justify-evenly w-full items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
-  >
-    <span role="image" aria-label="weight" className="text-2xl">⚖️</span>
-    {weight || <span className="text-2xl">-</span>}
-  </Link>
-
- <Link
-    href={`/dashboard/pets/${id}/logs`}
-    className="flex justify-evenly w-full items-center gap-3 p-1 border-2 rounded-xl border-blue-300 bg-blue-100  text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 "
-  >
-    <span role="image" aria-label="logs" className="text-2xl">📝</span>
-    {weight || <span className="opacity-0">weight</span>}
-  </Link>
-</div>        
+         
     </div>
     
   );
 }
-
 export default PetCard;  

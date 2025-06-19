@@ -8,12 +8,10 @@ async function handleAddPet(formData: FormData) {
   "use server"; // Ensures function runs on the server
 
   const petData = {
-    petType: formData.get("petType"),
     name: formData.get("name"),
     gender: formData.get("gender"),
     breed: formData.get("breed"),
     birthday: formData.get("birthday"),
-    imageFile: formData.get("image"),
   };
 
   console.log("Received Pet Data:", petData);

@@ -4,18 +4,15 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 
-
 interface PetFormSchema {
-  petType: string;
   name: string;
   breed?: string | null;
   gender?: string | null;
   birthday?: string;
-  imageFile?: File | null ;
 }
 
 export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, PetFormSchema> = z.object({
-  petType: z.string().min(1, "Pet Type is required"),
+
   name: z
     .string()
     .min(2, "Name should be at least 2 characters long")
@@ -50,8 +47,6 @@ gender: z
     (val) => !val || ['male', 'female'].includes(val),
     { message: "Gender must be 'male' or 'female' if provided" }
   ),
-
-  
   
   birthday: z
     .string()
@@ -60,21 +55,5 @@ gender: z
       (val) => !val || dayjs(val).isSameOrBefore(dayjs(), 'day'),
       "Birthday can't be in the future"
     ),
-  imageFile: z
-     .any()
-     .nullable()
-    .refine((file) => !file || file instanceof File, "Invalid file type")
-    .refine(
-      (file) => !file || file.size > 0,
-      "Image file is required"
-    )
-    .refine(
-      (file) => !file || file.size <= 5 * 1024 * 1024,
-      "Max image size is 5MB"
-    )
-    .refine(
-      (file) => !file || ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-      "Invalid file type"
-    )
-    .optional(),
+
 });
