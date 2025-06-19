@@ -14,10 +14,10 @@ const NameInputField : React.FC = () => {
   const nameValue = useWatch({name: "name"}); // Watch the value of the "name" field
 
   return (
-    <div className="flex flex-col bg-blue-500 items-center w-[80%] md:w-[70%] lg:w-[60%] ml-0 mt-4 mb-4 select-none">
+    <div className="flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%] ml-0 mt-4 mb-4 select-none">
       <label
         htmlFor="pet-name"
-        className="block text-sm font-medium  bg-pink-400  text-gray-700 mb-2 select-none"
+        className="block text-sm font-medium text-gray-700 mb-2 select-none"
       >
         Pet Name
       </label>

@@ -1,6 +1,6 @@
 // app/dashboard/pets/page.tsx
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth/authOptions";
 import { redirect } from "next/navigation";
 import PetCard from "../../../components/pets/PetCard"; // adjust path
 
@@ -75,7 +75,6 @@ export default async function MyPetsPage() {
               age={pet.age}
               breed={pet.breed}
               gender={pet.gender}
-              weight={pet.weight}
               image={pet.image}
               bgColor={bgColor}
             />

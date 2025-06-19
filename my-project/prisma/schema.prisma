@@ -18,5 +18,25 @@ model User {
   email     String   @unique
   password  String
   name      String?
+  pets      Pet[]    // 1-to-many relation
   createdAt DateTime @default(now())
+}
+
+model Pet {
+  id       String @id @default(uuid())
+  name     String
+  breed    String
+  gender   Gender
+  birthday DateTime
+  ownerId  String     
+
+
+  owner    User @relation(fields : [ownerId], references : [id])
+  createdAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum Gender{
+  female
+  male
 }

@@ -68,14 +68,10 @@ const AddPetForm = ({ action }: { action: (formData: FormData) => Promise<void> 
         <div className="flex flex-col items-center border-t border-b border-gray-300 gap-4 pb-4">
             <NameInputField />
             <GenderCheckboxField />
-          </div>
-        <div className="flex flex-col items-center border-b border-gray-300 gap-4 pb-4">
           <BreedInputField />
-          <GenderCheckboxField/>
-        </div>
-        <div className="flex flex-col items-center border-b border-gray-300 gap-4 pb-4">
           <BirthdayInputField/>
         </div>
+        
         <div className="flex justify-center items-center m-auto">
           <SubmitButton />
         </div>

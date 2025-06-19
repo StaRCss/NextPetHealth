@@ -9,7 +9,7 @@ const BirthdayInputField: React.FC = () => {
   if (!control) return null;
 
   return (
-    <div className="flex flex-col bg-blue-500 items-center w-[80%] md:w-[70%] lg:w-[60%] ml-0 mt-4 mb-4 select-none">
+    <div className="flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%] ml-0 mt-4 mb-4 select-none">
          <label
         htmlFor="pet-name"
         className="block text-sm font-medium text-center text-gray-700 mb-2 select-none"
