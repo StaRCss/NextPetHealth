@@ -8,7 +8,7 @@ interface PetFormSchema {
   name: string;
   breed?: string | null;
   gender?: string | null;
-  birthday?: string;
+  birthday: string;
 }
 
 export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, PetFormSchema> = z.object({
@@ -50,9 +50,9 @@ gender: z
   
   birthday: z
     .string()
-    .optional()
+    .min(1 , "Birthday must be provided")
     .refine(
-      (val) => !val || dayjs(val).isSameOrBefore(dayjs(), 'day'),
+      (val) => dayjs(val).isSameOrBefore(dayjs(), 'day'),
       "Birthday can't be in the future"
     ),
 

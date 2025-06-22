@@ -6,7 +6,6 @@ const BreedInputField: React.FC = () => {
   const {
     register,
     formState: { errors },
-    trigger,
   } = useFormContext<PetFormValues>();
 
   const breedValue = useWatch({ name: "breed" });
@@ -21,10 +20,7 @@ const BreedInputField: React.FC = () => {
       </label>
 
       <input
-        {...register("breed", {
-          // optional field, so no required validation
-          onChange: () => trigger("breed"),
-        })}
+        {...register("breed")}
         id="pet-breed"
         type="text"
         placeholder="European Shorthair Orange Tabby"

@@ -8,7 +8,6 @@ const NameInputField : React.FC = () => {
   const {
     register,
     formState: { errors },
-    trigger, // Trigger validation manually
   } = useFormContext<PetFormValues>();
 
   const nameValue = useWatch({name: "name"}); // Watch the value of the "name" field
@@ -19,14 +18,11 @@ const NameInputField : React.FC = () => {
         htmlFor="pet-name"
         className="block text-sm font-medium text-gray-700 mb-2 select-none"
       >
-        Pet Name
+        Pet Name *
       </label>
 
       <input
-        {...register("name", {
-          required: "Pet name is required",
-          onChange: () => trigger("name"), // Trigger validation on blur
-        })}
+        {...register("name")}
         id="pet-name"
         type="text"
         placeholder="Tata"

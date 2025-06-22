@@ -1,59 +1,48 @@
 "use client";
 
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { PetFormValues } from "../AddPetForm";
 
 const GenderField: React.FC = () => {
-  const { control } = useFormContext<PetFormValues>();
+  const {
+    register,
+  } = useFormContext<PetFormValues>();
 
-  if (!control) return null; // Prevents errors if control is undefined
 
   return (
     <fieldset className="flex flex-col items-center w-full max-w-full mt-0 mb-4 select-none">
-      {/* ✅ Proper label for the group */}
-      <legend
-        className="block text-sm font-medium text-gray-700 mb-4 text-center">
+      <legend className="block text-sm font-medium text-gray-700 mb-4 text-center">
         Gender
       </legend>
 
-      <Controller
-        name="gender"
-        control={control}
-        render={({ field }) => (
-          <div className="flex items-center justify-center space-x-4 sm:space-x-8">
-            {/* ✅ Male Radio with proper label */}
-            <label htmlFor="gender-male" className="flex items-center space-x-2">
-              <input
-                {...field}
-                id="gender-male" // ✅ Correctly associates with label
-                type="radio"
-                value="male"
-                checked={field.value === "male"}
-                onChange={e => field.onChange(e.target.value)}
-                className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-              />
-              <span className="text-gray-700">Male</span>
-            </label>
+      <div className="flex items-center justify-center space-x-4 sm:space-x-8">
+        {/* Male */}
+        <label htmlFor="gender-male" className="flex items-center space-x-2">
+          <input
+            {...register("gender")}
+            id="gender-male"
+            type="radio"
+            value="male"
+            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500"
+          />
+          <span className="text-gray-700">Male</span>
+        </label>
 
-            {/* ✅ Female Radio with proper label */}
-            <label htmlFor="gender-female" className="flex items-center space-x-2">
-              <input
-                {...field}
-                id="gender-female" // ✅ Correctly associates with label
-                type="radio"
-                value="female"
-                checked={field.value === "female"}
-                onChange={e => field.onChange(e.target.value)}
-                className="form-radio h-6 w-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-              />
-              <span className="text-gray-700">Female</span>
-            </label>
-          </div>
-        )}
-      />
+        {/* Female */}
+        <label htmlFor="gender-female" className="flex items-center space-x-2">
+          <input
+            {...register("gender")}
+            id="gender-female"
+            type="radio"
+            value="female"
+            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500"
+          />
+          <span className="text-gray-700">Female</span>
+        </label>
+      </div>
     </fieldset>
-  )}
-
+  );
+};
 
 export default GenderField;
