@@ -25,8 +25,8 @@ model User {
 model Pet {
   id       String @id @default(uuid())
   name     String
-  breed    String
-  gender   Gender
+  breed    String?
+  gender   Gender?
   birthday DateTime
   ownerId  String     
 

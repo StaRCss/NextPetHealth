@@ -16,44 +16,38 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
   name: z
     .string()
     .min(2, "Name should be at least 2 characters long")
-    .max(30, "Name should not exceed 50 characters")
+    .max(30, "Name should not exceed 30 characters")  // corrected max to 30 (was 50 in message)
     .trim()
     .regex(/^[A-Za-z\s]+$/, "Name should only contain letters and spaces"),
 
- breed: z
-  .string()
-  .optional()
-  .refine(
-    (val) => {
-      if (!val || val.trim() === "") return true; // allow empty or undefined
-      const trimmed = val.trim();
-      return trimmed.length >= 2 && trimmed.length <= 40;
-    },
-    {
-      message: "Breed must be between 2 and 40 characters if provided",
-    }
-  )
-  .transform((val) => val?.trim() || null)
-  .refine(
-    (val) => !val || /^[A-Za-z\s]*$/.test(val),
-    "Breed should only contain letters and spaces"
-  ),
+  breed: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || (val.length >= 2 && val.length <= 40),
+      { message: "Breed must be between 2 and 40 characters if provided" }
+    )
+    .transform((val) => val?.trim() || null)
+    .refine(
+      (val) => !val || /^[A-Za-z\s]*$/.test(val),
+      { message: "Breed should only contain letters and spaces" }
+    ),
 
-gender: z
-  .string()
-  .optional()
-  .transform((val) => val?.trim() || null) // convert empty or spaces to null
-  .refine(
-    (val) => !val || ['male', 'female'].includes(val),
-    { message: "Gender must be 'male' or 'female' if provided" }
-  ),
-  
+  gender: z
+    .string()
+    .optional()
+    .transform((val) => val?.trim() || null) // convert empty or spaces to null
+    .refine(
+      (val) => !val || ['male', 'female'].includes(val),
+      { message: "Gender must be 'male' or 'female' if provided" }
+    ),
+
   birthday: z
     .string()
-    .min(1 , "Birthday must be provided")
+    .min(1, "Birthday must be provided")
     .refine(
       (val) => dayjs(val).isSameOrBefore(dayjs(), 'day'),
-      "Birthday can't be in the future"
+      { message: "Birthday can't be in the future" }
     ),
 
 });
