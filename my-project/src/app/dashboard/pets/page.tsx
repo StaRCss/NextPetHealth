@@ -32,6 +32,9 @@ type Session = {
 };
 
 export default async function MyPetsPage() {
+
+
+
   const session: Session | null = await getServerSession(authOptions);
 
   if (!session?.user?.email) {

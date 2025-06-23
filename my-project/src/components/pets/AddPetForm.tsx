@@ -17,10 +17,10 @@ export type PetFormValues = {
 };
 
 type AddPetFormProps = {
-  action: (data: PetFormValues) => Promise<void>;
+  onSuccess?: () => void;
 };
 
-const AddPetForm = ({ action }: AddPetFormProps) => {
+const AddPetForm: React.FC<AddPetFormProps> = ({ onSuccess }) => {
   const methods = useForm<PetFormValues>({
     resolver: zodResolver(petFormSchema),
     defaultValues: {
@@ -35,8 +35,27 @@ const AddPetForm = ({ action }: AddPetFormProps) => {
   const { handleSubmit, formState } = methods;
 
   const onSubmit = async (data: PetFormValues) => {
-    console.log("Form data submitted:", data);
-    await action(data);
+
+    console.log("Form submitted with data:", data);   
+
+    try {
+      const response = await fetch("/api/pets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      // Optionally handle response here
+      if (response.ok) {
+        console.log("Pet added successfully");
+        if (onSuccess) {
+          onSuccess();
+        }
+      }
+    } catch (error) {
+      console.error("Failed to submit form:", error);
+    }
   };
 
   return (
