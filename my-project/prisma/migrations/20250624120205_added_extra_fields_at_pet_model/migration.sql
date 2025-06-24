@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Pet" ADD COLUMN "activityLevel" INTEGER;
+ALTER TABLE "Pet" ADD COLUMN "goal" TEXT;
+ALTER TABLE "Pet" ADD COLUMN "image" TEXT;
+ALTER TABLE "Pet" ADD COLUMN "neutered" BOOLEAN;
+ALTER TABLE "Pet" ADD COLUMN "weight" REAL;
