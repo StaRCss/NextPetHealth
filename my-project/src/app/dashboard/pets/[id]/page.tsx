@@ -45,7 +45,7 @@ export default function PetDetailsPage() {
         <div className="flex flex-col bg-pink-200 h-full w-1/2 gap-1 items-start justify-center">
           <p className=" text-gray-800">{mockPet.breed},</p>
             <p className="text-pink-500 text-lg font-semibold tracking-wide">{mockPet.gender}
-           <span className="rotate-6">{mockPet.gender === 'female' ? '♀️' : mockPet.gender === 'male' ? '♂️' : ''}</span> {mockPet.petType}</p>
+           <span className="rotate-6">{mockPet.gender === 'female' ? '♀️' : mockPet.gender === 'male' ? '♂️' : ''}</span> </p>
           <p className=" text-gray-800 "> {mockPet.age} years old {mockPet.neutered} and weights {mockPet.weight}</p>  
         </div>
             

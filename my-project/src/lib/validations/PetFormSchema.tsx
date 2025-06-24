@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { nullable, z } from "zod";
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
@@ -23,6 +23,7 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
   breed: z
     .string()
     .optional()
+    .nullable()
     .refine(
       (val) => !val || (val.length >= 2 && val.length <= 40),
       { message: "Breed must be between 2 and 40 characters if provided" }
@@ -35,6 +36,7 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
 
   gender: z
     .string()
+    .nullable()
     .optional()
     .transform((val) => val?.trim() || null) // convert empty or spaces to null
     .refine(

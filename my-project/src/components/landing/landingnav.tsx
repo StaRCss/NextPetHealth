@@ -16,7 +16,11 @@ export default function LandingNav() {
           <div className="mx-auto px-4 py-2 flex justify-between items-center">
       
           <Link href="/" >
-            <Image src="/headband.png" alt="Logo" className=" h-16 w-16 md:h-20 mx-4 md:w-20 md:mx-12" />
+            <Image src="/headband.png"
+            height ={64}
+            width={64}
+            alt="Logo" 
+            className=" h-16 w-16 md:h-20 mx-4 md:w-20 md:mx-12" />
           </Link>
                
           <div className="hidden md:flex gap-12 mx-12">

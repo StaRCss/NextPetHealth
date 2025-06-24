@@ -22,15 +22,15 @@ const HeroSection: React.FC = () => {
           
           {/* Main page headline */}
           <h1 className="text-5xl md:text-6xl font-semibold text-center text-gray-800">
-            Track<br />Your Pets<br />
-            Health &<br />
+            Track<br />Your Cats<br />
+            Nutrition &<br />
             Wellness
           </h1>
 
           {/* Supporting tagline text */}
           <p className="text-lg sm:text-xl mb-6 text-center text-zinc-800">
-            Furrbit is the all-in-one health tracker that<br />grows with your pet,<br />
-            giving you clear insights,<br />smart reminders, and peace of mind<br />
+            Furrbit is the all-in-one health tracker that<br />grows with your cat,<br />
+            giving you clear nutrition insights,<br />smart reminders, and peace of mind<br />
             every step of the way.
           </p>
 

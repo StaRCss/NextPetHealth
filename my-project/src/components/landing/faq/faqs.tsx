@@ -19,11 +19,12 @@ const FAQsData = [
 
 export default function FAQs() {
   return (
-    <section className="py-10 bg-indigo-50 w-full">
-      <h1 className="text-5xl font-semibold mb-12 text-center">FAQ</h1>
+    <section className="py-10 bg-purple-100 w-full">
 
       {/* Container for FAQ items */}
-      <div className="flex flex-col gap-4 bg-gradient-to-r from-pink-200 to-pink-300 border rounded-lg w-full md:w-2/3 lg:w-1/2 p-4 m-auto">
+      <div className="flex flex-col gap-4 bg-white border rounded-lg w-full md:w-2/3 lg:w-1/2 p-4 m-auto">
+      <h1 className="text-5xl font-semibold my-10 ml-12">FAQs</h1>
+
         {FAQsData.map((faq, index) => (
           <details
             key={index}
@@ -38,12 +39,12 @@ export default function FAQs() {
               {/* Chevron icon toggles */}
               <span className="relative inline-block">
                 <ChevronDown
-                  className="group-open:hidden"
+                  className="group-open:hidden bg-purple-600 text-white rounded-full p-1"
                   aria-hidden="true"
                   focusable="false"
                 />
                 <ChevronUp
-                  className="hidden group-open:inline-block"
+                  className="hidden group-open:inline-block bg-slate-700 text-white rounded-full p-1"
                   aria-hidden="true"
                   focusable="false"
                 />

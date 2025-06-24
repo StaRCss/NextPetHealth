@@ -17,7 +17,7 @@ export type PetFormValues = {
 };
 
 type AddPetFormProps = {
-  onSuccess?: () => void;
+  onSuccess?: (petName:string) => void;
 };
 
 const AddPetForm: React.FC<AddPetFormProps> = ({ onSuccess }) => {
@@ -50,7 +50,7 @@ const AddPetForm: React.FC<AddPetFormProps> = ({ onSuccess }) => {
       if (response.ok) {
         console.log("Pet added successfully");
         if (onSuccess) {
-          onSuccess();
+          onSuccess(data.name); // Pass the pet name to the onSuccess callback
         }
       }
     } catch (error) {
