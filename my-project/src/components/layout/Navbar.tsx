@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import petsIcon from '/public/petz.webp';
 import nutritionIcon from '/public/nutr.webp';
-import reportsIcon from '/public/rep.webp';
+import settingsIcon from '/public/settings.webp';
 import calendarIcon from '/public/calendar.webp';
 import AddPetButton from '../pets/AddPetButton';
 
@@ -34,8 +34,8 @@ const MobileMenu: React.FC = () => {
         <NavItem href="/dashboard/pets" icon={petsIcon} alt="Go to My Pets Page" />
         <NavItem href="/dashboard/Nutrition" icon={nutritionIcon} alt="Go to Nutrition" />
         <AddPetButton />
-        <NavItem href="/dashboard/Health" icon={reportsIcon} alt="Go to Health Records" />
-        <NavItem href="/dashboard/Calendar" icon={calendarIcon} alt="Go to Calendar" />
+        <NavItem href="/dashboard/Health" icon={calendarIcon} alt="Go to Health Calendar" />
+        <NavItem href="/signout" icon={settingsIcon} alt="Go to Settings" />
       </div>
     </div>
   );

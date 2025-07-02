@@ -5,6 +5,7 @@ import CancelButton from "@/components/pets/fields/CancelButton";
 import Header from "@/components/pets/fields/Header";
 import Modal from "@/components/modal/Modal";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function AddPetPage() {
   const [showModal, setShowModal] = useState(false);
@@ -34,13 +35,20 @@ export default function AddPetPage() {
           <AddPetForm onSuccess={handleAddPetSuccess} />
         </div>
       )}
-
       <Modal
         isOpen={showModal}
-        title={`🎉 ${submittedPetName} was added successfully!`}
-        description=""
-        img="/petpaw.png"
-      />
+      >
+        <h2 className="text-3xl font-bold text-blue-600 text-center mb-16">
+          {submittedPetName ? ` ${submittedPetName} added successfully!` : "Pet Added!"}
+        </h2>
+        <Image
+          src="/petpaw.png"
+          alt="Pet Paws"
+          width={400}
+          height={300}
+        />
+      </Modal>
+  
     </div>
   );
 }

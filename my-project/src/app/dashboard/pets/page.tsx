@@ -45,7 +45,7 @@ export default async function MyPetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white pb-32">
       <section className="w-full bg-blue-400 pt-10 md:pt-24 rounded-b-[40px] flex flex-col h-[120px] md:h-[230px] items-center justify-items-center">
         <p className="text-lg text-gray-800">
           Hey <span className="font-bold text-gray-900">{userName}</span>,{" "}

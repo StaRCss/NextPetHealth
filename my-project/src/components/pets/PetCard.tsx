@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image"; 
 import Link from "next/link";
-import { Clock, Settings, PlusCircle, ArrowBigRightDash } from "lucide-react";
+import { Clock, Settings, PlusCircle, ArrowBigRightDash, SquareX } from "lucide-react";
 import Modal from "@/components/modal/Modal"; // Assuming you have a Modal component for success messages
 import { useState } from "react";
 
@@ -35,10 +35,10 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
       <div className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} no-underline pb-4`}>
         <Link 
           href={`/dashboard/pets/${id}`} 
-          className="justify-self-end self-end m-2 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-[#9347e9] rounded"
+          className="justify-self-end self-end m-2  text-gray-900 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-[#9347e9] rounded"
           aria-label={`View details for ${name}`}
         >
-          <ArrowBigRightDash aria-hidden="true" />
+          <ArrowBigRightDash aria-hidden="true"/>
         </Link>
   
         {/* Circular image */}
@@ -72,15 +72,12 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
           )}
         </div> 
 
-        <Modal isOpen={showModal} title={`Upload image of ${name}`} description={""} img={""}/>
-
-
         <div className="flex flex-row ml-6 gap-2 items-center">
           <p className="text-xl" aria-label={gender ? `Gender: ${gender}` : "Gender unknown"}>
             <span>{gender === 'female' ? '♀️' : gender === 'male' ? '♂️' : ''}</span>
           </p>
           <h5 
-            className="font-chewy text-xl text-gray-700 tracking-widest"
+            className="font-chewy text-xl text-gray-900 tracking-widest"
             tabIndex={0}
             aria-label={`Pet name: ${name}`}
           >
@@ -89,7 +86,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
         </div>
 
         <h5 
-          className="flex ml-6 text-gray-800 truncate w-[90%]" 
+          className="flex ml-6 text-gray-900 truncate w-[90%]" 
           tabIndex={0}
           aria-label={`Breed: ${breed ?? 'Unknown'}`}
         >
