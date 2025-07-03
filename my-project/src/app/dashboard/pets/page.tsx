@@ -74,7 +74,7 @@ export default async function MyPetsPage() {
               age={age}
               breed={pet.breed ?? "Unknown"}
               gender={pet.gender ?? "Unknown"}
-              image={""} // Optional: implement image uploads later
+              image={pet.image ?? undefined} // Optional: implement image uploads later
               bgColor={bgColor}
             />
           );

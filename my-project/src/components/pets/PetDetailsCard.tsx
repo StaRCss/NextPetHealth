@@ -2,9 +2,8 @@
 "use client";
 
 import Image from "next/image";
-import { Camera, FilePenLine,CircleX, Upload } from "lucide-react";
+import { Camera, FilePenLine} from "lucide-react";
 import dayjs from "dayjs";
-import Modal from "../modal/Modal";
 import { useState } from "react";
 import UploadImageModal from "./UploadImageModal";
 
@@ -15,6 +14,7 @@ type PetDetailsCardProps = {
   breed?: string | null;
   birthday: Date;
   weight?: number | null;
+  id: string; // Optional ID for the pet, if needed for image upload
 };
 
 export default function PetDetailsCard({
@@ -23,6 +23,7 @@ export default function PetDetailsCard({
   breed,
   birthday,
   weight,
+  id, // Optional ID for the pet, if needed for image upload
 }: PetDetailsCardProps) {
   const age = dayjs().diff(dayjs(birthday), "year");
 
@@ -76,6 +77,8 @@ export default function PetDetailsCard({
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           name={name}
+          image={image}
+          id={id}
         />
     </div>
     

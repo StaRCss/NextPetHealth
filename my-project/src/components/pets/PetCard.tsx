@@ -41,7 +41,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
   
         {/* Circular image */}
         <div 
-          className="w-24 h-24 md:w-32 md:h-32 m-auto rounded-full overflow-hidden bg-blue-400 shadow-lg flex items-center justify-center"
+          className="w-24 h-24 md:w-32 md:h-32 m-auto rounded-full border-4 border-purple-300 overflow-hidden bg-blue-400 shadow-lg flex items-center justify-center"
           aria-label={image ? `Picture of ${name}` : `No image available for ${name}`}
           role="img"
           tabIndex={0} // Make div focusable

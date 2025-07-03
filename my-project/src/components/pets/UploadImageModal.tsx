@@ -9,11 +9,12 @@ type UploadImageModalProps = {
   onClose: () => void;
   name: string;
   image?: string | null;
+  id: string; // Optional ID for the pet, if needed for image upload
 };
 
 import React, { useState, useEffect } from "react";
 
-export default function UploadImageModal({ isOpen, onClose, name, image }: UploadImageModalProps) {
+export default function UploadImageModal({ isOpen, onClose, name, image,id }: UploadImageModalProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -51,12 +52,11 @@ setError(null);
         setIsSubmitting(true);
         setError(null);
         setSuccessfullySubmitted(false);
-    
         const formData = new FormData();
         formData.append("image", file);
-        formData.append("name", name);
+        formData.append("petId", id); // Include the pet ID if needed
     
-        const response = await fetch("/api/pets/upload-image", {
+        const response = await fetch("/api/image-upload", {
             method: "POST",
             body: formData,
         });
@@ -67,10 +67,7 @@ setError(null);
     
         const data = await response.json();
         console.log("Image uploaded successfully:", data);
-        
         setSuccessfullySubmitted(true);
-        setPreview(null); // Clear preview after successful upload
-
     } 
     catch (error) {
       console.error("Error saving image:", error);
@@ -81,7 +78,6 @@ setError(null);
         setIsSubmitting(false);
     }
 };
-
 
   return (
     <form onSubmit={handleSave}>

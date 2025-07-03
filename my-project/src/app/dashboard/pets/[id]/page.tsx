@@ -53,6 +53,7 @@ export default async function PetDetailsPage({
         breed={pet.breed}
         birthday={pet.birthday}
         weight={pet.weight}
+        id={pet.id} // Pass the pet ID to the PetDetailsCard
       />
     </div>
   );
