@@ -2,10 +2,11 @@
 "use client";
 
 import Image from "next/image";
-import { Camera, FilePenLine,CircleX } from "lucide-react";
+import { Camera, FilePenLine,CircleX, Upload } from "lucide-react";
 import dayjs from "dayjs";
 import Modal from "../modal/Modal";
 import { useState } from "react";
+import UploadImageModal from "./UploadImageModal";
 
 
 type PetDetailsCardProps = {
@@ -71,35 +72,11 @@ export default function PetDetailsCard({
 
 
         {/* Modal for Edit Form */}
-        <Modal isOpen={isModalOpen}>
-       <div className="flex flex-col items-center justify-center">
-        <button className=" text-purple-500 hover:text-purple-700 self-end " onClick={() => setIsModalOpen(false)}>
-        <CircleX />
-            </button>
-            <h2 className="text-xl font-bold text-purple-500 text-center ">
-              Update {name}'s Photo
-            </h2>
-            <div className="w-28 h-28 border-4 border-purple-300 rounded-full overflow-hidden bg-gray-200 shadow-lg mt-4">
-        {image ? (
-          <Image
-            src={image}
-            alt={`${name}'s picture`}
-            width={160}
-            height={160}
-            className="object-cover w-full h-full"
-          />
-        ) : (
-          <div className="flex items-center justify-center h-full text-6xl md:text-7xl">😻</div>
-        )}
-        </div>
-        <p className="text-gray-500 text-sm mt-2">Current Photo</p>
-            <div className="flex flex-row items-center justify-evenly gap-3 w-full mt-4">
-                <button className="w-32 h-24 md:w-48 md:h-28 bg-white text-purple-500 rounded-lg border border-purple-300 hover:bg-purple-100">Upload Photo</button>
-                <button className="w-32 h-24 md:w-48 md:h-28 bg-white text-purple-500 rounded-lg border border-purple-300 hover:bg-purple-100">Take photo</button>
-
-            </div>
-            </div>
-        </Modal>
+        <UploadImageModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          name={name}
+        />
     </div>
     
   );
