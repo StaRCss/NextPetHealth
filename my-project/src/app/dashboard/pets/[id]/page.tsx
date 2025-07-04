@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma"; // singleton Prisma instance
 import PetDetailsCard from "@/components/pets/PetDetailsCard"; // adjust path if needed
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import QuickStats from "@/components/pets/QuickStats";
 
 export default async function PetDetailsPage({
   params,
@@ -27,7 +28,8 @@ export default async function PetDetailsPage({
   return (
     <div className="min-h-screen flex flex-col gap-3 bg-gradient-to-b from-[#F9F5FF] to-white md:pt-20 mx-6 md:mx-10 lg:mx-20 xl:mx-40">
       {/* Header */}
-      <div className="flex items-center gap-7 mt-5">
+      <div className="flex flex-row items-center gap-4 justify-start md:w-full lg:w-[40%] xl:w-[40%] py-2 ">
+
         <Link
           href="/dashboard/pets"
           className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full"
@@ -37,12 +39,14 @@ export default async function PetDetailsPage({
           </button>
         </Link>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#53389E]">
+
+          <h1 className="text-2xl md:text-3xl font-bold text-[#53389E] ">
             {pet.name}&rsquo;s Profile
           </h1>
           <p className="text-[#9E77ED] text-sm md:text-base">
             Complete health & nutrition overview
           </p>
+          
         </div>
       </div>
 
@@ -52,8 +56,11 @@ export default async function PetDetailsPage({
         name={pet.name}
         breed={pet.breed}
         birthday={pet.birthday}
-        weight={pet.weight}
+        gender={pet.gender}
         id={pet.id} // Pass the pet ID to the PetDetailsCard
+      />
+      <QuickStats
+      weight={pet.weight}
       />
     </div>
   );

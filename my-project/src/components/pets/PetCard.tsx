@@ -50,9 +50,9 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
             <Image
               src={image}
               alt={`Picture of ${name}`}
-              height={100}
-              width={100}
-              className="object-cover w-fit h-fit rounded-full"
+              height={160}
+              width={160}
+              className="object-cover w-fit h-fit"
               tabIndex={-1} // prevent image from being focusable, no need
             />
           ) : (
@@ -65,7 +65,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
             <span>{gender === 'female' ? '♀️' : gender === 'male' ? '♂️' : ''}</span>
           </p>
           <h5 
-            className="font-chewy text-xl text-gray-900 tracking-widest"
+            className="font-chewy text-xl text-gray-900 truncate tracking-widest"
             tabIndex={0}
             aria-label={`Pet name: ${name}`}
           >

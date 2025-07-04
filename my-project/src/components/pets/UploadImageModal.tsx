@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Camera, Upload, CircleX } from "lucide-react";
+import { Upload, CircleX, CheckCircle } from "lucide-react";
 import { imageUploadSchema } from "@/lib/validations/imageUploadSchema";
 
 type UploadImageModalProps = {
@@ -33,6 +33,7 @@ setError(null);
         const previewUrl = URL.createObjectURL(selectedFile);
         setPreview(previewUrl);
         setFile(selectedFile);
+        setSuccessfullySubmitted(false);
     }
   };
     // Add a handler for saving the image
@@ -85,8 +86,7 @@ setError(null);
       <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
         <button
           className="absolute top-4 right-4 text-purple-500 hover:text-purple-700"
-          onClick={() => { onClose(); setPreview(null); setError(null); }}
-          
+          onClick={() => { onClose(); setPreview(null); setError(null); setSuccessfullySubmitted(false); }}
           aria-label="Close modal"
         >
           <CircleX />
@@ -112,7 +112,9 @@ setError(null);
             <div className="flex items-center justify-center h-full text-6xl md:text-7xl">😻</div>
           )}
         </div>
-        <p className="text-gray-500 text-sm text-center mt-2">Current Photo</p>
+        <p className="text-gray-500 text-sm text-center mt-2">
+          {preview ? "New Photo Preview" : image ? "Current Photo" : "No Photo "}
+        </p>
         <div className="flex flex-row items-center justify-evenly gap-3 w-full mt-6">
           <label className="flex flex-col items-center justify-center w-32 h-24 md:w-48 md:h-28 bg-white text-purple-500 rounded-lg border border-purple-300 hover:bg-purple-100 cursor-pointer">
             <Upload className="w-6 h-6" />
@@ -121,21 +123,27 @@ setError(null);
             <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
           </label>
 
-
-
-          <button className="flex flex-col items-center justify-center w-32 h-24 md:w-48 md:h-28 bg-white text-purple-500 rounded-lg border border-purple-300 hover:bg-purple-100">
-            <Camera className="w-6 h-6" />
-            <p className="font-semibold">Take Photo</p>
-            <p className="text-xs text-gray-500">Use your camera</p>
-          </button>
+        
         </div>
-        <button className="mt-6 w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors disabled:bg-purple-300 disabled:cursor-not-allowed "
-          type="submit"
-          aria-label="Save changes"
-          disabled={!preview && !image || isSubmitting }
-          >
-            Save Changes
-        </button>
+      <button
+        className={`mt-6 w-full text-white py-2 rounded-lg transition-colors disabled:bg-purple-300 disabled:cursor-not-allowed ${
+          successfullySubmitted
+            ? "bg-green-400 "
+            : "bg-purple-500 hover:bg-purple-600"
+        }`}
+        type="submit"
+        aria-label="Save changes"
+        disabled={(!preview && !image) || isSubmitting}
+      >
+        {successfullySubmitted ? (
+          <span className="flex flex-row items-center justify-center gap-2">
+            <CheckCircle className="w-5 h-5" />
+            Saved
+          </span>
+        ) : (
+          "Save changes"
+        )}
+      </button>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         {successfullySubmitted && <p className="text-green-500 text-sm mt-2">Image uploaded successfully!</p>}
       </div>

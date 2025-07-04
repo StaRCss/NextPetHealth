@@ -6,14 +6,14 @@ import { Camera, FilePenLine} from "lucide-react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import UploadImageModal from "./UploadImageModal";
-
+import EditBasicModal from "./EditBasicModal";
 
 type PetDetailsCardProps = {
   image?: string | null;
   name: string;
   breed?: string | null;
   birthday: Date;
-  weight?: number | null;
+  gender?: string | null;
   id: string; // Optional ID for the pet, if needed for image upload
 };
 
@@ -22,17 +22,25 @@ export default function PetDetailsCard({
   name,
   breed,
   birthday,
-  weight,
+  gender,
   id, // Optional ID for the pet, if needed for image upload
 }: PetDetailsCardProps) {
   const age = dayjs().diff(dayjs(birthday), "year");
 
     // State for modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center md:w-full lg:w-[40%] xl:w-[40%] bg-white border border-purple-200 rounded-lg shadow-md py-5 ">
+    <div className="flex flex-col items-center justify-center md:w-full lg:w-[40%] xl:w-[40%] bg-white border border-purple-200 rounded-lg shadow-md pb-5 ">
+
+        {/* Edit Button */}
+      <button className="flex flex-col m-2 p-1 rounded-full self-end items-center justify-center bg-white border border-[#7F56D9] text-[#7F56D9] hover:bg-[#e0d7f1] transition-colors"
+      onClick = {() => setIsEditOpen(true)}
+      >
+        <FilePenLine size={14} />
+      </button>
+
       {/* Profile Picture */}
       <div className="relative w-28 h-28 md:w-40 md:h-40">
 
@@ -63,15 +71,10 @@ export default function PetDetailsCard({
       <div className="flex flex-row flex-wrap items-center justify-center gap-2 px-4 mt-2">
         <p className="bg-purple-100 text-purple-500 border border-purple-300 rounded-2xl text-sm font-semibold text-center px-3 flex items-center justify-center h-6 md:h-7 min-w-20 ">{breed}</p>
         <p className=" bg-purple-100 text-purple-500 border border-purple-300 rounded-2xl text-sm font-semibold text-center px-3 h-6 md:h-7 flex items-center justify-center min-w-20"> {age} {age === 1 ? "year" : "years"}</p>
-        {weight !== null && weight !== undefined && <p className="bg-purple-100 text-purple-500 border border-purple-300 rounded-2xl text-sm  font-semibold h-6 md:h-7 px-3 min-w-20 text-center flex items-center justify-center"> {weight} kg</p>}
+        {gender !== null && gender !== undefined && <p className="bg-purple-100 text-purple-500 border border-purple-300 rounded-2xl text-sm  font-semibold h-6 md:h-7 px-3 min-w-20 text-center flex items-center justify-center"> {gender}</p>}
       </div>
 
-      {/* Edit Button */}
-      <button className="flex flex-row h-10 mt-4 gap-2 items-center justify-center w-[80%] bg-white border border-[#7F56D9] text-[#7F56D9] rounded hover:bg-[#e0d7f1] transition-colors">
-        <FilePenLine size={18} /> Edit Basic Info
-      </button>
-
-
+     
         {/* Modal for Edit Form */}
         <UploadImageModal
           isOpen={isModalOpen}
@@ -79,6 +82,16 @@ export default function PetDetailsCard({
           name={name}
           image={image}
           id={id}
+        />
+
+        <EditBasicModal
+          isOpen = {isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          id ={id}
+          name ={name}
+          breed ={breed}
+          gender ={gender}
+          birthday={birthday}
         />
     </div>
     
