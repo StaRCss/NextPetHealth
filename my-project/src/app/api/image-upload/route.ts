@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "@/lib/auth/authOptions";
-
+import { fileTypeFromBuffer } from "file-type";
 import fs from "fs";
 import path from "path";
 
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Step 1: Validate using Zod schema (client-friendly rules)
     const validation = imageUploadSchema.safeParse({ image });
     if (!validation.success) {
       return NextResponse.json(
@@ -52,8 +53,38 @@ export async function POST(req: Request) {
       );
     }
 
+        // ✅ Step 2: Convert image to Node.js Buffer
     const imageBuffer = Buffer.from(await image.arrayBuffer());
-    const imageFileName = `${petId}-${Date.now()}-${image.name}`;
+
+
+    // ✅ Step 3: Verify real MIME type using file-type
+        const fileTypeResult = await fileTypeFromBuffer(imageBuffer);
+        if(!fileTypeResult || !fileTypeResult.mime.startsWith("image/") )
+          {
+          return NextResponse.json(
+            {message:"Upload file is not valid image"},
+            {status : 400}
+          );
+        }
+
+         // ✅ Optional: allow only certain image types
+        const allowedTypes = ["image/png" , "image/jpg" , "image/webp"];
+        if(!allowedTypes.includes(fileTypeResult.mime))
+          {
+          return NextResponse.json(
+            {message : "Image must be png , jpg or webp"},
+            {status : 400}
+          );
+        }
+
+         // ✅ Step 4: Sanitize original file name
+          const baseName = path
+          .basename(image.name)
+          .replace(/[^a-z0-9_.-]/gi, "_")
+          .toLowerCase(); // lower case for consistency
+
+
+    const imageFileName = `${petId}-${Date.now()}-${baseName}`;
     const imagePath = `/uploads/${imageFileName}`;
 
     const uploadDir = path.join(process.cwd(), "public", "uploads");

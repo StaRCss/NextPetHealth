@@ -39,7 +39,6 @@ export default async function PetDetailsPage({
           </button>
         </Link>
         <div>
-
           <h1 className="text-2xl md:text-3xl font-bold text-[#53389E] ">
             {pet.name}&rsquo;s Profile
           </h1>
