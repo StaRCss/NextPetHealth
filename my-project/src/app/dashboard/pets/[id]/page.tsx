@@ -20,7 +20,10 @@ export default async function PetDetailsPage({
   const { id } = params;
 
   const pet = await prisma.pet.findUnique({
-    where: { id },
+    where: { 
+    id , 
+    ownerId : session.user.id ,
+    },
   });
 
   if (!pet) notFound();
