@@ -52,6 +52,8 @@ export default function PetDetailsCard({
             width={160}
             height={160}
             className="object-cover w-full h-full"
+            onError={() => console.error("Image failed to load:", image)}
+
           />
         ) : (
           <div className="flex items-center justify-center h-full text-6xl md:text-7xl">😻</div>

@@ -41,6 +41,7 @@ export default async function PetDetailsPage({
 
   if (!pet) notFound();
 
+
   return (
     <div className="min-h-screen flex flex-col gap-3 bg-gradient-to-b from-[#F9F5FF] to-white md:pt-20 mx-6 md:mx-10 lg:mx-20 xl:mx-40">
       {/* Header */}
