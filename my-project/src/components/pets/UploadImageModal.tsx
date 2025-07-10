@@ -21,6 +21,16 @@ export default function UploadImageModal({ isOpen, onClose, name, image,id }: Up
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false);
 
+
+  useEffect(() => {
+    if (!preview) return;
+    // Cleanup function
+    return () => {
+      URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+  
+
  useEffect(() => {
 setError(null);
   }, [file]);
