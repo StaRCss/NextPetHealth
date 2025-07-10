@@ -52,7 +52,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
               alt={`Picture of ${name}`}
               height={160}
               width={160}
-              className="object-cover w-fit h-fit"
+              className="object-cover w-full h-full"
               tabIndex={-1} // prevent image from being focusable, no need
             />
           ) : (
