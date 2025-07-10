@@ -19,12 +19,21 @@ export default async function PetDetailsPage({
 
   const { id } = params;
 
-  const pet = await prisma.pet.findUnique({
+  let pet;
+  try {
+  pet = await prisma.pet.findUnique({
     where: { 
     id , 
     ownerId : session.user.id ,
     },
   });
+  } 
+  
+  catch (error)
+  {
+    console.log ("DB query error:" , error);
+    redirect ("/error");
+  }
 
   if (!pet) notFound();
 
