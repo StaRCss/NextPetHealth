@@ -102,8 +102,9 @@ export async function POST(req: Request) {
     const uploadedImage = await new Promise<any>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          folder: "pets",
-          public_id: `${petId}-${Date.now()}`,
+          
+          public_id: `pets/${petId}`, // Put image inside "pets" folder with petId as filename
+          overwrite: true,           // Always replace existing image
           resource_type: "image",
         },
         (error, result) => {
