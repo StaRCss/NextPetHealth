@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-    pageExtensions: ['ts', 'tsx', 'js', 'jsx'], // Include TypeScript and JavaScript extensions
-
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'], // your existing config
+  images: {
+    domains: ['res.cloudinary.com'], // allow Cloudinary images
+  },
 };
 
 export default nextConfig;
