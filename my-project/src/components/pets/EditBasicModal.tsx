@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import NameInputField from "./fields/NameInputField";
 import { CircleX } from "lucide-react";
 import type { PetFormValues } from "./AddPetForm";
+import GenderCheckboxField from "./fields/GenderCheckboxField";
+import BreedInputField from "./fields/BreedInputField";
+import BirthdayInputField from "./fields/BirthdayInputField";
 
 type EditBasicModalProps = {
   isOpen: boolean;
@@ -31,9 +34,14 @@ export default function EditBasicModal({
 
   useEffect(() => {
     if (isOpen) {
-      methods.reset({ name });
+      methods.reset({
+        name,
+        breed,
+        gender,
+        birthday: birthday ? birthday.toISOString().substring(0, 10) : undefined,
+      });
     }
-  }, [isOpen, name, methods]);
+  }, [isOpen, name, breed, gender, birthday, methods]);
 
   if (!isOpen) return null;
 
@@ -52,6 +60,9 @@ export default function EditBasicModal({
           <form>
             <div className="flex flex-col items-center border-t border-b border-gray-300 gap-4 pb-4 mt-8">
               <NameInputField />
+              <GenderCheckboxField/>
+              <BreedInputField />
+              <BirthdayInputField />
             </div>
           </form>
         </FormProvider>
