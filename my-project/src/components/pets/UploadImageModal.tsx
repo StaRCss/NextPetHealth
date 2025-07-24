@@ -136,24 +136,27 @@ setError(null);
         
         </div>
       <button
-        className={`mt-6 w-full text-white py-2 rounded-lg transition-colors disabled:bg-purple-300 disabled:cursor-not-allowed ${
-          successfullySubmitted
-            ? "bg-green-400 "
-            : "bg-purple-500 hover:bg-purple-600"
-        }`}
-        type="submit"
-        aria-label="Save changes"
-        disabled={(!preview && !image) || isSubmitting}
-      >
-        {successfullySubmitted ? (
-          <span className="flex flex-row items-center justify-center gap-2">
-            <CheckCircle className="w-5 h-5" />
-            Saved
-          </span>
-        ) : (
-          "Save changes"
-        )}
-      </button>
+  type="submit"
+  aria-label="Save changes"
+  disabled={(!preview && !image) || isSubmitting || successfullySubmitted}
+  className={`mt-6 w-full text-white py-2 rounded-lg transition-colors
+    ${successfullySubmitted
+      ? "bg-green-400 cursor-not-allowed"
+      : isSubmitting
+      ? "bg-purple-300 cursor-not-allowed"
+      : "bg-purple-500 hover:bg-purple-600"}
+  `}
+>
+  {successfullySubmitted ? (
+    <span className="flex flex-row items-center justify-center gap-2">
+      <CheckCircle className="w-5 h-5" />
+      Saved
+    </span>
+  ) : (
+    "Save changes"
+  )}
+</button>
+
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         {successfullySubmitted && <p className="text-green-500 text-sm mt-2">Image uploaded successfully!</p>}
       </div>
