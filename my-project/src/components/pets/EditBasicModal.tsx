@@ -67,7 +67,7 @@ export default function EditBasicModal({
       if (response.ok) {
         console.log("Pet updated successfully");
         setSuccessfullySubmitted(true);
-        onClose();
+      
       } else {
         console.error("Failed to update pet");
       }
@@ -81,7 +81,7 @@ export default function EditBasicModal({
       <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
         <button
           className="absolute top-4 right-4 text-purple-500 hover:text-purple-700"
-          onClick={onClose}
+          onClick={() => { onClose(); setSuccessfullySubmitted(false); }}
           aria-label="Close Form"
         >
           <CircleX />
