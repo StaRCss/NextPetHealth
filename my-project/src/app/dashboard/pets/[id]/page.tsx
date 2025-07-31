@@ -34,6 +34,7 @@ export default async function PetDetailsPage({
         ownerId: session.user.id,
       },
     });
+    console.log("🐾 Pet found:", pet);
   } catch (error) {
     console.error("DB query error:", error);
     redirect("/error");
