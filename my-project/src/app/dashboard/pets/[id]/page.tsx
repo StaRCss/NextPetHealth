@@ -6,6 +6,7 @@ import PetDetailsCard from "@/components/pets/PetDetailsCard";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import QuickStats from "@/components/pets/QuickStats";
+import Health from "@/components/pets/Health";
 import { z } from "zod";
 
 const petIdSchema = z.string().uuid();
@@ -34,7 +35,6 @@ export default async function PetDetailsPage({
         ownerId: session.user.id,
       },
     });
-    console.log("🐾 Pet found:", pet);
   } catch (error) {
     console.error("DB query error:", error);
     redirect("/error");
@@ -42,18 +42,18 @@ export default async function PetDetailsPage({
 
   if (!pet) notFound();
 
-
   return (
-    <div className="min-h-screen flex flex-col gap-3 bg-gradient-to-b from-[#F9F5FF] to-white md:pt-20 mx-6 md:mx-10 lg:mx-20 xl:mx-40">
-      {/* Header */}
-      <div className="flex flex-row items-center gap-4 justify-start md:w-full lg:w-[40%] xl:w-[40%] py-2 ">
-        <Link href="/dashboard/pets" className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full">
-          <button className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full">
-            <ArrowLeft className="h-5 w-5" />
-          </button>
+    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white px-6 md:px-10 lg:px-20 xl:px-40 py-10">
+      {/* Top Bar */}
+      <div className="flex items-center gap-4 mb-8">
+        <Link
+          href="/dashboard/pets"
+          className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full"
+        >
+          <ArrowLeft className="h-5 w-5" />
         </Link>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#53389E] ">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#53389E]">
             {pet.name}&rsquo;s Profile
           </h1>
           <p className="text-[#9E77ED] text-sm md:text-base">
@@ -62,16 +62,26 @@ export default async function PetDetailsPage({
         </div>
       </div>
 
-      {/* Pet Details Card */}
-      <PetDetailsCard
-        image={pet.image}
-        name={pet.name}
-        breed={pet.breed}
-        birthday={pet.birthday}
-        gender={pet.gender}
-        id={pet.id}
-      />
-      <QuickStats weight={pet.weight} />
+      {/* Responsive Two-Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Column */}
+        <div className="flex flex-col gap-6">
+          <PetDetailsCard
+            image={pet.image}
+            name={pet.name}
+            breed={pet.breed}
+            birthday={pet.birthday}
+            gender={pet.gender}
+            id={pet.id}
+          />
+          <QuickStats weight={pet.weight} />
+        </div>
+
+        {/* Right Column */}
+        <div className="flex flex-col gap-6">
+          <Health weight={pet.weight} />
+        </div>
+      </div>
     </div>
   );
 }
