@@ -1,46 +1,53 @@
 "use client";
 
 import React from "react";
+import { useController, Control } from "react-hook-form";
 
 interface WeightInputFieldProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
+  control: Control<any>;
 }
 
-const WeightInputField: React.FC<WeightInputFieldProps> = ({ value, onChange }) => {
-  const [isKg, setIsKg] = React.useState(true); // Toggle for kg/lb
+const WeightInputField: React.FC<WeightInputFieldProps> = ({ name, control }) => {
+  const {
+    field: { value, onChange, ref },
+  } = useController({
+    name,
+    control,
+  });
 
-  // Handle weight change
+  const [isKg, setIsKg] = React.useState(true);
+
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    if (/^\d*\.?\d*$/.test(newValue)) {
-      onChange(e); // This will update React Hook Form's state
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue)) {
+      onChange(inputValue);
     }
   };
 
-  // Toggle between kg and lb
   const toggleUnit = () => {
-    setIsKg(!isKg);
+    setIsKg((prev) => !prev);
   };
 
   return (
-    <div className="flex flex-col items-start w-full ml-4 mt-4 mb-4 select-none">
+    <div className="flex flex-col items-start w-fit my-4 mx-4 select-none">
       <label htmlFor="pet-weight" className="block text-sm font-medium text-gray-700 mb-2">
         Pet Weight
       </label>
-      <div className="flex items-center w-full border border-gray-300 rounded-lg">
+      <div className="flex items-center w-full border border-gray-300 rounded-lg overflow-hidden">
         <input
           id="pet-weight"
+          ref={ref}
           type="text"
-          value={value}
+          value={value ?? ""}
           onChange={handleWeightChange}
           placeholder="Weight"
-          className="w-full px-4 py-2 border-none rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600 "
+          className="w-full px-4 py-2 border-none focus:outline-none focus:ring-2 focus:ring-green-600"
         />
         <button
           type="button"
           onClick={toggleUnit}
-          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+          className="px-4 py-2 bg-purple-500 text-white font-medium focus:outline-none focus:ring-2 focus:ring-green-600"
         >
           {isKg ? "kg" : "lb"}
         </button>
