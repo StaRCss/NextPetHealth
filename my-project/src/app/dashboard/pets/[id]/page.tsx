@@ -42,7 +42,7 @@ export default async function PetDetailsPage({
   if (!pet) notFound();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white py-10 px-4 sm:px-6 lg:px-8 mb-14">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto mb-8 md:mt-10">
         <div className="flex items-center gap-4">
