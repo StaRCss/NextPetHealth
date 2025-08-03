@@ -32,7 +32,7 @@ export default function PetDetailsCard({
     const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center md:w-full lg:w-[40%] xl:w-[40%] bg-white border border-purple-200 rounded-lg shadow-md pb-5 ">
+    <div className="flex flex-col items-center justify-center w-full bg-white border border-purple-200 rounded-lg shadow-md pb-5 ">
 
         {/* Edit Button */}
       <button className="flex flex-col m-2 p-1 rounded-full self-end items-center justify-center bg-white border border-[#7F56D9] text-[#7F56D9] hover:bg-[#e0d7f1] transition-colors"

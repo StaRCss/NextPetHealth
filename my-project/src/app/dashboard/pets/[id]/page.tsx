@@ -22,9 +22,8 @@ export default async function PetDetailsPage({
 
   // Validate the pet ID param
   const parsedId = petIdSchema.safeParse(params.id);
-  if (!parsedId.success) {
-    notFound();
-  }
+  if (!parsedId.success) notFound();
+
   const petId = parsedId.data;
 
   let pet;
@@ -43,43 +42,47 @@ export default async function PetDetailsPage({
   if (!pet) notFound();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white px-6 md:px-10 lg:px-20 xl:px-40 py-10">
+    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white py-10 px-4 sm:px-6 lg:px-8">
       {/* Top Bar */}
-      <div className="flex items-center gap-4 mb-8">
-        <Link
-          href="/dashboard/pets"
-          className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Link>
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#53389E]">
-            {pet.name}&rsquo;s Profile
-          </h1>
-          <p className="text-[#9E77ED] text-sm md:text-base">
-            Complete health & nutrition overview
-          </p>
+      <div className="max-w-6xl mx-auto mb-8 md:mt-10">
+        <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard/pets"
+            className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#53389E]">
+              {pet.name}&rsquo;s Profile
+            </h1>
+            <p className="text-[#9E77ED] text-sm md:text-base">
+              Complete health & nutrition overview
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Responsive Two-Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Column */}
-        <div className="flex flex-col gap-6">
-          <PetDetailsCard
-            image={pet.image}
-            name={pet.name}
-            breed={pet.breed}
-            birthday={pet.birthday}
-            gender={pet.gender}
-            id={pet.id}
-          />
-          <QuickStats weight={pet.weight} />
-        </div>
+      {/* Two-Column Layout */}
+      <div className="max-w-6xl mx-auto ">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10 xl:gap-12">
+          {/* Left Column */}
+          <div className="flex flex-col gap-6 w-full">
+            <PetDetailsCard
+              image={pet.image}
+              name={pet.name}
+              breed={pet.breed}
+              birthday={pet.birthday}
+              gender={pet.gender}
+              id={pet.id}
+            />
+            <QuickStats weight={pet.weight} />
+          </div>
 
-        {/* Right Column */}
-        <div className="flex flex-col gap-6">
-          <Health weight={pet.weight} />
+          {/* Right Column */}
+          <div className="flex flex-col gap-6">
+            <Health weight={pet.weight} />
+          </div>
         </div>
       </div>
     </div>
