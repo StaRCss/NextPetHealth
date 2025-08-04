@@ -27,11 +27,14 @@ const Health: React.FC<HealthProps> = ({ weight }) => {
       {/* Content */}
       <div className="px-1 py-2">
         {weight != null ? (
-          <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-2 rounded-lg w-fit shadow-sm">
-            🐾 <span className="font-medium">Current Weight:</span> {weight} kg
+          <div className="flex flex-col items-start gap-2 text-green-600 font-semibold bg-green-50 px-4 py-2 rounded-lg w-fit shadow-sm">
+             <span className="font-medium text-lg text-purple-500">Current Weight</span>
+             {weight} kg ⚖️ 
           </div>
         ) : (
-          <p className="text-sm text-gray-500 italic">No weight data available yet</p>
+          <p className="text-sm text-gray-500 italic">
+              No weight data yet. Let’s keep track to stay healthy! 🐕
+          </p>
         )}
       </div>
     </div>
