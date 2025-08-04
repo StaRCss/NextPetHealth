@@ -1,12 +1,18 @@
 'use client';
 import React from "react";
 import { ScanHeart, Scale } from "lucide-react";
+import { useState } from "react";
+import WeightLogForm from "./WeightLogForm";
 
 type HealthProps = {
   weight: number | null;
+  name: string; // Optional name for the pet, if needed
 };
 
-const Health: React.FC<HealthProps> = ({ weight }) => {
+export default function Health  ({weight, name} : HealthProps ) {
+
+    const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
       {/* Header */}
@@ -18,7 +24,9 @@ const Health: React.FC<HealthProps> = ({ weight }) => {
           <h2 className="text-lg md:text-2xl font-semibold text-purple-700">Health Overview</h2>
         </div>
 
-        <button className="flex items-center gap-2 text-xs font-medium text-purple-600 border border-purple-300 px-3 py-1.5 rounded-md bg-white hover:bg-purple-50 transition-colors shadow-sm">
+        <button 
+        onClick={() => setIsWeightLogOpen(true)}
+        className="flex items-center gap-2 text-xs font-medium text-purple-600 border border-purple-300 px-3 py-1.5 rounded-md bg-white hover:bg-purple-50 transition-colors shadow-sm">
           <Scale className="w-4 h-4" />
           Log Weight
         </button>
@@ -37,8 +45,14 @@ const Health: React.FC<HealthProps> = ({ weight }) => {
           </p>
         )}
       </div>
+        {/* Actions */}
+        <WeightLogForm
+          weight={weight ?? null}
+          isOpen={isWeightLogOpen}
+          onClose={() => setIsWeightLogOpen(false)}
+          name={name}
+        />
     </div>
   );
 };
 
-export default Health;

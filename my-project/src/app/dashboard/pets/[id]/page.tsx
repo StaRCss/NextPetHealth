@@ -81,7 +81,7 @@ export default async function PetDetailsPage({
 
           {/* Right Column */}
           <div className="flex flex-col gap-6">
-            <Health weight={pet.weight} />
+            <Health weight={pet.weight} name={pet.name}/>
           </div>
         </div>
       </div>
