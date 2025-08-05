@@ -33,9 +33,9 @@ export default function Health  ({weight, name} : HealthProps ) {
       </div>
 
       {/* Content */}
-      <div className="px-1 py-2">
+      <div className="flex justify-center py-2">
         {weight != null ? (
-          <div className="flex flex-col items-start gap-2 text-green-600 font-semibold bg-green-50 px-4 py-2 rounded-lg w-fit shadow-sm">
+          <div className="flex flex-col items-start gap-2 text-green-600 font-semibold bg-green-50 px-12 py-4 rounded-lg w-full shadow-sm">
              <span className="font-medium text-lg text-purple-500">Current Weight</span>
              {weight} kg ⚖️ 
           </div>
