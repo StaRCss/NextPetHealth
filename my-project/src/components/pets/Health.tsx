@@ -1,17 +1,25 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
 import { ScanHeart, Scale } from "lucide-react";
-import { useState } from "react";
 import WeightLogForm from "./WeightLogForm";
+import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
 
 type HealthProps = {
   weight: number | null;
   name: string; // Optional name for the pet, if needed
 };
 
-export default function Health  ({weight, name} : HealthProps ) {
+export default function Health({ weight, name }: HealthProps) {
+  const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
 
-    const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
+  // onSubmit handler for WeightLogForm
+  function handleWeightLogSubmit(data: WeightLogInput) {
+    console.log("Validated Weight Log data:", data);
+    // TODO: Send data to backend or update state here
+
+    // Close the form after submission
+    setIsWeightLogOpen(false);
+  }
 
   return (
     <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
@@ -24,9 +32,10 @@ export default function Health  ({weight, name} : HealthProps ) {
           <h2 className="text-lg md:text-2xl font-semibold text-purple-700">Health Overview</h2>
         </div>
 
-        <button 
-        onClick={() => setIsWeightLogOpen(true)}
-        className="flex items-center gap-2 text-xs font-medium text-purple-600 border border-purple-300 px-3 py-1.5 rounded-md bg-white hover:bg-purple-50 transition-colors shadow-sm">
+        <button
+          onClick={() => setIsWeightLogOpen(true)}
+          className="flex items-center gap-2 text-xs font-medium text-purple-600 border border-purple-300 px-3 py-1.5 rounded-md bg-white hover:bg-purple-50 transition-colors shadow-sm"
+        >
           <Scale className="w-4 h-4" />
           Log Weight
         </button>
@@ -36,23 +45,24 @@ export default function Health  ({weight, name} : HealthProps ) {
       <div className="flex justify-center py-2">
         {weight != null ? (
           <div className="flex flex-col items-start gap-2 text-green-600 font-semibold bg-green-50 px-12 py-4 rounded-lg w-full shadow-sm">
-             <span className="font-medium text-lg text-purple-500">Current Weight</span>
-             {weight} kg ⚖️ 
+            <span className="font-medium text-lg text-purple-500">Current Weight</span>
+            {weight} kg ⚖️
           </div>
         ) : (
           <p className="text-sm text-gray-500 italic">
-              No weight data yet. Let’s keep track to stay healthy! 🐕
+            No weight data yet. Let’s keep track to stay healthy! 🐕
           </p>
         )}
       </div>
-        {/* Actions */}
-        <WeightLogForm
-          weight={weight ?? null}
-          isOpen={isWeightLogOpen}
-          onClose={() => setIsWeightLogOpen(false)}
-          name={name}
-        />
+
+      {/* Weight Log Form */}
+      <WeightLogForm
+        weight={weight ?? null}
+        isOpen={isWeightLogOpen}
+        onClose={() => setIsWeightLogOpen(false)}
+        name={name}
+        onSubmit={handleWeightLogSubmit} // Pass the submit handler here
+      />
     </div>
   );
-};
-
+}
