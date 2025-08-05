@@ -8,7 +8,6 @@ export const weightLogSchema = z.object({
 
   unit: z.enum(["kg", "lb"], {
     errorMap: () => ({ message: "Invalid unit. Use 'kg' or 'lb'." }),
-    required_error: "Unit is required",
   }),
 
   // Use z.coerce.date() to convert string input to Date object automatically
