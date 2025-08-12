@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from "react";
-import { ScanHeart, Scale } from "lucide-react";
+import { ScanHeart, Scale, Currency } from "lucide-react";
 import WeightLogForm from "./WeightLogForm";
 import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
 
@@ -11,14 +11,16 @@ type HealthProps = {
 
 export default function Health({ weight, name }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
-
+  const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
   // onSubmit handler for WeightLogForm
   function handleWeightLogSubmit(data: WeightLogInput) {
-    console.log("Validated Weight Log data:", data);
+    console.log("Validated Weight Log data:", data.weight);
     // TODO: Send data to backend or update state here
 
     // Close the form after submission
     setIsWeightLogOpen(false);
+    // Update current weight state
+    setCurrentWeight(data.weight);
   }
 
   return (
@@ -43,10 +45,10 @@ export default function Health({ weight, name }: HealthProps) {
 
       {/* Content */}
       <div className="flex justify-center py-2">
-        {weight != null ? (
+        {currentWeight != null ? (
           <div className="flex flex-col items-start gap-2 text-green-600 font-semibold bg-green-50 px-12 py-4 rounded-lg w-full shadow-sm">
             <span className="font-medium text-lg text-purple-500">Current Weight</span>
-            {weight} kg ⚖️
+            {currentWeight} kg ⚖️
           </div>
         ) : (
           <p className="text-sm text-gray-500 italic">
@@ -57,7 +59,7 @@ export default function Health({ weight, name }: HealthProps) {
 
       {/* Weight Log Form */}
       <WeightLogForm
-        weight={weight ?? null}
+        weight={currentWeight ?? null}
         isOpen={isWeightLogOpen}
         onClose={() => setIsWeightLogOpen(false)}
         name={name}
