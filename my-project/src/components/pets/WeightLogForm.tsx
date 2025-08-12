@@ -5,14 +5,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { weightLogSchema, WeightLogInput } from "@/lib/validations/WeightLogSchema";
-import { get } from "http";
 
 type WeightLogFormProps = {
   weight: number | null;
   isOpen: boolean;
   onClose: () => void;
   name: string;
-  onSubmit: (data: WeightLogInput) => void; // pass a submit handler
+  onSubmit: (data: WeightLogInput) => void;
 };
 
 export default function WeightLogForm({
@@ -25,11 +24,11 @@ export default function WeightLogForm({
   const [unit, setUnit] = useState<"kg" | "lb">("kg");
   const formRef = useRef<HTMLDivElement | null>(null);
 
-  // Initialize react-hook-form with Zod schema resolver
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<WeightLogInput>({
     resolver: zodResolver(weightLogSchema),
@@ -41,7 +40,27 @@ export default function WeightLogForm({
     },
   });
 
-  // Scroll to form when opened
+  // Convert weight when unit changes
+  const handleUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newUnit = e.target.value as "kg" | "lb";
+    const currentWeight = watch("weight");
+
+    if (currentWeight != null && !isNaN(currentWeight)) {
+      let convertedWeight = currentWeight;
+
+      if (unit === "kg" && newUnit === "lb") {
+        convertedWeight = +(currentWeight * 2.20462).toFixed(2);
+      } else if (unit === "lb" && newUnit === "kg") {
+        convertedWeight = +(currentWeight / 2.20462).toFixed(2);
+      }
+
+      setValue("weight", convertedWeight);
+    }
+
+    setUnit(newUnit);
+    setValue("unit", newUnit);
+  };
+
   useEffect(() => {
     if (isOpen && formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -49,12 +68,6 @@ export default function WeightLogForm({
   }, [isOpen]);
 
   if (!isOpen) return null;
-
-  // Sync unit with react-hook-form value on change
-  const handleUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUnit(e.target.value as "kg" | "lb");
-    setValue("unit", e.target.value as "kg" | "lb");
-  };
 
   return (
     <div
@@ -168,6 +181,4 @@ export default function WeightLogForm({
 function getCurrentDate(): Date | undefined {
   const today = new Date();
   return isNaN(today.getTime()) ? undefined : today;
-  
 }
-
