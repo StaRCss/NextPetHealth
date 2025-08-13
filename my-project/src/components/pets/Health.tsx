@@ -5,9 +5,10 @@ import WeightLogForm from "./WeightLogForm";
 import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
 
 type HealthProps = {
+  id: string; // Pet ID for logging purposes
   weight: number | null;
   name: string; // Optional name for the pet, if needed
-    unit?: string;
+   unit?: string;
   weightLogs?: WeightLog[];
 
 };
@@ -18,7 +19,7 @@ type WeightLog = {
   date: Date;
 };
 
-export default function Health({ weight, name }: HealthProps) {
+export default function Health({ weight, name, id }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
   const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
   // onSubmit handler for WeightLogForm
@@ -68,6 +69,7 @@ export default function Health({ weight, name }: HealthProps) {
 
       {/* Weight Log Form */}
       <WeightLogForm
+        id={id}
         weight={currentWeight ?? null}
         isOpen={isWeightLogOpen}
         onClose={() => setIsWeightLogOpen(false)}

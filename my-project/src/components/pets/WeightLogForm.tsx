@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { weightLogSchema, WeightLogInput } from "@/lib/validations/WeightLogSchema";
 
 type WeightLogFormProps = {
+  id: string; // Pet ID for logging purposes
   weight: number | null;
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +16,7 @@ type WeightLogFormProps = {
 };
 
 export default function WeightLogForm({
+  id,
   weight,
   isOpen,
   onClose,
@@ -33,6 +35,7 @@ export default function WeightLogForm({
   } = useForm<WeightLogInput>({
     resolver: zodResolver(weightLogSchema),
     defaultValues: {
+      petId: id,
       weight: weight ?? undefined,
       unit: "kg",
       date: getCurrentDate(),
@@ -74,7 +77,13 @@ export default function WeightLogForm({
       ref={formRef}
       className="w-full max-w-md mx-auto bg-white border border-purple-200 rounded-2xl shadow-xl p-6 transition-all"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+  onSubmit={handleSubmit((data) => {
+    console.log("Submit triggered"); // <- see if this prints
+    onSubmit(data);
+  })}
+>
+
         <div className="flex flex-col gap-6">
           {/* Title */}
           <h2 className="flex flex-row gap-2 justify-center text-center text-lg font-semibold text-purple-600">

@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 export const weightLogSchema = z.object({
+
+  petId: z.string().uuid("Invalid pet ID format"),
+
   weight: z
     .number()
     .positive("Weight must be a positive number")
