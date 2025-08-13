@@ -25,7 +25,21 @@ export default async function MyPetsPage() {
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
-    include: { pets: true },
+    select : {
+      id: true,
+      name: true,
+      email: true,
+      pets: {
+        select: {
+          id: true,
+          name: true,
+          birthday: true,
+          breed: true,
+          gender: true,
+          image: true,
+     },
+      },
+    },
   });
 
   if (!user) {
