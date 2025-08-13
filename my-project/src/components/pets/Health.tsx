@@ -23,15 +23,33 @@ export default function Health({ weight, name, id }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
   const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
   // onSubmit handler for WeightLogForm
-  function handleWeightLogSubmit(data: WeightLogInput) {
-    console.log("Validated Weight Log data:", data);
-    // TODO: Send data to backend or update state here
+  async function handleWeightLogSubmit(data: WeightLogInput) {
+  try {
+    const response = await fetch("/api/weight-log", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-    // Close the form after submission
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error creating weight log:", errorData);
+      return; // or show a toast/error message
+    }
+
+    const createdLog = await response.json();
+    console.log("Weight log created:", createdLog);
+
+    // Close the form and update state
     setIsWeightLogOpen(false);
-    // Update current weight state
-    setCurrentWeight(data.weight);
+    setCurrentWeight(createdLog.weight);
+  } catch (error) {
+    console.error("Unexpected error:", error);
   }
+}
+
 
   return (
     <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
