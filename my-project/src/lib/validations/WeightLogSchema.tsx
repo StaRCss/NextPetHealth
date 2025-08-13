@@ -14,9 +14,15 @@ export const weightLogSchema = z.object({
   }),
 
   // Use z.coerce.date() to convert string input to Date object automatically
-  date: z.coerce.date().refine((date) => !isNaN(date.getTime()), {
+ date: z
+  .coerce.date()
+  .refine((date) => !isNaN(date.getTime()), {
     message: "Invalid date format",
+  })
+  .refine((date) => date <= new Date(), {
+    message: "Date cannot be in the future",
   }),
+
 
   notes: z
     .string()
