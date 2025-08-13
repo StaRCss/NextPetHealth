@@ -13,6 +13,7 @@ type PetDetailsCardProps = {
   breed?: string | null;
   birthday: Date;
   gender?: string | null;
+  age?: number;
   id: string;
 };
 

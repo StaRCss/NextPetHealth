@@ -7,6 +7,15 @@ import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
 type HealthProps = {
   weight: number | null;
   name: string; // Optional name for the pet, if needed
+    unit?: string;
+  weightLogs?: WeightLog[];
+
+};
+
+type WeightLog = {
+  weight: number;
+  unit: "kg" | "lb";
+  date: Date;
 };
 
 export default function Health({ weight, name }: HealthProps) {
