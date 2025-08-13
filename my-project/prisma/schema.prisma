@@ -22,7 +22,7 @@ model Pet {
   breed         String?
   gender        Gender?
   birthday      DateTime
-  weight        Float?
+  weightLogs    WeightLog[]
   image         String?
   goal          Goal?
   neutered      Boolean?
@@ -43,4 +43,21 @@ enum Goal {
   maintain
   lose
   gain
+}
+
+enum WeighUnit {
+  kg
+  lb
+}
+
+model WeightLog {
+  id               String @id @default (uuid())
+  pet              Pet    @relation (fields: [petId], references: [id])
+  petId            String
+  weight           Float
+  unit             WeighUnit
+  date             DateTime
+  notes            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

@@ -14,7 +14,7 @@ export default function Health({ weight, name }: HealthProps) {
   const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
   // onSubmit handler for WeightLogForm
   function handleWeightLogSubmit(data: WeightLogInput) {
-    console.log("Validated Weight Log data:", data.weight);
+    console.log("Validated Weight Log data:", data);
     // TODO: Send data to backend or update state here
 
     // Close the form after submission
