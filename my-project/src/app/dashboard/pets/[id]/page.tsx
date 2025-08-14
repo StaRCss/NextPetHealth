@@ -102,7 +102,12 @@ export default async function PetDetailsPage({
                 name={pet.name}
                 weightLogs={pet.weightLogs} // pass all logs for charts
               />
-              <WeightProgress/>
+              <WeightProgress
+                data ={pet.weightLogs.map(log => ({
+                date: dayjs(log.date).format("MMM DD"),
+                weight: log.weight,
+              })) ?? [] }
+              />
           </div>
         </div>
       </div>
