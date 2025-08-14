@@ -10,6 +10,7 @@ import QuickStats from "@/components/pets/QuickStats";
 import Health from "@/components/pets/Health";
 import { z } from "zod";
 import dayjs from "dayjs";
+import WeightProgress from "@/components/pets/WeightProgress";
 
 const petIdSchema = z.string().uuid();
 
@@ -101,6 +102,7 @@ export default async function PetDetailsPage({
                 name={pet.name}
                 weightLogs={pet.weightLogs} // pass all logs for charts
               />
+              <WeightProgress/>
           </div>
         </div>
       </div>
