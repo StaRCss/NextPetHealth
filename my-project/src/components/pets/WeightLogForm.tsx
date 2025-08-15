@@ -37,7 +37,7 @@ export default function WeightLogForm({
     defaultValues: {
       petId: id,
       weight: weight ?? undefined,
-      unit: "kg",
+      unit: unit,
       date: getCurrentDate(),
       notes: "",
     },
@@ -96,7 +96,7 @@ export default function WeightLogForm({
             <label htmlFor="weight" className="text-sm font-medium text-gray-700">
               New Weight <span className="text-red-500">*</span>
             </label>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-4 items-center">
               <input
                 id="weight"
                 type="number"
@@ -107,17 +107,16 @@ export default function WeightLogForm({
                 }`}
                 placeholder="Enter weight"
               />
-              <select
-                {...register("unit")}
-                value={unit}
-                onChange={handleUnitChange}
-                className={`px-3 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 ${
-                  errors.unit ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-purple-500"
-                }`}
-              >
-                <option value="kg">kg</option>
-                <option value="lb">lb</option>
-              </select>
+
+              {/* Unit Selector by default kg */}
+          <input
+  {...register("unit")}
+  value={unit}
+  readOnly
+  className="px-0 py-0 bg-transparent border-none text-gray-700 pointer-events-none select-none w-auto"
+  style={{ width: "auto" }}
+/>
+
             </div>
             {errors.weight && (
               <p className="text-red-500 text-xs mt-1">{errors.weight.message}</p>

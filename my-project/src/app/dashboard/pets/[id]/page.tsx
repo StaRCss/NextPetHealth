@@ -106,6 +106,7 @@ export default async function PetDetailsPage({
                 data ={pet.weightLogs.map(log => ({
                 date: dayjs(log.date).format("MMM DD"),
                 weight: log.weight,
+                unit: log.unit,
               })) ?? [] }
               />
           </div>
