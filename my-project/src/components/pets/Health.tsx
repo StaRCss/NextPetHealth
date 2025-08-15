@@ -1,55 +1,76 @@
 'use client';
-import React, { useState } from "react";
-import { ScanHeart, Scale, Currency } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ScanHeart, Scale } from "lucide-react";
 import WeightLogForm from "./WeightLogForm";
 import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
-
-type HealthProps = {
-  id: string; // Pet ID for logging purposes
-  weight: number | null;
-  name: string; // Optional name for the pet, if needed
-   unit?: string;
-  weightLogs?: WeightLog[];
-
-};
 
 type WeightLog = {
   weight: number;
   unit: "kg" | "lb";
-  date: Date;
+  date: Date; 
 };
 
-export default function Health({ weight, name, id }: HealthProps) {
+type HealthProps = {
+  id: string;
+  weight: number | null;
+  name: string;
+  unit?: string;
+  weightLogs?: WeightLog[];
+};
+
+export default function Health({ weight, name, id, weightLogs }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
   const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
-  // onSubmit handler for WeightLogForm
-  async function handleWeightLogSubmit(data: WeightLogInput) {
-  try {
-    const response = await fetch("/api/weight-log", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  const [latestWeightDate, setLatestWeightDate] = useState<Date | null>(null);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Error creating weight log:", errorData);
-      return; // or show a toast/error message
+  // Initialize from weightLogs if provided
+  useEffect(() => {
+    if (weightLogs && weightLogs.length > 0) {
+      const sortedLogs = [...weightLogs].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      setCurrentWeight(sortedLogs[0].weight);
+      setLatestWeightDate(new Date(sortedLogs[0].date));
+    } else if (weight != null) {
+      // Fallback if no logs but initial weight exists
+      setCurrentWeight(weight);
+      setLatestWeightDate(new Date());
     }
+  }, [weightLogs, weight]);
 
-    const createdLog = await response.json();
-    console.log("Weight log created:", createdLog);
+  // Submit handler
+  async function handleWeightLogSubmit(data: WeightLogInput) {
+    try {
+      const response = await fetch("/api/weight-log", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Close the form and update state
-    setIsWeightLogOpen(false);
-    setCurrentWeight(createdLog.weight);
-  } catch (error) {
-    console.error("Unexpected error:", error);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error creating weight log:", errorData);
+        return;
+      }
+
+      const createdLog = await response.json();
+      console.log("Weight log created:", createdLog);
+
+      // Close the form
+      setIsWeightLogOpen(false);
+
+      // Compare new date to latest
+      const newLogDate = new Date(createdLog.date);
+      if (!latestWeightDate || newLogDate > latestWeightDate) {
+        setCurrentWeight(createdLog.weight);
+        setLatestWeightDate(newLogDate);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
   }
-}
-
 
   return (
     <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
@@ -59,7 +80,9 @@ export default function Health({ weight, name, id }: HealthProps) {
           <div className="w-9 h-9 rounded-full bg-yellow-100 flex items-center justify-center">
             <ScanHeart className="w-5 h-5" />
           </div>
-          <h2 className="text-lg md:text-2xl font-semibold text-purple-700">Health Overview</h2>
+          <h2 className="text-lg md:text-2xl font-semibold text-purple-700">
+            Health Overview
+          </h2>
         </div>
 
         <button
@@ -92,7 +115,7 @@ export default function Health({ weight, name, id }: HealthProps) {
         isOpen={isWeightLogOpen}
         onClose={() => setIsWeightLogOpen(false)}
         name={name}
-        onSubmit={handleWeightLogSubmit} // Pass the submit handler here
+        onSubmit={handleWeightLogSubmit}
       />
     </div>
   );
