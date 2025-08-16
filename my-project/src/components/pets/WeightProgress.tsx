@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, { useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import { TrendingUp, Scale } from "lucide-react";
+import { TrendingUp, TrendingDown, Scale } from "lucide-react";
 
 type WeightProgressProps = {
   data?: { date: string; weight: number }[];
@@ -19,10 +19,21 @@ type WeightProgressProps = {
 export default function WeightProgress({
   data = [],
   unit = "kg",
-}: WeightProgressProps)
-{
-    //Reverse the data order for correct chronological display
+}: WeightProgressProps) {
+  // Reverse for correct chronological chart
   const reversedData = [...data].reverse();
+
+  // Calculate trend between last two logged weights
+  const trend = useMemo(() => {
+    if (data.length < 2) return null;
+    const [latest, prev] = data; // data is newest first from parent
+    const diff = latest.weight - prev.weight;
+    return diff === 0
+      ? { type: "same", diff }
+      : diff > 0
+      ? { type: "gain", diff }
+      : { type: "loss", diff: Math.abs(diff) };
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
@@ -36,16 +47,34 @@ export default function WeightProgress({
             Weight Progress
           </h2>
         </div>
+
+        {trend && (
+          <div
+            className={`flex items-center gap-1 text-sm font-medium ${
+              trend.type === "gain"
+                ? "text-red-500"
+                : trend.type === "loss"
+                ? "text-green-500"
+                : "text-gray-500"
+            }`}
+          >
+            {trend.type === "gain" && <TrendingUp className="w-4 h-4" />}
+            {trend.type === "loss" && <TrendingDown className="w-4 h-4" />}
+            {trend.type === "gain" && `Gained ${trend.diff.toFixed(1)} ${unit}`}
+            {trend.type === "loss" && `Lost ${trend.diff.toFixed(1)} ${unit}`}
+            {trend.type === "same" && "No change"}
+          </div>
+        )}
       </div>
 
       {/* Chart or Placeholder */}
       <div className="flex justify-center items-center py-4 h-60">
         {data.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={reversedData}
+            <LineChart
+              data={reversedData}
               margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            
-              >
+            >
               <defs>
                 <linearGradient id="weightGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.8} />
