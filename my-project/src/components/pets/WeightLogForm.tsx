@@ -12,7 +12,7 @@ type WeightLogFormProps = {
   isOpen: boolean;
   onClose: () => void;
   name: string;
-  onSubmit: (data: WeightLogInput) => void;
+  onSubmit: (data: WeightLogInput) => Promise<void>; // Function to handle form submission
 };
 
 export default function WeightLogForm({
@@ -23,14 +23,13 @@ export default function WeightLogForm({
   name,
   onSubmit,
 }: WeightLogFormProps) {
-  const [unit, setUnit] = useState<"kg" | "lb">("kg");
+  const [unit, _setUnit] = useState<"kg" | "lb">("kg");
+  const [submitting, setSubmitting] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
 
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<WeightLogInput>({
     resolver: zodResolver(weightLogSchema),
@@ -42,27 +41,6 @@ export default function WeightLogForm({
       notes: "",
     },
   });
-
-  // Convert weight when unit changes
-  const handleUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newUnit = e.target.value as "kg" | "lb";
-    const currentWeight = watch("weight");
-
-    if (currentWeight != null && !isNaN(currentWeight)) {
-      let convertedWeight = currentWeight;
-
-      if (unit === "kg" && newUnit === "lb") {
-        convertedWeight = +(currentWeight * 2.20462).toFixed(2);
-      } else if (unit === "lb" && newUnit === "kg") {
-        convertedWeight = +(currentWeight / 2.20462).toFixed(2);
-      }
-
-      setValue("weight", convertedWeight);
-    }
-
-    setUnit(newUnit);
-    setValue("unit", newUnit);
-  };
 
   useEffect(() => {
     if (isOpen && formRef.current) {
@@ -78,12 +56,16 @@ export default function WeightLogForm({
       className="w-full max-w-md mx-auto bg-white border border-purple-200 rounded-2xl shadow-xl p-6 transition-all"
     >
       <form
-  onSubmit={handleSubmit((data) => {
-    console.log("Submit triggered"); // <- see if this prints
-    onSubmit(data);
-  })}
->
-
+        onSubmit={handleSubmit(async (data) => {
+          if (submitting) return; // Prevent double submission
+          setSubmitting(true);
+          try {
+            await onSubmit(data); // Wait for save
+          } finally {
+            setSubmitting(false); // Re-enable button
+          }
+        })}
+      >
         <div className="flex flex-col gap-6">
           {/* Title */}
           <h2 className="flex flex-row gap-2 justify-center text-center text-lg font-semibold text-purple-600">
@@ -107,23 +89,15 @@ export default function WeightLogForm({
                 }`}
                 placeholder="Enter weight"
               />
-
-              {/* Unit Selector by default kg */}
-          <input
-  {...register("unit")}
-  value={unit}
-  readOnly
-  className="px-0 py-0 bg-transparent border-none text-gray-700 pointer-events-none select-none w-auto"
-  style={{ width: "auto" }}
-/>
-
+              <input
+                {...register("unit")}
+                value={unit}
+                readOnly
+                className="px-0 py-0 bg-transparent border-none text-gray-700 pointer-events-none select-none w-auto"
+                style={{ width: "auto" }}
+              />
             </div>
-            {errors.weight && (
-              <p className="text-red-500 text-xs mt-1">{errors.weight.message}</p>
-            )}
-            {errors.unit && (
-              <p className="text-red-500 text-xs mt-1">{errors.unit.message}</p>
-            )}
+            {errors.weight && <p className="text-red-500 text-xs mt-1">{errors.weight.message}</p>}
           </div>
 
           {/* Date Input */}
@@ -139,9 +113,7 @@ export default function WeightLogForm({
                 errors.date ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-purple-500"
               }`}
             />
-            {errors.date && (
-              <p className="text-red-500 text-xs mt-1">{errors.date.message}</p>
-            )}
+            {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date.message}</p>}
           </div>
 
           {/* Notes */}
@@ -158,23 +130,27 @@ export default function WeightLogForm({
               }`}
               placeholder="Add any notes or observations"
             ></textarea>
-            {errors.notes && (
-              <p className="text-red-500 text-xs mt-1">{errors.notes.message}</p>
-            )}
+            {errors.notes && <p className="text-red-500 text-xs mt-1">{errors.notes.message}</p>}
           </div>
 
           {/* Buttons */}
           <div className="flex justify-between gap-2 pt-2">
             <button
               type="submit"
-              className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white font-medium rounded-md shadow hover:bg-purple-600 transition-colors"
+              disabled={submitting}
+              className={`flex items-center gap-2 px-4 py-2 font-medium rounded-md shadow transition-colors ${
+                submitting
+                  ? "bg-purple-300 cursor-not-allowed text-white"
+                  : "bg-purple-500 hover:bg-purple-600 text-white"
+              }`}
             >
               <Save size={18} />
-              Save Weight
+              {submitting ? "Saving..." : "Save Weight"}
             </button>
             <button
               type="button"
               onClick={onClose}
+              disabled={submitting}
               className="px-4 py-2 text-purple-500 border border-purple-300 font-medium rounded-md hover:bg-purple-50 transition-colors"
             >
               Cancel
