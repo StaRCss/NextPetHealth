@@ -37,6 +37,7 @@ export default async function PetDetailsPage({
     include: {
       weightLogs: {
         orderBy: { date: "desc" },
+        
       },
     },
   });
@@ -103,6 +104,7 @@ export default async function PetDetailsPage({
                 weightLogs={pet.weightLogs} // pass all logs for charts
               />
               <WeightProgress
+                petId={pet.id}
                 data ={pet.weightLogs.map(log => ({
                 date: dayjs(log.date).format("MMM DD"),
                 weight: log.weight,

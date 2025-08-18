@@ -30,9 +30,9 @@ const NavItem: React.FC<{ href: string; icon: StaticImageData; alt: string; }> =
 // Define your nav items in an array
 const navItems = [
   { href: '/dashboard/pets', icon: petsIcon, alt: 'Go to My Pets Page' },
-  { href: '/dashboard/Nutrition', icon: nutritionIcon, alt: 'Go to Nutrition' },
+  
   { component: <AddPetButton /> }, // special item
-  { href: '/dashboard/Health', icon: calendarIcon, alt: 'Go to Health Calendar' },
+  
   { href: '/signout', icon: settingsIcon, alt: 'Go to Settings' },
 ];
 

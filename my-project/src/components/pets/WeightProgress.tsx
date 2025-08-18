@@ -10,15 +10,19 @@ import {
   CartesianGrid,
 } from "recharts";
 import { TrendingUp, TrendingDown, Scale } from "lucide-react";
+import Link from "next/link";
+
 
 type WeightProgressProps = {
   data?: { date: string; weight: number }[];
   unit?: string; // optional unit for Y-axis & tooltip
+  petId: string; 
 };
 
 export default function WeightProgress({
   data = [],
   unit = "kg",
+  petId,
 }: WeightProgressProps) {
   // Reverse for correct chronological chart
   const reversedData = [...data].reverse();
@@ -46,6 +50,15 @@ export default function WeightProgress({
           <h2 className="text-lg md:text-2xl font-semibold text-purple-700">
             Weight Progress
           </h2>
+        </div> 
+
+        < div className="flex items-center text-xs font-semibold p-2 ml-4 text-purple-600 rounded-md hover:bg-purple-50">
+
+        <Link
+            href={`/dashboard/pets/${petId}/weight-history`}
+          >
+          View History
+        </Link>
         </div>
 
         {trend && (
