@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { prisma } from "@/lib/prisma";
+import WeightHistoryCard from "@/components/pets/WeightHistoryCard";
 
 export default async function WeightHistory({
   params,
@@ -39,7 +40,7 @@ export default async function WeightHistory({
   }
 
   return (
-    <div className="p-6 mt-20 bg-white rounded-lg shadow-md">
+    <div className="p-6 bg-white rounded-lg shadow-md h-full">
       {/* Header with Back button */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">{pet.name}&apos;s Weight History</h1>
@@ -52,21 +53,21 @@ export default async function WeightHistory({
       </div>
 
       {/* Logs */}
-      {pet.weightLogs.length === 0 ? (
-        <p className="text-gray-500 italic">No weight logs yet.</p>
-      ) : (
-        <ul className="space-y-2">
-          {pet.weightLogs.map((log) => (
-            <li
+      <div className="space-y-4">
+        {pet.weightLogs.length === 0 ? (
+          <p className="text-gray-500 italic">No weight logs yet.</p>
+        ) : (
+          pet.weightLogs.map((log) => (
+            <WeightHistoryCard
               key={log.id}
-              className="flex justify-between border-b pb-2 text-sm text-gray-700"
-            >
-              <span>{log.date.toDateString()}</span>
-              <span>{log.weight} kg</span>
-            </li>
-          ))}
-        </ul>
-      )}
+              date={log.date}
+              weight={log.weight}
+              unit={log.unit}
+              notes={log.notes}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 }
