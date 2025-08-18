@@ -37,7 +37,7 @@ export default async function PetDetailsPage({
     include: {
       weightLogs: {
         orderBy: { date: "desc" },
-        
+        take: 10, // Limit to last 10 logs for performance
       },
     },
   });
