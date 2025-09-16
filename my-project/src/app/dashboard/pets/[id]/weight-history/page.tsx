@@ -40,7 +40,7 @@ export default async function WeightHistory({
   }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md h-full">
+    <div className="p-6 mb-10 bg-white rounded-lg shadow-md h-full">
       {/* Header with Back button */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">{pet.name}&apos;s Weight History</h1>
@@ -60,10 +60,12 @@ export default async function WeightHistory({
           pet.weightLogs.map((log) => (
             <WeightHistoryCard
               key={log.id}
+              logId ={log.id}
               date={log.date}
               weight={log.weight}
               unit={log.unit}
               notes={log.notes}
+              
             />
           ))
         )}
