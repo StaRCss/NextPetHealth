@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx'], // your existing config
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'], // your pages
   images: {
-    domains: ['res.cloudinary.com'], // allow Cloudinary images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
   },
 };
 
