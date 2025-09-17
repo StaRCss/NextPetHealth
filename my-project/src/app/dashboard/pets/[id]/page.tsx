@@ -2,7 +2,7 @@
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
-import { prisma } from "@/lib/prisma";
+import  prisma  from "@/lib/prisma";
 import PetDetailsCard from "@/components/pets/PetDetailsCard";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";

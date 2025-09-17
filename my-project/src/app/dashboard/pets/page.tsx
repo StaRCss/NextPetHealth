@@ -3,10 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { redirect } from "next/navigation";
 import PetCard from "@/components/pets/PetCard";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import dayjs from "dayjs";
-
-const prisma = new PrismaClient();
 
 const bgColors = [
   "bg-fuchsia-300",
@@ -23,7 +21,7 @@ export default async function MyPetsPage() {
     redirect("/login");
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: { email: session.user.email },
     select : {
       id: true,

@@ -3,11 +3,9 @@ import { NextResponse } from 'next/server';
 import { petFormSchema } from '@/lib/validations/PetFormSchema';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/validations/auth/authOptions';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { PetFormValues } from '@/components/pets/AddPetForm';
-
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 function normalizeData(data: PetFormValues): PetFormValues {
   return {
@@ -32,7 +30,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     const parsed = petFormSchema.parse(body);
     const data = normalizeData(parsed);
 
-    const existingPet = await prisma.pet.findUnique({
+    const existingPet = await prisma.pet.findFirst({
       where: {
         id: petId,
         ownerId: session.user.id, // Ensure user owns the pet

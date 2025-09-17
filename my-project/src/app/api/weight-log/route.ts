@@ -3,7 +3,7 @@ import { z } from "zod";
 import { weightLogSchema } from "@/lib/validations/WeightLogSchema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
-import { prisma } from "@/lib/prisma";
+import  prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
