@@ -1,20 +1,27 @@
 import { imageUploadSchema } from "@/lib/validations/imageUploadSchema";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma"; // updated to singleton pattern
 import { authOptions } from "@/lib/auth/authOptions";
 import { fileTypeFromBuffer } from "file-type";
 import path from "path";
 import cloudinary from "@/lib/cloudinary";
 
-const prisma = new PrismaClient();
+const isDev = process.env.NODE_ENV !== "production";
+
+/**
+ * Helper for development-only logging
+ */
+function devLog(...args: unknown[]) {
+  if (isDev) console.log(...args);
+}
 
 export async function POST(req: Request) {
-  console.log("🔐 Starting image upload...");
+  devLog("🔐 Starting image upload...");
 
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log("❌ No session found.");
+    devLog("❌ No session found.");
     return NextResponse.json(
       { message: "You must be logged in to upload an image." },
       { status: 401 }
@@ -26,10 +33,10 @@ export async function POST(req: Request) {
     const image = formData.get("image") as File | null;
     const petId = formData.get("petId") as string;
 
-    console.log("📦 Form data received:", { petId, imageType: image?.type });
+    devLog("📦 Form data received:", { petId, imageType: image?.type });
 
     if (!image) {
-      console.log("❌ No image file provided.");
+      devLog("❌ No image file provided.");
       return NextResponse.json(
         { message: "No image file provided." },
         { status: 400 }
@@ -38,9 +45,9 @@ export async function POST(req: Request) {
 
     // ✅ Step 1: Zod validation
     const validation = imageUploadSchema.safeParse({ image });
-    console.log("🧪 Validation result:", validation.success);
+    devLog("🧪 Validation result:", validation.success);
     if (!validation.success) {
-      console.log("❌ Validation errors:", validation.error.flatten());
+      devLog("❌ Validation errors:", validation.error.flatten());
       return NextResponse.json(
         { errors: validation.error.flatten() },
         { status: 400 }
@@ -56,23 +63,23 @@ export async function POST(req: Request) {
     });
 
     if (!pet) {
-      console.log("❌ Pet not found or unauthorized.");
+      devLog("❌ Pet not found or unauthorized.");
       return NextResponse.json(
         { message: "Pet not found or unauthorized." },
         { status: 404 }
       );
     }
 
-    console.log("✅ Pet found:", pet.name);
+    devLog("✅ Pet found:", pet.name);
 
     // ✅ Step 3: Convert image to buffer and verify MIME type
     const imageBuffer = Buffer.from(await image.arrayBuffer());
     const fileTypeResult = await fileTypeFromBuffer(imageBuffer);
 
-    console.log("📂 Detected file type:", fileTypeResult);
+    devLog("📂 Detected file type:", fileTypeResult);
 
     if (!fileTypeResult || !fileTypeResult.mime.startsWith("image/")) {
-      console.log("❌ Invalid MIME type.");
+      devLog("❌ Invalid MIME type.");
       return NextResponse.json(
         { message: "Upload file is not a valid image." },
         { status: 400 }
@@ -81,7 +88,7 @@ export async function POST(req: Request) {
 
     const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
     if (!allowedTypes.includes(fileTypeResult.mime)) {
-      console.log("❌ File type not allowed:", fileTypeResult.mime);
+      devLog("❌ File type not allowed:", fileTypeResult.mime);
       return NextResponse.json(
         { message: "Image must be png, jpg, or webp." },
         { status: 400 }
@@ -94,32 +101,31 @@ export async function POST(req: Request) {
       .replace(/[^a-z0-9_.-]/gi, "_")
       .toLowerCase();
 
-    console.log("🧼 Sanitized base name:", baseName);
+    devLog("🧼 Sanitized base name:", baseName);
 
     // ✅ Step 5: Upload to Cloudinary
-    console.log("☁️ Uploading to Cloudinary...");
+    devLog("☁️ Uploading to Cloudinary...");
 
     const uploadedImage = await new Promise<any>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          
-          public_id: `pets/${petId}`, // Put image inside "pets" folder with petId as filename
-          overwrite: true,           // Always replace existing image
+          public_id: `pets/${petId}`,
+          overwrite: true,
           resource_type: "image",
         },
         (error, result) => {
-          if (error) {
-            console.log("❌ Cloudinary error:", error);
-            return reject(error);
-          }
+          if (error) return reject(error);
           resolve(result);
         }
       );
-
       stream.end(imageBuffer);
     });
 
-    console.log("✅ Cloudinary upload result:", uploadedImage);
+    // ✅ Safe dev logging only
+    devLog("✅ Cloudinary upload successful:", {
+      public_id: uploadedImage.public_id,
+      secure_url: uploadedImage.secure_url,
+    });
 
     const imageUrl = uploadedImage.secure_url;
 
@@ -129,14 +135,14 @@ export async function POST(req: Request) {
       data: { image: imageUrl },
     });
 
-    console.log("✅ DB updated with new image URL");
+    devLog("✅ DB updated with new image URL");
 
     return NextResponse.json(
       { message: "Image uploaded successfully", pet: updatedPet },
       { status: 200 }
     );
   } catch (error) {
-    console.error("❌ Image upload error:", error);
+    if (isDev) console.error("❌ Image upload error:", error);
     return NextResponse.json(
       { message: "An unexpected error occurred." },
       { status: 500 }
