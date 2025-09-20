@@ -4,14 +4,14 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 
-interface PetFormSchema {
+interface PetFormFields {
   name: string;
   breed?: string | null;
   gender?: string | null;
   birthday: string;
 }
 
-export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, PetFormSchema> = z.object({
+export const petFormSchema = z.object({
 
   name: z
     .string()
@@ -26,12 +26,12 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
     .nullable()
     .refine(
       (val) => !val || (val.length >= 2 && val.length <= 40),
-      { message: "Breed must be between 2 and 40 characters if provided" }
+      { error: "Breed must be between 2 and 40 characters if provided" }
     )
     .transform((val) => val?.trim() || null)
     .refine(
       (val) => !val || /^[A-Za-z\s]*$/.test(val),
-      { message: "Breed should only contain letters and spaces" }
+      { error: "Breed should only contain letters and spaces" }
     ),
 
   gender: z
@@ -41,7 +41,7 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
     .transform((val) => val?.trim() || null) // convert empty or spaces to null
     .refine(
       (val) => !val || ['male', 'female'].includes(val),
-      { message: "Gender must be 'male' or 'female' if provided" }
+      { error: "Gender must be 'male' or 'female' if provided" }
     ),
 
   birthday: z
@@ -49,7 +49,9 @@ export const petFormSchema: z.ZodObject<z.ZodRawShape, "strip", z.ZodTypeAny, Pe
     .min(1, "Birthday must be provided")
     .refine(
       (val) => dayjs(val).isSameOrBefore(dayjs(), 'day'),
-      { message: "Birthday can't be in the future" }
+      { error: "Birthday can't be in the future" }
     ),
 
 });
+
+export type PetFormSchema = z.infer<typeof petFormSchema>;
