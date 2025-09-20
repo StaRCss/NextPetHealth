@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const weightLogSchema = z.object({
 
-  petId: z.string().uuid("Invalid pet ID format"),
+  petId: z.uuid("Invalid pet ID format"),
 
   weight: z
     .number()
@@ -10,18 +10,16 @@ export const weightLogSchema = z.object({
     .max(1000, "Weight must not exceed 1000 kg"),
 
   unit: z.enum(["kg", "lb"], {
-    errorMap: () => ({ message: "Invalid unit. Use 'kg' or 'lb'." }),
+    message: "Invalid unit. Use 'kg' or 'lb'."
   }),
 
-  // Use z.coerce.date() to convert string input to Date object automatically
- date: z
-  .coerce.date()
-  .refine((date) => !isNaN(date.getTime()), {
-    message: "Invalid date format",
-  })
-  .refine((date) => date <= new Date(), {
-    message: "Date cannot be in the future",
-  }),
+date: z.coerce.date().refine(
+  (date) => !isNaN(date.getTime()),
+  { message: "Invalid date format" }
+).refine(
+  (date) => date <= new Date(),
+  { message: "Date cannot be in the future" }
+),
 
 
   notes: z

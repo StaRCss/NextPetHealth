@@ -38,7 +38,7 @@ export default function WeightLogForm({
       weight: weight ?? undefined,
       unit: unit,
       date: getCurrentDate(),
-      notes: "",
+      notes: null,
     },
   });
 
