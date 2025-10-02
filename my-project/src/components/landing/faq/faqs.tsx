@@ -27,6 +27,7 @@ export default function FAQs() {
 
         {FAQsData.map((faq, index) => (
           <details
+          name="notes"
             key={index}
             className="group bg-slate-50 transition-all mb-4 border rounded-lg p-4"
           >
