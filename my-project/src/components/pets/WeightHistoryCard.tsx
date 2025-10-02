@@ -20,6 +20,7 @@ export default function WeightHistoryCard({
 }: WeightHistoryCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Current displayed values
   const [currentWeight, setCurrentWeight] = useState(weight);
@@ -83,7 +84,10 @@ export default function WeightHistoryCard({
               >
                 <SquarePen size={20} />
               </button>
-              <button className="text-red-600 hover:underline">
+              <button 
+              className="text-red-600 hover:underline"
+              onClick= {() => setIsDeleting(true)}
+              >
                 <Trash2 size={20} />
               </button>
             </div>
@@ -141,6 +145,47 @@ export default function WeightHistoryCard({
               onClick={handleCancel}
               disabled={isLoading}
             >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      {isDeleting && (
+        <div className="flex flex-col gap-4">
+          <p className="text-red-600 font-semibold">Are you sure you want to delete this weight log?</p>
+          <div className="flex gap-2">
+            <button
+              className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50" 
+              onClick={async () => {
+                setIsLoading(true);
+                try {
+                  const res = await fetch(`/api/weight-log/${logId}`, {
+                    method: "DELETE",
+                  });
+
+                  if (!res.ok) {
+                    throw new Error("Failed to delete weight log");
+                  } else {
+                    // Optionally, you can add a callback to remove the card from the UI
+                    alert("Weight log deleted successfully.");
+                  }   
+                } catch (err) {
+                  console.error(err);
+                  alert("Something went wrong while deleting.");
+                } finally {
+                  setIsLoading(false);
+                  setIsDeleting(false);
+                }
+              }}
+              disabled={isLoading}
+            >
+              {isLoading ? "Deleting..." : "Delete"}
+            </button>
+            <button
+              className="px-3 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50" 
+              onClick={() => setIsDeleting(false)}
+              disabled={isLoading}
+            > 
               Cancel
             </button>
           </div>
