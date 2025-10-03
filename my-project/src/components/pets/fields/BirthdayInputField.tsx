@@ -24,7 +24,7 @@ const BirthdayInputField: React.FC = () => {
     <div className="flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%] mt-4 mb-4 select-none">
       <label
         htmlFor="birthday"
-        className="block text-sm font-medium text-center text-gray-700 mb-2"
+        className="block text-sm font-medium text-center text-text-light dark:text-text-dark mb-2"
       >
         Pet Birthday
       </label>
@@ -56,13 +56,17 @@ const BirthdayInputField: React.FC = () => {
             tabIndex={0}
             required
             clearable
+            /** ✅ Use classNames for Tailwind dark mode */
+            classNames={{
+              input:
+                "rounded-xl h-[42px] bg-white dark:bg-zinc-700 text-black dark:text-white focus:ring-2 focus:ring-purple-400]",
+            }}
+            /** ✅ Keep dynamic border inline */
             styles={{
               input: {
-                borderRadius: "16px",
-                height: "42px",
-                backgroundColor: "white",
                 border: `2px solid ${borderColor}`,
               },
+
             }}
           />
         )}

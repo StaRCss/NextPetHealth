@@ -93,7 +93,7 @@ setError(null);
   return (
     <form onSubmit={handleSave}>
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
+      <div className="bg-cardBg-light dark:bg-cardBg-dark rounded-lg p-6 max-w-md w-full relative">
         <button
           className="absolute top-4 right-4 text-purple-500 hover:text-purple-700"
           onClick={() => { onClose(); setPreview(null); setError(null); setSuccessfullySubmitted(false); }}

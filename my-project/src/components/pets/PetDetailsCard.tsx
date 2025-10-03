@@ -30,7 +30,7 @@ export default function PetDetailsCard({
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 relative">
+    <div className="flex flex-col items-center w-full bg-cardBg-light dark:bg-cardBg-dark border-purple-200 dark:border-neutral-800 rounded-2xl shadow-md p-4 relative">
 
       {/* Edit Button */}
       <button
@@ -67,7 +67,7 @@ export default function PetDetailsCard({
       </div>
 
       {/* Name */}
-      <h2 className="text-lg md:text-xl font-semibold text-purple-700 mt-4">{name}</h2>
+      <h2 className="text-lg md:text-xl font-semibold text-purple-500 dark:text-text-dark mt-4">{name}</h2>
 
       {/* Info Pills */}
       <div className="flex flex-wrap justify-center gap-2 px-4 mt-2">

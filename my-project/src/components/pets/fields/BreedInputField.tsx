@@ -14,7 +14,7 @@ const BreedInputField: React.FC = () => {
     <div className="flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%] ml-0 mt-4 mb-4 select-none">
       <label
         htmlFor="pet-breed"
-        className="block text-sm font-medium text-center text-gray-700 mb-2 select-none"
+        className="block text-sm font-medium text-center text-text-light dark:text-text-dark mb-2 select-none"
       >
         Pet Breed
       </label>
@@ -26,7 +26,7 @@ const BreedInputField: React.FC = () => {
         placeholder="European Shorthair Orange Tabby"
         aria-invalid={!!errors.breed}
         aria-describedby="breed-error"
-        className={`w-full px-4 py-2 border rounded-2xl focus:outline-none ${
+        className={`w-full dark:bg-zinc-700 px-4 py-2 border rounded-2xl focus:outline-none ${
           breedValue?.trim()
             ? errors.breed
               ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"

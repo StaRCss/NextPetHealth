@@ -78,9 +78,9 @@ export default function EditBasicModal({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
+      <div className="bg-white dark:bg-cardBg-dark rounded-lg p-6 max-w-md w-full relative">
         <button
-          className="absolute top-4 right-4 text-purple-500 hover:text-purple-700"
+          className="absolute top-4 right-4 text-purple-500 hover:text-purple-700 dark:text-violet-400 dark:hover:text-violet-600"
           onClick={() => { onClose(); setSuccessfullySubmitted(false); }}
           aria-label="Close Form"
         >
@@ -88,7 +88,8 @@ export default function EditBasicModal({
         </button>
 
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleSave)}>
+          <form onSubmit={methods.handleSubmit(handleSave)}
+            className="dark:text-text-dark">
             <div className="flex flex-col items-center border-t border-b border-gray-300 gap-4 pb-4 mt-8">
               <NameInputField />
               <GenderCheckboxField/>

@@ -12,7 +12,7 @@ const GenderField: React.FC = () => {
 
   return (
     <fieldset className="flex flex-col items-center w-full max-w-full mt-0 mb-4 select-none">
-      <legend className="block text-sm font-medium text-gray-700 mb-4 text-center">
+      <legend className="block text-sm font-medium text-gray-700 dark:text-text-dark mb-4 text-center">
         Gender
       </legend>
 
@@ -24,9 +24,9 @@ const GenderField: React.FC = () => {
             id="gender-male"
             type="radio"
             value="male"
-            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500"
+            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500 dark:bg-zinc-700"
           />
-          <span className="text-gray-700">Male</span>
+          <span className="text-text-light dark:text-text-dark">Male</span>
         </label>
 
         {/* Female */}
@@ -36,9 +36,9 @@ const GenderField: React.FC = () => {
             id="gender-female"
             type="radio"
             value="female"
-            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500"
+            className="form-radio h-6 w-6 text-green-500 rounded focus:ring-2 focus:ring-green-500 dark:bg-zinc-700"
           />
-          <span className="text-gray-700">Female</span>
+          <span className="text-text-light dark:text-text-dark">Female</span>
         </label>
       </div>
     </fieldset>
