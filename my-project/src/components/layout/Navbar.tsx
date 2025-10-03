@@ -40,7 +40,7 @@ const MobileMenu: React.FC = () => {
   const numberOfItems = navItems.length;
 
   return (
-    <div className="fixed z-50 w-full px-[15px] max-w-full h-16 md:h-20 border-black -translate-x-1/2 bg-blue-400 left-1/2 dark:bg-gray-500 backdrop-blue-md dark:border-black bottom-0 md:top-0 bg-opacity-90">
+    <div className="fixed z-50 w-full px-[15px] max-w-full h-16 md:h-20 border-black -translate-x-1/2 bg-blue-400 left-1/2 dark:bg-gray-700 backdrop-blue-md dark:border-black bottom-0 md:top-0 bg-opacity-90">
       <div
         className={`grid h-full max-w-screen-md mx-auto items-center justify-items-center gap-3 px-4 mb-6`}
         style={{ gridTemplateColumns: `repeat(${numberOfItems}, minmax(0, 1fr))` }}
