@@ -51,26 +51,7 @@ export default async function PetDetailsPage({
   const age = dayjs().diff(dayjs(pet.birthday), "year");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F9F5FF] to-white py-10 px-4 sm:px-6 lg:px-8 mb-14">
-      {/* Top Bar */}
-      <div className="max-w-6xl mx-auto mb-8 md:mt-10">
-        <div className="flex items-center gap-4">
-          <Link
-            href="/dashboard/pets"
-            className="text-[#7F56D9] hover:bg-[#F9F5FF] p-2 rounded-full"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#53389E]">
-              {pet.name}&rsquo;s Profile
-            </h1>
-            <p className="text-[#9E77ED] text-sm md:text-base">
-              Complete health & nutrition overview
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-purple-200 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
 
       {/* Two-Column Layout */}
       <div className="max-w-6xl mx-auto">
