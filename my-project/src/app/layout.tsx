@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-screen bg-gray-100 text-gray-800 font-sans">
+      <body className="min-h-screen bg-purple-200 dark:bg-pageBg-dark text-gray-800 font-sans">
         <Providers>
           {children}
         </Providers>
