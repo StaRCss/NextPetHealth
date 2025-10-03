@@ -39,11 +39,13 @@ export default async function WeightHistory({
     notFound();
   }
 
+  
+
   return (
-    <div className="p-6 mb-10 bg-white rounded-lg shadow-md h-full">
+    <div className="p-6 mb-10 bg-violet-200 dark:bg-pageBg-dark rounded-lg shadow-md h-full">
       {/* Header with Back button */}
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold">{pet.name}&apos;s Weight History</h1>
+        <h1 className="text- text-text-light dark:text-text-dark font-bold">{pet.name}&apos;s Weight History</h1>
         <Link
           href={`/dashboard/pets/${petId}`}
           className="px-3 py-1.5 text-sm font-medium text-purple-600 border border-purple-300 rounded-lg hover:bg-purple-50 transition-colors"

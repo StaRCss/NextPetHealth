@@ -63,10 +63,10 @@ export default function WeightHistoryCard({
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
+    <div className="flex flex-col gap-2 w-full bg-cardBg-light dark:bg-cardBg-dark border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
       {!isEditing ? (
         <>
-          <div className="flex items-center justify-between text-sm text-gray-500">
+          <div className="flex items-center justify-between text-sm text-gray-500 dark:text-stone-300">
             <div className="flex items-center gap-2">
               <Calendar size={14} />
               <span className="font-semibold">
@@ -77,32 +77,32 @@ export default function WeightHistoryCard({
                 }).format(new Date(date))}
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <button
-                className="text-purple-600 hover:underline"
+                className="text-violet-500 dark:text-violet-300 hover:underline"
                 onClick={() => setIsEditing(true)}
               >
-                <SquarePen size={20} />
+                <SquarePen size={25} />
               </button>
               <button 
-              className="text-red-600 hover:underline"
+              className="text-red-600 dark:text-rose-600 text-lg hover:underline"
               onClick= {() => setIsDeleting(true)}
               >
-                <Trash2 size={20} />
+                <Trash2 size={25} />
               </button>
             </div>
           </div>
 
-          <div className="text-xl font-bold text-purple-500">
+          <div className="text-xl font-bold text-purple-500 dark:text-purple-300">
             {currentWeight} {unit}
           </div>
-          <p className="px-4 py-1 bg-purple-100 text-md text-gray-500 italic min-h-[1.5rem] break-words whitespace-normal">
+          <p className="px-4 py-1 bg-cardBg-light dark:bg-zinc-900 text-md text-gray-500 dark:text-text-dark italic min-h-[1.5rem] break-words whitespace-normal">
             {currentNotes || "\u00A0"}
           </p>
         </>
       ) : (
         <div className="flex flex-col gap-2">
-          <span className="flex items-center gap-2 text-sm text-gray-500 font-semibold">
+          <span className="flex items-center gap-2 text-sm text-gray-500 dark:text-text-dark font-semibold">
             <Calendar size={14} />
             {new Intl.DateTimeFormat("en-US", {
               month: "short",
@@ -111,37 +111,37 @@ export default function WeightHistoryCard({
             }).format(new Date(date))}
           </span>
 
-          <label className="flex flex-col text-sm">
+          <label className="flex flex-col text-sm dark:text-text-dark">
             Weight ({unit}):
             <input
               type="number"
               value={editWeight}
               onChange={(e) => setEditWeight(Number(e.target.value))}
-              className="border border-gray-300 rounded px-2 py-1 mt-1"
+              className="border border-gray-300 rounded px-2 py-1 mt-1 dark:bg-cardBg-dark"
               disabled={isLoading}
             />
           </label>
 
-          <label className="flex flex-col text-sm">
+          <label className="flex flex-col text-sm dark:text-text-dark">
             Notes:
             <textarea
               value={editNotes}
               onChange={(e) => setEditNotes(e.target.value)}
-              className="border border-gray-300 rounded px-2 py-1 mt-1"
+              className="border border-gray-300 rounded px-2 py-1 mt-1 dark:bg-cardBg-dark"
               disabled={isLoading}
             />
           </label>
 
           <div className="flex gap-2">
             <button
-              className="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 disabled:opacity-50"
+              className="px-3 py-1 bg-purple-400 dark:bg-fuchsia-400 text-black rounded hover:bg-purple-500 dark:hover:bg-fuchsia-500 disabled:opacity-50"
               onClick={handleSave}
               disabled={isLoading}
             >
               {isLoading ? "Saving..." : "Save"}
             </button>
             <button
-              className="px-3 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50"
+              className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400 disabled:opacity-50"
               onClick={handleCancel}
               disabled={isLoading}
             >
@@ -167,7 +167,7 @@ export default function WeightHistoryCard({
                     throw new Error("Failed to delete weight log");
                   } else {
                     // Optionally, you can add a callback to remove the card from the UI
-                    alert("Weight log deleted successfully.");
+                    window.location.reload();
                   }   
                 } catch (err) {
                   console.error(err);
