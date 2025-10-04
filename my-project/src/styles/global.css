@@ -9,7 +9,6 @@
 body {
     font-size: 16px;
     line-height: 1.5;
-    background: linear-gradient(90deg, #90f5e1, #21d3f9 100%, #04caff); /* Page background color */
     color: #333;
     padding: 0;
 }
@@ -99,3 +98,15 @@ summary::-webkit-details-marker {
 #mobilenav {
     scroll-margin-top : -100px;
 }
+
+.dark {
+    background-color: rgb(12, 12, 12);
+}
+
+/* Hide arrows in number input for Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
