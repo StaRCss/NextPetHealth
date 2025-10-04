@@ -173,7 +173,11 @@ export default function WeightLogForm({
             </button>
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                reset();
+                onClose();
+              }}
+              
               disabled={submitting}
               className="px-4 py-2 text-purple-500 dark:text-purple-300 border border-purple-300 font-medium rounded-md hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors"
             >
