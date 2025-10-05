@@ -82,6 +82,10 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
         </h5>
       </div>
       
+      {/*
+
+      Meal plan and settings - to be added in future
+
       <div className="flex justify-between self-start p-3 mb-2">
         <h4 className="text-sm font-medium flex items-center" aria-label="Today's meals">
           <Clock className="h-3.5 w-3.5 mr-1.5 text-[#9E77ED]" aria-hidden="true" />
@@ -118,6 +122,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
           Add Meal
         </button>
       </div>
+      */}
     </article>
   );
 }
