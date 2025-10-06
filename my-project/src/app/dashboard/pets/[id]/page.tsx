@@ -36,7 +36,7 @@ export default async function PetDetailsPage({
     },
     include: {
       weightLogs: {
-        orderBy: { date: "desc" },
+        orderBy: { createdAt: "desc" },
         take: 10, // Limit to last 10 logs for performance
       },
     },
@@ -51,10 +51,10 @@ export default async function PetDetailsPage({
   const age = dayjs().diff(dayjs(pet.birthday), "year");
 
   return (
-    <div className="min-h-screen bg-purple-200 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
+    <div className="min-h-screen bg-violet-200 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
 
       {/* Two-Column Layout */}
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto md:mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10 xl:gap-12">
           {/* Left Column */}
           <div className="flex flex-col gap-6 w-full">
@@ -87,7 +87,8 @@ export default async function PetDetailsPage({
               <WeightProgress
                 petId={pet.id}
                 data ={pet.weightLogs.map(log => ({
-                date: dayjs(log.date).format("MMM DD"),
+                createdAt: dayjs(log.createdAt).format("MMM DD"),
+                fullDate: log.createdAt.toISOString(),
                 weight: log.weight,
                 unit: log.unit,
               })) ?? [] }

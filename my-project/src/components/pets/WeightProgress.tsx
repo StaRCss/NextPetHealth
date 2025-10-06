@@ -12,11 +12,16 @@ import {
 import { TrendingUp, TrendingDown, Scale } from "lucide-react";
 import Link from "next/link";
 
+type WeightDataPoint = {
+  createdAt: string;
+  weight: number;
+  fullDate?: string;
+};
 
 type WeightProgressProps = {
-  data?: { date: string; weight: number }[];
+  data?: WeightDataPoint[];
   unit?: string; // optional unit for Y-axis & tooltip
-  petId: string; 
+  petId: string;
 };
 
 export default function WeightProgress({
@@ -30,8 +35,10 @@ export default function WeightProgress({
   // Calculate trend between last two logged weights
   const trend = useMemo(() => {
     if (data.length < 2) return null;
+
     const [latest, prev] = data; // data is newest first from parent
     const diff = latest.weight - prev.weight;
+
     return diff === 0
       ? { type: "same", diff }
       : diff > 0
@@ -40,39 +47,38 @@ export default function WeightProgress({
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-4 w-full bg-white border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
+    <div className="flex flex-col gap-4 w-full bg-cardBg-light dark:bg-cardBg-dark border border-purple-200 dark:border-cardBg-dark rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 text-purple-600">
           <div className="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
             <TrendingUp className="w-5 h-5" />
           </div>
-          <h2 className="text-lg md:text-2xl font-semibold text-purple-700">
+
+          <h2 className="text-lg md:text-2xl font-semibold text-purple-700 dark:text-cardBg-light">
             Weight Progress
           </h2>
-        </div> 
+        </div>
 
-        < div className="flex items-center text-xs font-semibold p-2 ml-4 text-purple-600 rounded-md hover:bg-purple-50">
-
-        <Link
-            href={`/dashboard/pets/${petId}/weight-history`}
-          >
-          View History
-        </Link>
+        <div className="flex items-center text-xs font-semibold p-2 ml-4 text-purple-600 dark:text-fuchsia-300 dark:hover:bg-transparent rounded-md hover:bg-purple-50">
+          <Link href={`/dashboard/pets/${petId}/weight-history`}>
+            View History
+          </Link>
         </div>
 
         {trend && (
           <div
             className={`flex items-center gap-1 text-sm font-medium ${
               trend.type === "gain"
-                ? "text-red-500"
+                ? "text-rose-500"
                 : trend.type === "loss"
-                ? "text-green-500"
+                ? "text-lime-500"
                 : "text-gray-500"
             }`}
           >
             {trend.type === "gain" && <TrendingUp className="w-4 h-4" />}
             {trend.type === "loss" && <TrendingDown className="w-4 h-4" />}
+
             {trend.type === "gain" && `Gained ${trend.diff.toFixed(1)} ${unit}`}
             {trend.type === "loss" && `Lost ${trend.diff.toFixed(1)} ${unit}`}
             {trend.type === "same" && "No change"}
@@ -90,26 +96,55 @@ export default function WeightProgress({
             >
               <defs>
                 <linearGradient id="weightGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.2} />
+                  <stop offset="0%" stopColor="#fc67fa" stopOpacity={0.8} />
+                  <stop offset="100%" stopColor="#f4c4f3" stopOpacity={0.8} />
                 </linearGradient>
+
+                {/* dark:bg-gradient-to-r from-[#fc67fa] to-[#f4c4f3] */}
               </defs>
+
               <CartesianGrid strokeDasharray="3 3" stroke="#EDE9FE" />
-              <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+
+              <XAxis
+                dataKey="fullDate" // keep unique timestamp
+                tickFormatter={(val) =>
+                  new Date(val).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })
+                } // just show "Oct 5"
+                tick={{ fontSize: 12 }}
+              />
+
               <YAxis
                 tick={{ fontSize: 12 }}
                 domain={["auto", "auto"]}
                 tickFormatter={(val) => `${val}${unit}`}
               />
+
               <Tooltip
-                contentStyle={{
-                  backgroundColor: "white",
-                  borderRadius: "8px",
-                  border: "1px solid #EDE9FE",
+                content={({ active, payload }) => {
+                  if (!active || !payload || payload.length === 0) return null;
+
+                  const point = payload[0].payload;
+
+                  return (
+                    <div className="rounded-md border bg-white p-2 shadow">
+                      <p className="font-medium text-purple-700">
+                        {new Date(point.fullDate).toLocaleString()}
+                        {/* full timestamp from DB */}
+                      </p>
+                      <p className="text-sm">
+                        Weight:{" "}
+                        <span className="font-semibold">
+                          {point.weight} {unit}
+                        </span>
+                      </p>
+                    </div>
+                  );
                 }}
-                formatter={(value: number) => [`${value} ${unit}`, "Weight"]}
-                labelStyle={{ color: "#7E22CE" }}
               />
+
               <Line
                 type="monotone"
                 dataKey="weight"
