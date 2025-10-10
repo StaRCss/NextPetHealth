@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { Camera, FilePenLine } from "lucide-react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import UploadImageModal from "./UploadImageModal";
 import EditBasicModal from "./EditBasicModal";
+import PetAvatar from "./PetAvatar";
 
 type PetDetailsCardProps = {
   image?: string | null;
@@ -42,46 +42,33 @@ export default function PetDetailsCard({
       </button>
 
       {/* Profile Picture */}
-      <div className="relative w-28 h-28 md:w-40 md:h-40">
-        <div className="w-full h-full border-4 border-purple-300 rounded-full overflow-hidden bg-gray-200 shadow-md">
-          {image ? (
-            <Image
-              src={image}
-              alt={`${name}'s picture`}
-              width={160}
-              height={160}
-              className="object-cover w-full h-full"
-              onError={() => console.error("Image failed to load:", image)}
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full text-6xl md:text-7xl">😻</div>
-          )}
-        </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="absolute -bottom-1 -right-1 bg-purple-500 border border-white rounded-full p-2 hover:bg-purple-600 transition"
-          aria-label="Change pet picture"
-        >
-          <Camera className="text-white w-5 h-5 md:w-6 md:h-6" />
-        </button>
+      <div className="relative">
+      <PetAvatar  image={image} name={name} size={120} />
+      {/* Change Picture Button */}
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="btn-circle absolute -bottom-1 -right-1"
+        aria-label="Change pet picture"
+      >
+        <Camera className=" w-5 h-5 md:w-6 md:h-6" />
+      </button>
       </div>
-
       {/* Name */}
-      <h2 className="text-lg md:text-xl font-semibold text-purple-500 dark:text-text-dark mt-4">{name}</h2>
+      <h1 className="text-lg md:text-xl font-semibold text-purple-500 dark:text-text-dark mt-4">{name}</h1>
 
       {/* Info Pills */}
       <div className="flex flex-wrap justify-center gap-2 px-4 mt-2">
         {breed && (
-          <span className="px-3 py-1 bg-purple-100 text-purple-600 text-sm font-medium border border-purple-200 rounded-full">
-            {breed}
+          <span className="pill min-w-[60px] sm:min-w-[70px] md:min-w-[80px]">
+         {breed}
           </span>
         )}
-        <span className="px-3 py-1 bg-purple-100 text-purple-600 text-sm font-medium border border-purple-200 rounded-full">
-          {age} {age === 1 ? "year" : "years"}
+          <span className="pill min-w-[60px] sm:min-w-[70px] md:min-w-[80px]">
+         {age} {age === 1 ? "year" : "years"}
         </span>
         {gender && (
-          <span className="px-3 py-1 bg-purple-100 text-purple-600 text-sm font-medium border border-purple-200 rounded-full capitalize">
-            {gender}
+          <span className="pill min-w-[60px] sm:min-w-[70px] md:min-w-[80px]">
+          {gender}
           </span>
         )}
       </div>

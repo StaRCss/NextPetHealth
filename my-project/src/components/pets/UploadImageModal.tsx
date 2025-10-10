@@ -13,6 +13,7 @@ type UploadImageModalProps = {
 };
 
 import React, { useState, useEffect } from "react";
+import PetAvatar from "./PetAvatar";
 
 export default function UploadImageModal({ isOpen, onClose, name, image,id }: UploadImageModalProps) {
   const [preview, setPreview] = useState<string | null>(null);
@@ -101,27 +102,8 @@ setError(null);
         >
           <CircleX />
         </button>
-        <div className="w-28 h-28 border-4 border-purple-300 rounded-full overflow-hidden bg-gray-200 shadow-lg mx-auto">
-          {preview ? (
-            <Image
-              src={preview}
-              alt={`${name}'s new picture`}
-              width={160}
-              height={160}
-              className="object-cover w-full h-full"
-            />
-          ) : image ? (
-            <Image
-              src={image}
-              alt={`${name}'s picture`}
-              width={160}
-              height={160}
-              className="object-cover w-full h-full"
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full text-6xl md:text-7xl">😻</div>
-          )}
-        </div>
+        <div className="flex flex-col items-center">
+        <PetAvatar image={preview || image} name={name} size={100} /> </div>
         <p className="text-gray-500 text-sm text-center mt-2">
           {preview ? "New Photo Preview" : image ? "Current Photo" : "No Photo "}
         </p>
