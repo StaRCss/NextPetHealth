@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SubmitFormButton from "./FormSubmitButton";
 import { Upload, CircleX, CheckCircle } from "lucide-react";
 import { imageUploadSchema } from "@/lib/validations/imageUploadSchema";
 
@@ -114,33 +114,20 @@ setError(null);
             <p className="text-xs text-gray-500">From your device</p>
             <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
           </label>
-
-        
         </div>
-      <button
-  type="submit"
-  aria-label="Save changes"
-  disabled={(!preview && !image) || isSubmitting || successfullySubmitted}
-  className={`mt-6 w-full text-white py-2 rounded-lg transition-colors
-    ${successfullySubmitted
-      ? "bg-green-400 cursor-not-allowed"
-      : isSubmitting
-      ? "bg-purple-300 cursor-not-allowed"
-      : "bg-purple-500 hover:bg-purple-600"}
-  `}
->
-  {successfullySubmitted ? (
-    <span className="flex flex-row items-center justify-center gap-2">
-      <CheckCircle className="w-5 h-5" />
-      Saved
-    </span>
-  ) : (
-    "Save changes"
-  )}
-</button>
 
+        {/* Submit Button */}
+        <div className="flex justify-center mt-6">
+  <SubmitFormButton
+  submitting={isSubmitting}
+  label="Save Photo"
+  icon={<CheckCircle size={16} />}/>
+        </div>
+
+      <div className="mt-4 text-center">
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        {successfullySubmitted && <p className="text-green-500 text-sm mt-2">Image uploaded successfully!</p>}
+        {successfullySubmitted && <p className="text-green-500 dark:text-lime-500 text-sm mt-2">Image uploaded successfully!</p>}
+      </div>
       </div>
     </div>
     </form>

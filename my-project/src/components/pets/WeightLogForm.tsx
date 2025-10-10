@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { weightLogSchema } from "@/lib/validations/WeightLogSchema";
+import FormSubmitButton from "./FormSubmitButton";
 
 // ✅ Form raw input type (date as string)
 type WeightLogFormValues = z.input<typeof weightLogSchema>;
@@ -16,13 +17,13 @@ type WeightLogParsed = z.infer<typeof weightLogSchema>;
 type WeightLogFormProps = {
   id: string;                       // Pet ID
   weight: number | null;            // last known weight
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean;                   // Whether the form is open
+  onClose: () => void;           // Close handler
   name: string;
-  onSubmit: (data: WeightLogParsed) => Promise<void>;
+  onSubmit: (data: WeightLogParsed) => Promise<void>; // Submit handler
 };
 
-export default function WeightLogForm({
+export default function WeightLogForm({ 
   id,
   weight,
   isOpen,
@@ -80,12 +81,6 @@ export default function WeightLogForm({
         })}
       >
         <div className="flex flex-col gap-6">
-          {/* Title */}
-          <h2 className="flex flex-row gap-2 justify-center text-center text-lg font-semibold text-purple-600 dark:text-purple-300">
-            <Scale />
-            Log Weight for {name}
-          </h2>
-
           {/* Weight Input */}
           <div className="flex flex-col gap-2">
             <label htmlFor="weight" className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -159,27 +154,19 @@ export default function WeightLogForm({
 
           {/* Buttons */}
           <div className="flex justify-between gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={submitting}
-              className={`flex items-center gap-2 px-4 py-2 font-medium rounded-md shadow transition-colors ${
-                submitting
-                  ? "bg-purple-300 cursor-not-allowed text-white"
-                  : "bg-purple-500 hover:bg-purple-600 text-white"
-              }`}
-            >
-              <Save size={18} />
-              {submitting ? "Saving..." : "Save Weight"}
-            </button>
-            <button
+
+            {/* Submit */}
+            <FormSubmitButton submitting={submitting} label="Log Weight" icon={<Save size={16} />} />
+
+            {/* Cancel */}
+            < button
               type="button"
               onClick={() => {
                 reset();
                 onClose();
               }}
-              
               disabled={submitting}
-              className="px-4 py-2 text-purple-500 dark:text-purple-300 border border-purple-300 font-medium rounded-md hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors"
+              className="px-4 py-2 text-purple-500 dark:text-[#f4c4f3] border border-purple-300 dark:border-[#fc67fa] font-medium rounded-md hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors"
             >
               Cancel
             </button>

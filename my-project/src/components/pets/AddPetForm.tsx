@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, Form } from "react-hook-form";
 import React from "react";
 import NameInputField from "@/components/pets/fields/NameInputField";
 import GenderCheckboxField from "@/components/pets/fields/GenderCheckboxField";
@@ -8,6 +8,8 @@ import BreedInputField from "@/components/pets/fields/BreedInputField";
 import BirthdayInputField from "@/components/pets/fields/BirthdayInputField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { petFormSchema } from "@/lib/validations/PetFormSchema";
+import { CheckCircle } from "lucide-react";
+import FormSubmitButton from "./FormSubmitButton";
 
 export type PetFormValues = {
   name: string;
@@ -68,15 +70,12 @@ const AddPetForm: React.FC<AddPetFormProps> = ({ onSuccess }) => {
           <BirthdayInputField />
         </div>
         <div className="flex justify-center items-center m-auto">
-          <button 
-          disabled={ formState.isSubmitting}
-          type="submit"
-          aria-disabled={formState.isSubmitting}
-          aria-busy={formState.isSubmitting}
-          className="text-white w-1/2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-         >
-          {formState.isSubmitting ? "Adding Cat..." : "Add Cat"}
-          </button>
+          <FormSubmitButton
+            submitting={formState.isSubmitting}
+            label="Add Pet"
+            icon={<CheckCircle size={16} />}
+          />
+          
         </div>
       </form>
     </FormProvider>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, SquarePen, Trash2 } from "lucide-react";
+import { Calendar, SquarePen, Trash2, CheckCircle } from "lucide-react";
+import FormSubmitButton from "./FormSubmitButton";
 
 type WeightHistoryCardProps = {
   logId: string;
@@ -133,13 +134,12 @@ export default function WeightHistoryCard({
           </label>
 
           <div className="flex gap-2">
-            <button
-              className="px-3 py-1 bg-purple-400 dark:bg-fuchsia-400 text-black rounded hover:bg-purple-500 dark:hover:bg-fuchsia-500 disabled:opacity-50"
+            <FormSubmitButton
+              submitting={isLoading}
+              label="Save"
+              icon={<CheckCircle size={16} />}
               onClick={handleSave}
-              disabled={isLoading}
-            >
-              {isLoading ? "Saving..." : "Save"}
-            </button>
+            />
             <button
               className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400 disabled:opacity-50"
               onClick={handleCancel}
