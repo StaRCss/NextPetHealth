@@ -30,7 +30,7 @@ export default function PetDetailsCard({
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center w-full bg-cardBg-light dark:bg-cardBg-dark border-purple-200 dark:border-neutral-800 rounded-2xl shadow-md p-4 relative">
+<div className="flex flex-col items-center w-full bg-cardBg-light dark:bg-zinc-900 border border-purple-200 dark:border-zinc-800 rounded-2xl shadow-md p-4 relative">
 
       {/* Edit Button */}
       <button

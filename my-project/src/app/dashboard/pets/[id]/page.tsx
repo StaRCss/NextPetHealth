@@ -51,7 +51,7 @@ export default async function PetDetailsPage({
   const age = dayjs().diff(dayjs(pet.birthday), "year");
 
   return (
-    <main className="min-h-screen bg-violet-200 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
+    <main className="min-h-screen bg-violet-100 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
 
       {/* Two-Column Layout */}
       <div className="max-w-6xl mx-auto md:mt-24">

@@ -30,7 +30,7 @@ export default async function WeightHistory({
     },
     include: {
       weightLogs: {
-        orderBy: { date: "desc" },
+        orderBy: { createdAt: "desc" },
       },
     },
   });
@@ -38,8 +38,6 @@ export default async function WeightHistory({
   if (!pet) {
     notFound();
   }
-
-  
 
   return (
     <div className="p-6 mb-10 bg-violet-200 dark:bg-pageBg-dark rounded-lg shadow-md h-full">

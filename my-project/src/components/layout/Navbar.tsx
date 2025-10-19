@@ -3,9 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import petsIcon from '/public/petz.webp';
-import nutritionIcon from '/public/nutr.webp';
 import settingsIcon from '/public/settings.webp';
-import calendarIcon from '/public/calendar.webp';
 import AddPetButton from '../pets/AddPetButton';
 
 // Reusable NavItem component
