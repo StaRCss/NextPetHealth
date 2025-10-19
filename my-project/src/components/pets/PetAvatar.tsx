@@ -28,7 +28,7 @@ export default function PetAvatar({ image, name, size = 120 }: PetAvatarProps) {
             onError={() => console.error("Image failed to load:", image)}
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-6xl md:text-7xl">
+          <div className="flex items-center justify-center h-full text-6xl md:text-7xl bg-blue-400 ">
             <span aria-hidden="true">😻</span>
             <span className="sr-only">No image available for {name} yet</span>
           </div>

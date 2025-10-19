@@ -1,8 +1,8 @@
-"use client"; 
+"use client";
 import React from "react";
-import Image from "next/image"; 
 import Link from "next/link";
-import { Clock, Settings, PlusCircle, ArrowBigRightDash } from "lucide-react";
+import { ArrowBigRightDash } from "lucide-react";
+import PetAvatar from "./PetAvatar";
 
 type PetData = {
   name: string;
@@ -10,119 +10,76 @@ type PetData = {
   breed: string;
   gender?: string;
   image?: string;
-  bgColor?: string; 
+  bgColor?: string;
   id: string;
 };
 
 export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
-
-  
-  return (       
+  return (
     <article
-      className="
-        flex h-full w-full flex-col items-center justify-items-center
-        bg-white rounded-lg border-2 shadow-md
-        dark:bg-gray-500 dark:border-gray-700
+      className={`
+       relative flex flex-col items-center justify-center w-full h-full overflow-hidden  
+        ${bgColor ?? "bg-gradient-to-b from-purple-50 to-purple-100 dark:from-[#1e1b26] dark:to-[#2a2039]"}
+        border border-purple-200 dark:border-zinc-800
+        rounded-2xl shadow-md hover:shadow-lg transition-all duration-300
         focus-within:ring-2 focus-within:ring-[#9347e9] focus-within:ring-offset-2
-        focus-within:ring-offset-white dark:focus-within:ring-offset-gray-700
-        outline-none
-      "
+        focus-within:ring-offset-white dark:focus-within:ring-offset-zinc-900
+      `}
       tabIndex={-1}
       aria-label={`Pet card for ${name}`}
     >
-      <div className={`flex flex-col w-full h-[200px] md:h-[240px] ${bgColor} no-underline pb-4`}>
-        <Link 
-          href={`/dashboard/pets/${id}`} 
-          className="justify-self-end self-end m-2  text-gray-900 hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-[#9347e9] rounded"
-          aria-label={`View details for ${name}`}
-        >
-          <ArrowBigRightDash aria-hidden="true"/>
-        </Link>
-  
-        {/* Circular image */}
-        <div 
-          className="w-24 h-24 md:w-32 md:h-32 m-auto rounded-full border-4 border-purple-300 overflow-hidden bg-blue-400 shadow-lg flex items-center justify-center"
-          aria-label={image ? `Picture of ${name}` : `No image available for ${name}`}
-          role="img"
-          tabIndex={0} // Make div focusable
-        >
-          {image ? (
-            <Image
-              src={image}
-              alt={`Picture of ${name}`}
-              height={160}
-              width={160}
-              className="object-cover w-full h-full"
-              tabIndex={-1} // prevent image from being focusable, no need
-            />
-          ) : (
-            <span className="text-7xl md:text-8xl mb-5" aria-hidden="true">😻</span>
-          )}
-        </div> 
+      {/* Top-right details link */}
+      <Link
+        href={`/dashboard/pets/${id}`}
+        className="
+          absolute top-3 right-3 p-2
+          text-purple-600 dark:text-[#f4c4f3]
+          hover:text-purple-800 dark:hover:text-[#fc67fa]
+          transition-colors duration-200
+          rounded-full focus:outline-none focus:ring-2 focus:ring-purple-400
+        "
+        aria-label={`View details for ${name}`}
+      >
+        <ArrowBigRightDash size={20} aria-hidden="true" />
+      </Link>
 
-        <div className="flex flex-row ml-6 gap-2 items-center">
-          <p className="text-xl" aria-label={gender ? `Gender: ${gender}` : "Gender unknown"}>
-            <span>{gender === 'female' ? '♀️' : gender === 'male' ? '♂️' : ''}</span>
-          </p>
-          <h5 
-            className="font-chewy text-xl text-gray-900 truncate tracking-widest"
-            tabIndex={0}
+      {/* Pet Avatar */}
+      <div className="mt-6">
+        <PetAvatar image={image} name={name} size={100} />
+      </div>
+
+      {/* Pet info section */}
+      <div className="flex flex-col items-center justify-center mt-4 mb-6 text-center">
+        <div className="flex items-center gap-2">
+          {gender && (
+            <span
+              className="text-xl"
+              aria-label={gender ? `Gender: ${gender}` : "Gender unknown"}
+            >
+              {gender === "female" ? "♀️" : gender === "male" ? "♂️" : ""}
+            </span>
+          )}
+          <h5
+            className="
+              font-chewy text-2xl text-gray-900 dark:text-white
+              tracking-wide drop-shadow-sm
+            "
             aria-label={`Pet name: ${name}`}
           >
             {name}
           </h5>
         </div>
 
-        <h5 
-          className="flex ml-6 text-gray-900 truncate w-[90%]" 
-          tabIndex={0}
-          aria-label={`Breed: ${breed ?? 'Unknown'}`}
+        <p
+          className="
+            text-gray-600 dark:text-gray-400 text-sm mt-1
+          "
+          aria-label={`Breed: ${breed ?? "Unknown"}`}
         >
-          {breed ? `${breed} ` : <span className="invisible">Placeholder</span>}
-        </h5>
+          {breed || "Unknown breed"}
+        </p>
       </div>
-      
-      {/*
 
-      Meal plan and settings - to be added in future
-
-      <div className="flex justify-between self-start p-3 mb-2">
-        <h4 className="text-sm font-medium flex items-center" aria-label="Today's meals">
-          <Clock className="h-3.5 w-3.5 mr-1.5 text-[#9E77ED]" aria-hidden="true" />
-          Todays Meals
-        </h4>
-      </div>
-   
-      <div className="space-y-2 min-h-[150px] max-h-[180px] overflow-y-auto pr-1" aria-live="polite" aria-atomic="true"></div>
-
-      <div className="bg-[#F9F5FF] h-16 w-full p-3 md:p-4 flex justify-between">
-        <div className="flex gap-2 items-center">
-          <button
-            type="button"
-            className="md:text-sm rounded-md p-2 border border-[#9347e9] bg-white hover:bg-[#F4EBFF] text-[#232225] h-10 md:h-10 focus:outline-none focus:ring-2 focus:ring-[#9347e9] focus:ring-offset-1"
-            aria-label={`View meal plan for ${name}`} >
-            Meal Plan
-          </button>
-
-          <button
-            type="button"
-            className="md:text-sm flex items-center justify-center rounded-md border border-[#9347e9] bg-white hover:bg-[#F4EBFF] text-[#1c1b1d] h-10 md:h-10 w-10 focus:outline-none focus:ring-2 focus:ring-[#9347e9] focus:ring-offset-1"
-            aria-label={`Settings for ${name}`}
-          >
-            <Settings className="h-3.5 w-3.5" aria-hidden="true" />
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="bg-[#6B3CD2] border flex items-center flex-row gap-1 rounded-md p-2 hover:bg-[#6941C6] text-white md:text-sm h-10 md:h-10 focus:outline-none focus:ring-2 focus:ring-[#4A239A] focus:ring-offset-1"
-          aria-label={`Add meal for ${name}`}
-        >
-          <PlusCircle className="mr-1 h-3 w-3 md:h-4 md:w-4" aria-hidden="true" />
-          Add Meal
-        </button>
-      </div>
-      */}
     </article>
   );
 }
