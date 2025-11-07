@@ -36,7 +36,7 @@ export default async function PetDetailsPage({
     },
     include: {
       weightLogs: {
-        orderBy: { createdAt: "desc" },
+        orderBy: { date: "desc" },
         take: 10, // Limit to last 10 logs for performance
       },
     },
@@ -46,7 +46,7 @@ export default async function PetDetailsPage({
 
   // Compute latest weight
   const latestWeightLog = pet.weightLogs[0] ?? null;
-
+  
   // Compute age
   const age = dayjs().diff(dayjs(pet.birthday), "year");
 
@@ -88,9 +88,10 @@ export default async function PetDetailsPage({
                 petId={pet.id}
                 data ={pet.weightLogs.map(log => ({
                 createdAt: dayjs(log.createdAt).format("MMM DD"),
-                fullDate: log.createdAt.toISOString(),
+                fullDate: log.date.toISOString(),
                 weight: log.weight,
                 unit: log.unit,
+                
               })) ?? [] }
               />
           </div>
