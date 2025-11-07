@@ -30,7 +30,7 @@ export default async function WeightHistory({
     },
     include: {
       weightLogs: {
-        orderBy: { createdAt: "desc" },
+        orderBy: { date: "desc" },
       },
     },
   });
