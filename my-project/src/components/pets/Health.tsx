@@ -1,8 +1,9 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import { ScanHeart, Scale, SquarePlus, CirclePlus } from "lucide-react";
+import { ScanHeart, CirclePlus } from "lucide-react";
 import WeightLogForm from "./WeightLogForm";
 import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
+
 
 type WeightLog = {
   weight: number;
@@ -17,6 +18,7 @@ type HealthProps = {
   unit?: string;
   weightLogs?: WeightLog[];
 };
+
 
 export default function Health({ weight, name, id, weightLogs }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
