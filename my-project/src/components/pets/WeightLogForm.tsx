@@ -118,7 +118,7 @@ export default function WeightLogForm({
             </label>
             <input
               id="date"
-              type="date"
+              type="datetime-local"
               {...register("date")}
               className={`px-4 py-2 dark:bg-zinc-700 dark:text-text-dark border rounded-md focus:outline-none focus:ring-2 ${
                 errors.date
