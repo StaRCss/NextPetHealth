@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Calendar, SquarePen, Trash2, CheckCircle } from "lucide-react";
 import FormSubmitButton from "./FormSubmitButton";
+import dayjs from "dayjs";
 
 type WeightHistoryCardProps = {
   logId: string;
@@ -62,6 +63,9 @@ export default function WeightHistoryCard({
     setEditNotes(currentNotes);
     setIsEditing(false);
   };
+ 
+    const formattedDate = dayjs(date).format("MMM DD, YYYY h:mm A");
+
 
   return (
     <div className="flex flex-col gap-2 w-full bg-cardBg-light dark:bg-cardBg-dark border border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
@@ -71,11 +75,7 @@ export default function WeightHistoryCard({
             <div className="flex items-center gap-2">
               <Calendar size={14} />
               <span className="font-semibold">
-                {new Intl.DateTimeFormat("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                }).format(new Date(date))}
+                {formattedDate}
               </span>
             </div>
             <div className="flex items-center gap-3">
