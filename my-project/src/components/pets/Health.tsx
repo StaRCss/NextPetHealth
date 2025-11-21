@@ -1,110 +1,80 @@
-'use client';
-import React, { useState, useEffect } from "react";
-import { ScanHeart, CirclePlus } from "lucide-react";
+"use client";
+
+import React, { useState } from "react";
+import { CirclePlus, ScanHeart } from "lucide-react";
 import WeightLogForm from "./WeightLogForm";
-import { WeightLogInput } from "@/lib/validations/WeightLogSchema";
 
-
+// Type for a weight log
 type WeightLog = {
   weight: number;
   unit: "kg" | "lb";
-  date: Date; 
+  date: Date;
 };
 
 type HealthProps = {
   id: string;
-  weight: number | null;
   name: string;
-  unit?: string;
   weightLogs?: WeightLog[];
 };
 
-
-export default function Health({ weight, name, id, weightLogs }: HealthProps) {
+export default function Health({ id, name, weightLogs = [] }: HealthProps) {
   const [isWeightLogOpen, setIsWeightLogOpen] = useState(false);
-  const [currentWeight, setCurrentWeight] = useState<number | null>(weight);
-  const [latestWeightDate, setLatestWeightDate] = useState<Date | null>(null);
 
-  // Initialize from weightLogs if provided
-  useEffect(() => {
-    if (weightLogs && weightLogs.length > 0) {
-      const sortedLogs = [...weightLogs].sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
-      setCurrentWeight(sortedLogs[0].weight);
-      setLatestWeightDate(new Date(sortedLogs[0].date));
-    } else if (weight != null) {
-      // Fallback if no logs but initial weight exists
-      setCurrentWeight(weight);
-      setLatestWeightDate(new Date());
-    }
-  }, [weightLogs, weight]);
+  // Compute latest weight dynamically
+  const latestLog = [...weightLogs].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )[0];
 
-  // Submit handler
-  async function handleWeightLogSubmit(data: WeightLogInput) {
+  // Function to submit new weight log
+  async function handleWeightLogSubmit(newLog: { weight: number; unit: "kg" | "lb"; date: Date }) {
     try {
-      const response = await fetch("/api/weight-log", {
+      const res = await fetch("/api/weight-log", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newLog),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error creating weight log:", errorData);
+      if (!res.ok) {
+        console.error("Failed to create weight log");
         return;
       }
+      const createdLog = await res.json();
+      console.log("Created log:", createdLog);
 
-      const createdLog = await response.json();
-      console.log("Weight log created:", createdLog);
-
-      // Close the form
+      // Close form modal
       setIsWeightLogOpen(false);
 
-      // Compare new date to latest
-      const newLogDate = new Date(createdLog.date);
-      if (!latestWeightDate || newLogDate > latestWeightDate) {
-        setCurrentWeight(createdLog.weight);
-        setLatestWeightDate(newLogDate);
-      }
-    } catch (error) {
-      console.error("Unexpected error:", error);
+      // Optional: trigger re-fetch or state update if using SWR later
+    } catch (err) {
+      console.error("Error creating weight log:", err);
     }
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full bg-cardBg-light dark:bg-cardBg-dark border-purple-200 rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
+    <div className="flex flex-col gap-4 w-full bg-cardBg-light dark:bg-cardBg-dark p-4 rounded-2xl shadow-md">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <div className="flex items-center gap-3 text-purple-600">
           <div className="w-9 h-9 rounded-full bg-yellow-100 flex items-center justify-center">
             <ScanHeart className="w-5 h-5" />
           </div>
-          <h2 className="text-lg md:text-2xl font-semibold text-purple-700 dark:text-[#f4c4f3] ">
+          <h2 className="text-lg md:text-2xl font-semibold text-purple-700 dark:text-[#f4c4f3]">
             Health Overview
           </h2>
         </div>
-
-        <button
-          onClick={() => setIsWeightLogOpen(true)}
-          className=" btn-circle"
-        >
-          <CirclePlus className="w-5 h-5 " />
-          
+        <button onClick={() => setIsWeightLogOpen(true)}
+          className="btn-circle">
+          <CirclePlus className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Content */}
+      {/* Current Weight */}
       <div className="flex justify-center py-2">
-        {currentWeight != null ? (
-          <div className="flex flex-row text-lg items-start gap-2 text-green-600 dark:text-lime-500 font-semibold px-6 py-4 rounded-lg w-full shadow-sm">
-            <span className="font-medium text-xl text-purple-500 dark:text-[#F5B7DE] ">Current Weight :</span>
-            {currentWeight} kg ⚖️
+        {latestLog ? (
+          <div className="text-green-600 font-semibold">
+            Current Weight: {latestLog.weight} {latestLog.unit} ⚖️
           </div>
         ) : (
-          <p className="text-sm text-gray-500 dark:text-text-dark italic">
+          <p className="text-gray-500 dark:text-text-dark italic">
             No weight data yet. Let’s keep track to stay healthy! 🐕
           </p>
         )}
@@ -113,14 +83,12 @@ export default function Health({ weight, name, id, weightLogs }: HealthProps) {
       {/* Weight Log Form */}
       <WeightLogForm
         id={id}
-        weight={currentWeight ?? null}
+        name={name}
         isOpen={isWeightLogOpen}
         onClose={() => setIsWeightLogOpen(false)}
-        name={name}
         onSubmit={handleWeightLogSubmit}
+        weight={latestLog?.weight ?? null}
       />
     </div>
   );
 }
-
-
