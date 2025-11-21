@@ -78,11 +78,13 @@ export default async function PetDetailsPage({
           <div className="flex flex-col gap-6">
           
               <Health
-                id={pet.id}
-                weight={latestWeightLog?.weight ?? null}
-                unit={latestWeightLog?.unit ?? "kg"}
-                name={pet.name}
-                weightLogs={pet.weightLogs} // pass all logs for charts
+                {...({
+                  id: pet.id,
+                  weight: latestWeightLog?.weight ?? null,
+                  unit: latestWeightLog?.unit ?? "kg",
+                  name: pet.name,
+                  weightLogs: pet.weightLogs // pass all logs for charts
+                } as any)}
               />
               <WeightProgress
                 petId={pet.id}
