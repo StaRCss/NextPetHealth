@@ -4,8 +4,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import  prisma  from "@/lib/prisma";
 import PetDetailsCard from "@/components/pets/PetDetailsCard";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import QuickStats from "@/components/pets/QuickStats";
 import Health from "@/components/pets/Health";
 import { z } from "zod";
@@ -58,6 +56,7 @@ export default async function PetDetailsPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10 xl:gap-12">
           {/* Left Column */}
           <div className="flex flex-col gap-6 w-full">
+
             <PetDetailsCard
               image={pet.image}
               name={pet.name}
@@ -96,6 +95,7 @@ export default async function PetDetailsPage({
                 
               })) ?? [] }
               />
+
           </div>
         </div>
       </div>
