@@ -4,8 +4,8 @@ import { Camera, FilePenLine } from "lucide-react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import UploadImageModal from "./UploadImageModal";
-import EditBasicModal from "./EditBasicModal";
 import PetAvatar from "./PetAvatar";
+import Link from "next/link";
 
 type PetDetailsCardProps = {
   image?: string | null;
@@ -27,19 +27,31 @@ export default function PetDetailsCard({
 }: PetDetailsCardProps) {
   const age = dayjs().diff(dayjs(birthday), "year");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
+
 
   return (
 <div className="flex flex-col items-center w-full bg-cardBg-light dark:bg-zinc-900 border border-purple-200 dark:border-zinc-800 rounded-2xl shadow-md p-4 relative">
 
       {/* Edit Button */}
-      <button
-        onClick={() => setIsEditOpen(true)}
-        className="absolute top-3 right-3 p-2 rounded-full border border-purple-400 bg-white text-purple-600 hover:bg-purple-100 transition"
-        aria-label="Edit pet details"
-      >
-        <FilePenLine size={16} />
-      </button>
+      <Link
+  href={{
+   pathname: `/dashboard/pets/${id}/pet-settings`,
+   query: {
+    pet:JSON.stringify({ 
+      id,
+      name,
+       breed,
+        birthday: birthday.toISOString().split("T")[0],
+         gender, 
+         age }),
+   }
+  }}
+  className="absolute top-3 right-3 p-2 rounded-full border border-purple-400 bg-white text-purple-600 hover:bg-purple-100 transition flex items-center justify-center"
+  aria-label="Edit pet details"
+>
+  <FilePenLine size={16} />
+</Link>
+
 
       {/* Profile Picture */}
       <div className="relative">
@@ -80,15 +92,6 @@ export default function PetDetailsCard({
         name={name}
         image={image}
         id={id}
-      />
-      <EditBasicModal
-        isOpen={isEditOpen}
-        onClose={() => setIsEditOpen(false)}
-        id={id}
-        name={name}
-        breed={breed}
-        gender={gender}
-        birthday={birthday}
       />
     </div>
   );
