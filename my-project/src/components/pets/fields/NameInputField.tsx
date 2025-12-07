@@ -28,7 +28,11 @@ const NameInputField : React.FC = () => {
         placeholder="Tata"
         aria-invalid={!!errors.name}
         aria-describedby="name-error"
-        className={`w-full dark:bg-zinc-700 px-4 py-2 border rounded-2xl focus:outline-none ${
+        className={`w-full
+           dark:bg-zinc-700   
+            dark:text-white 
+              dark:placeholder-white
+   px-4 py-2 border rounded-2xl focus:outline-none ${
 
             nameValue?.trim()
       ? errors.name
