@@ -187,7 +187,7 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 
     .btn-circle:hover {
-        filter: drop-shadow(0 0 10px #fc67fa) brightness(1.05);
+        filter: drop-shadow(0 0 7px #fc67fa) brightness(1.05);
         transform: scale(1.05);
     }
 }
