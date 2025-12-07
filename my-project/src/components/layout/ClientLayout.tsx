@@ -9,11 +9,12 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
 
   const isAddPetPage = pathname === "/dashboard/pets/Add";
   const isWeightHistoryPage = /^\/dashboard\/pets\/[^/]+\/weight-history$/.test(pathname);
+  const isPetSettingsPage = /^\/dashboard\/pets\/[^/]+\/pet-settings$/.test(pathname);
   // Matches /dashboard/pets/{id}/weight-history
 
   return (
     <>
-      {!isAddPetPage && !isWeightHistoryPage && <Navbar />}
+      {!isAddPetPage && !isWeightHistoryPage && !isPetSettingsPage && <Navbar />}
       {children}
     </>
   );

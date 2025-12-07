@@ -24,12 +24,12 @@ export default function AddPetPage() {
   };
 
   return (
-    <div className="flex md:flex-col md:items-center md:justify-center min-h-[100dvh] bg-slate-50 md:bg-purple-100">
+    <main className="min-h-screen bg-purple-200 dark:bg-zinc-900 py-8 px-4 sm:px-6 lg:px-8 mb-14">
       {showForm && (
-        <div className="bg-slate-50 flex flex-col max-w-screen-md h-fit p-6 rounded-lg md:shadow-lg w-full md:w-2/3 lg:w-1/2">
-          <div className="flex flex-row items-center justify-between mb-6">
-            <Header title="Add Cat" />
-            <CancelButton />
+        <div className="max-w-3xl mx-auto md:mt-24 p-10 bg-violet-100 dark:bg-zinc-800 rounded-2xl shadow-lg">
+          <div className="flex flex-row items-between w-full justify-between mb-8">
+          <Header title="Add Cat" />
+          <CancelButton />
           </div>
           {/* Pass name back from form on success */}
           <AddPetForm onSuccess={handleAddPetSuccess} />
@@ -48,7 +48,6 @@ export default function AddPetPage() {
           height={300}
         />
       </Modal>
-  
-    </div>
+    </main>
   );
 }

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
+import CancelButton from "@/components/pets/fields/CancelButton";
 
 export default async function PetSettingsPage({ searchParams, params }: any) {
   const session = await getServerSession(authOptions);
@@ -56,12 +57,24 @@ export default async function PetSettingsPage({ searchParams, params }: any) {
 
   // 3. Render form with final merged pet
   return (
-    <main className="min-h-screen bg-violet-100 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
-      <div className="max-w-3xl mx-auto md:mt-24">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">
-          Pet Settings
-        </h1>
+    <main className="min-h-screen bg-purple-200 dark:bg-zinc-900 py-5 px-4 sm:px-6 lg:px-8 mb-14">
+              <div className="max-w-3xl mx-auto md:mt-24 p-10 bg-violet-100 dark:bg-zinc-800 rounded-2xl shadow-lg">
+                          <div className="flex flex-row items-between w-full justify-between">
 
+                            <div className="flex flex-row items-between w-full justify-between mb-8">
+  <h1 className="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+    Edit{" "}
+    <span className="text-purple-600 dark:text-fuchsia-400 font-bold">
+      {pet.name}
+    </span>
+    ’s Info
+  </h1>
+
+  <CancelButton />
+</div>
+
+</div>
+        
         <AddPetForm
           pet={{
             id: pet.id,
