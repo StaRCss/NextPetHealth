@@ -46,7 +46,7 @@ export default function PetDetailsCard({
          age }),
    }
   }}
-  className="absolute top-3 right-3 p-2 rounded-full border border-purple-400 bg-white text-purple-600 hover:bg-purple-100 transition flex items-center justify-center"
+  className="absolute top-3 right-3 btn-circle"
   aria-label="Edit pet details"
 >
   <FilePenLine size={16} />
