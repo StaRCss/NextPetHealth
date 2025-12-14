@@ -15,6 +15,7 @@ function normalizeData(data:PetFormValues): PetFormValues {
     gender: data.gender?.trim() || null,
     breed:  data.breed?.trim() || null,
     birthday: new Date(data.birthday).toISOString().split('T')[0] ,
+    role: data.role,
   };
   return normalized;
 }
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     const {name, breed, birthday, gender} = body;
 
     // Validate and normalize data
-    const validatedData = normalizeData(petFormSchema.parse({ name, breed, birthday, gender }));
+    const validatedData = normalizeData(petFormSchema.parse({ name, breed, birthday, gender, role: "add" }));
     console.log('Validated data:', validatedData); // Debugging line
 
 

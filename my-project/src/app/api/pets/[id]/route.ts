@@ -13,6 +13,7 @@ function normalizeData(data: PetFormValues): PetFormValues {
     gender: data.gender?.trim() || null,
     breed: data.breed?.trim() || null,
     birthday: new Date(data.birthday).toISOString().split('T')[0],
+    role: data.role,
   };
 }
 

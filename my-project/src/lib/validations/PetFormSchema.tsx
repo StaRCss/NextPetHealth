@@ -9,6 +9,7 @@ interface PetFormFields {
   breed?: string | null;
   gender?: string | null;
   birthday: string;
+  role: "add" | "edit";
 }
 
 export const petFormSchema = z.object({
@@ -51,6 +52,8 @@ export const petFormSchema = z.object({
       (val) => dayjs(val).isSameOrBefore(dayjs(), 'day'),
       { error: "Birthday can't be in the future" }
     ),
+
+  role: z.enum(["add", "edit"]),
 
 });
 
