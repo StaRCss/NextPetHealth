@@ -55,7 +55,7 @@ export default function PetDetailsCard({
 
       {/* Profile Picture */}
       <div className="relative">
-      <PetAvatar  image={image} name={name} size={120} />
+      <PetAvatar  image={image} name={name} size={100} />
       {/* Change Picture Button */}
       <button
         onClick={() => setIsModalOpen(true)}
