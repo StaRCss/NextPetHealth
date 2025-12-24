@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import AddPetForm from "@/components/pets/AddPetForm";
-import CancelButton from "@/components/pets/fields/CancelButton";
+import NavigateBackButton from "@/components/pets/fields/NavigateBackButton";
 import Header from "@/components/pets/fields/Header";
 import Modal from "@/components/modal/Modal";
 import { useState } from "react";
@@ -29,7 +29,7 @@ export default function AddPetPage() {
         <div className="max-w-3xl mx-auto md:mt-24 p-10 bg-violet-100 dark:bg-zinc-800 rounded-2xl shadow-lg">
           <div className="flex flex-row items-between w-full justify-between mb-8">
           <Header title="Add Cat" />
-          <CancelButton />
+          <NavigateBackButton />
           </div>
           {/* Pass name back from form on success */}
           <AddPetForm onSuccess={handleAddPetSuccess} />

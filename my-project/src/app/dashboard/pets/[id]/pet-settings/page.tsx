@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import CancelButton from "@/components/pets/fields/CancelButton";
+import NavigateBackButton from "@/components/pets/fields/NavigateBackButton";
 
 export default async function PetSettingsPage({ searchParams, params }: any) {
   const session = await getServerSession(authOptions);
@@ -70,7 +70,7 @@ export default async function PetSettingsPage({ searchParams, params }: any) {
     ’s Info
   </h1>
 
-  <CancelButton />
+  <NavigateBackButton />
 </div>
 
 </div>
