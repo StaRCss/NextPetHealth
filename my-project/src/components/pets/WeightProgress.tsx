@@ -47,7 +47,7 @@ export default function WeightProgress({
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-4 w-full bg-cardBg-light dark:bg-cardBg-dark border border-purple-200 dark:border-cardBg-dark rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
+    <div className="flex flex-col gap-4 w-full bg-white dark:bg-cardBg-dark border border-purple-200 dark:border-cardBg-dark rounded-2xl shadow-md p-4 md:p-6 transition-shadow hover:shadow-lg">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 text-purple-600">

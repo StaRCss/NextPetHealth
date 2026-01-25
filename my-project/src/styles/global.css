@@ -119,7 +119,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-bottom: 0.25rem;
     font-size: 0.75rem;
     background-color: #f3e8ff;
-    color: #9333ea;
+    color: #7c3aed;
     border: 1px solid #e5e7eb;
 }
 
@@ -164,7 +164,7 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: all 0.3s;
 
     /* Light mode gradient background */
-    background-image: linear-gradient(135deg, #7c3aed 0%, #c084fc 50%, #7c3aed 100%);
+    background:rgb(23, 130, 230);
     background-size: 200% 200%;
 
     color: white;

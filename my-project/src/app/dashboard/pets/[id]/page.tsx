@@ -9,6 +9,7 @@ import Health from "@/components/pets/Health";
 import { z } from "zod";
 import dayjs from "dayjs";
 import WeightProgress from "@/components/pets/WeightProgress";
+import NavigateBackButton from "@/components/pets/fields/NavigateBackButton";
 
 const petIdSchema = z.string().uuid();
 
@@ -49,11 +50,11 @@ export default async function PetDetailsPage({
   const age = dayjs().diff(dayjs(pet.birthday), "year");
 
   return (
-    <main className="min-h-screen bg-violet-100 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8 mb-14">
-
+    <main className="min-h-screen bg-light-gradient dark:bg-dark-gradient px-4 py-2 sm:px-6 lg:px-8 ">
       {/* Two-Column Layout */}
-      <div className="max-w-6xl mx-auto md:mt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10 xl:gap-12">
+      <div className="max-w-6xl mx-auto ">
+        <NavigateBackButton />
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10 xl:gap-12 mt-2">
           {/* Left Column */}
           <div className="flex flex-col gap-6 w-full">
 

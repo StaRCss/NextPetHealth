@@ -50,7 +50,7 @@ export default function Health({ id, name, weightLogs = [] }: HealthProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full bg-cardBg-light dark:bg-cardBg-dark p-4 rounded-2xl shadow-md">
+    <div className="flex flex-col gap-4 w-full bg-white dark:bg-cardBg-dark p-4 rounded-2xl shadow-md">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3 text-purple-600">

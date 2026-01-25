@@ -1,5 +1,6 @@
 import "../styles/global.css";
 import { Chewy } from "next/font/google";
+import { Geist } from "next/font/google";
 import Providers from "./providers";
 
 const chewy = Chewy({
@@ -8,9 +9,15 @@ const chewy = Chewy({
   variable: "--font-chewy",
 });
 
+const geist = Geist({
+  subsets: ["latin"],
+  weight: "600",
+  variable: "--font-geist",
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={chewy.variable}>
+    <html lang="en" className={`${chewy.variable} ${geist.variable}`}>
       <head>
         <title>My Pet Health App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -1,9 +1,10 @@
-import Link from "next/link";
+"use server";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
 import  prisma from "@/lib/prisma";
 import WeightHistoryCard from "@/components/pets/WeightHistoryCard";
+import NavigateBackButton from "@/components/pets/fields/NavigateBackButton";
 
 export default async function WeightHistory({
   params,
@@ -42,14 +43,9 @@ export default async function WeightHistory({
   return (
     <div className="p-6 mb-10 bg-violet-200 dark:bg-pageBg-dark rounded-lg shadow-md h-full">
       {/* Header with Back button */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex p-4 items-center justify-between mb-4">
         <h1 className="text- text-text-light dark:text-text-dark font-bold">{pet.name}&apos;s Weight History</h1>
-        <Link
-          href={`/dashboard/pets/${petId}`}
-          className="px-3 py-1.5 text-sm font-medium text-purple-600 border border-purple-300 rounded-lg hover:bg-purple-50 transition-colors"
-        >
-          ← Back to Profile
-        </Link>
+        <NavigateBackButton />
       </div>
 
       {/* Logs */}

@@ -19,7 +19,7 @@ export function PetCard({ name, breed, gender, image, bgColor, id }: PetData) {
     <article
       className={`
        relative flex flex-col items-center justify-center w-full h-full overflow-hidden  
-        ${bgColor ?? "bg-gradient-to-b from-purple-50 to-purple-100 dark:from-[#1e1b26] dark:to-[#2a2039]"}
+        ${bgColor ?? "bg-white dark:from-[#1e1b26] dark:to-[#2a2039]"}
         border border-purple-200 dark:border-zinc-800
         rounded-2xl shadow-md hover:shadow-lg transition-all duration-300
         focus-within:ring-2 focus-within:ring-[#9347e9] focus-within:ring-offset-2

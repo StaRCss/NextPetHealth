@@ -30,7 +30,7 @@ export default function PetDetailsCard({
 
 
   return (
-<div className="flex flex-col items-center w-full bg-cardBg-light dark:bg-zinc-900 border border-purple-200 dark:border-zinc-800 rounded-2xl shadow-md p-4 relative">
+<div className="flex flex-col items-center w-full bg-white dark:bg-zinc-900 border border-purple-200 dark:border-zinc-800 rounded-2xl shadow-md p-4 relative">
 
       {/* Edit Button */}
       <Link
@@ -66,7 +66,7 @@ export default function PetDetailsCard({
       </button>
       </div>
       {/* Name */}
-      <h1 className="text-lg md:text-xl font-semibold text-purple-500 dark:text-text-dark mt-4">{name}</h1>
+      <h1 className="text-lg md:text-xl font-geist text-black dark:text-text-dark mt-4">{name}</h1>
 
       {/* Info Pills */}
       <div className="flex flex-wrap justify-center gap-2 px-4 mt-2">
