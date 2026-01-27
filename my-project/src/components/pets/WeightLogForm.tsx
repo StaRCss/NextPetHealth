@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from "react";
-import { Save, Scale } from "lucide-react";
+import { Save } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -28,7 +28,6 @@ export default function WeightLogForm({
   weight,
   isOpen,
   onClose,
-  name,
   onSubmit,
 }: WeightLogFormProps) {
 
