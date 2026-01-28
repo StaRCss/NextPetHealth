@@ -41,7 +41,7 @@ export default async function WeightHistory({
   }
 
   return (
-    <div className="p-6 mb-10 bg-violet-200 dark:bg-pageBg-dark rounded-lg shadow-md h-full">
+    <div className="p-6 mb-10 bg-light-gradient dark:bg-dark-gradient rounded-lg shadow-md h-full">
       {/* Header with Back button */}
       <div className="flex p-4 items-center justify-between mb-4">
         <h1 className="text- text-text-light dark:text-text-dark font-bold">{pet.name}&apos;s Weight History</h1>
