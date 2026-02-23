@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { loginSchema } from "@/lib/validations/LoginSchema";
+import { treeifyError } from "zod";
 
 // Initialize Prisma Client (used to interact with your database)
 const prisma = new PrismaClient();
@@ -20,8 +21,7 @@ export async function POST(request: Request) {
     if (!validation.success) {
       return NextResponse.json(
         {
-          message: "Invalid input",
-          errors: validation.error.flatten().fieldErrors,
+          errors: treeifyError(validation.error),
         },
         { status: 400 }
       );
