@@ -2,20 +2,21 @@
 
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '@/lib/validations/LoginSchema';
 import { signIn } from 'next-auth/react';
+
+import { loginSchema } from '@/lib/validations/LoginSchema';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-interface LoginFormProps {
-  onSuccess: () => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
+export function LoginForm() {
   const {
     register,
     handleSubmit,
@@ -32,79 +33,102 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     setIsLoading(true);
     setServerError(null);
 
-    const res = await signIn('credentials', {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
+    try {
+      const res = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
 
-    if (res?.ok) {
-      onSuccess(); // trigger modal + navigation
-    } else {
-      setServerError('Invalid email or password.');
+      if (res?.ok) {
+        window.location.href = '/dashboard';
+      } else {
+        setServerError(res?.error || 'Invalid email or password.');
+      }
+    } catch (error) {
+      console.error(error);
+      setServerError('Something went wrong.');
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center gap-y-8 rounded-md border bg-white px-6 py-12 shadow-md">
-      <h2 className="text-2xl font-bold text-center text-gray-800">Welcome Back!</h2>
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">
+          Login to your account
+        </p>
+      </CardHeader>
 
-      <form onSubmit={handleSubmit(onLogin)} className="w-full space-y-4">
-        {/* Email */}
-        <div>
-          <label className="block text-sm text-gray-600 mb-1">Email</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            className="w-full px-4 py-2 border rounded-lg"
-            {...register('email')}
-          />
-          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-        </div>
+      <CardContent className="space-y-4">
+        <form onSubmit={handleSubmit(onLogin)} className="space-y-4">
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              {...register('email')}
+            />
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email.message}</p>
+            )}
+          </div>
 
-        {/* Password */}
-        <div className="relative">
-          <label className="block text-sm text-gray-600 mb-1">Password</label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter password"
-            className="w-full px-4 py-2 border rounded-lg"
-            {...register('password')}
-          />
-          <button
-            type="button"
-            className="absolute right-3 top-9 text-gray-500"
-            onClick={() => setShowPassword((prev) => !prev)}
-            aria-label={showPassword ? 'Hide Password' : 'Show Password'}
-          >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </button>
-          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
-        </div>
+          {/* Password */}
+          <div className="flex flex-col gap-1 relative">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••"
+              {...register('password')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-9 text-muted-foreground"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+            {errors.password && (
+              <p className="text-sm text-destructive">{errors.password.message}</p>
+            )}
+          </div>
 
-        {/* Server Error */}
-        {serverError && <p className="text-red-500 text-sm text-center">{serverError}</p>}
+          {/* Server Error */}
+          {serverError && (
+            <p className="text-sm text-destructive text-center">{serverError}</p>
+          )}
+          
 
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition disabled:opacity-50"
-        >
-          {isLoading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
+          {/* Submit */}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? 'Logging in…' : 'Login'}
+          </Button>
+        </form>
 
-      <p className="text-sm text-center text-gray-600 mt-4">
-        Don’t have an account?{' '}
-        <Link href="/signup" className="text-pink-500 hover:underline">
-          Sign Up
-        </Link>
-      </p>
-    </div>
+                  <Button variant="outline" type="button" className="w-full mt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                      d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                fill="currentColor"
+              />
+            </svg>
+            Login with Google
+          </Button>
+
+
+        <p className="mt-4 text-center text-sm text-muted-foreground">
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" className="text-primary underline">
+            Sign up
+          </Link>
+        </p>
+      </CardContent>
+    </Card>
   );
-};
-
-export default LoginForm;
+}
