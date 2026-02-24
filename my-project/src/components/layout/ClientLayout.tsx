@@ -1,22 +1,27 @@
-"use client";
+'use client';
 
-import React from "react";
-import { usePathname } from "next/navigation";
-import Navbar from "./Navbar";
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import Navbar from './Navbar';
 
-const ClientLayout = ({ children }: { children: React.ReactNode }) => {
+interface ClientLayoutProps {
+  children: React.ReactNode;
+}
+
+const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
-  const isAddPetPage = pathname === "/dashboard/pets/Add";
-  const isWeightHistoryPage = /^\/dashboard\/pets\/[^/]+\/weight-history$/.test(pathname); // matches /dashboard/pets/{id}/weight-history
-  const isPetSettingsPage = /^\/dashboard\/pets\/[^/]+\/pet-settings$/.test(pathname); // matches /dashboard/pets/{id}/pet-settings
-  const isPetProfilePage = /^\/dashboard\/pets\/[^/]+$/.test(pathname); // matches /dashboard/pets/{id}
-  
+  // Pages where navbar/mobile menu should be hidden
+  const hideNavbar =
+    pathname === '/dashboard/pets/Add' ||
+    /^\/dashboard\/pets\/[^/]+\/weight-history$/.test(pathname) ||
+    /^\/dashboard\/pets\/[^/]+\/pet-settings$/.test(pathname) ||
+    /^\/dashboard\/pets\/[^/]+$/.test(pathname);
 
   return (
     <>
-      {!isAddPetPage && !isWeightHistoryPage && !isPetSettingsPage && !isPetProfilePage && <Navbar />}
-      {children}
+      {!hideNavbar && <Navbar />}
+      <main>{children}</main>
     </>
   );
 };
