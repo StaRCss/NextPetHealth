@@ -1,7 +1,21 @@
+"use client";
+
+import * as React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { DatePickerInput } from "@mantine/dates";
-import { PetFormValues } from "../AddPetForm";
+import { format } from "date-fns";
 import dayjs from "dayjs";
+import { CalendarIcon } from "lucide-react";
+
+import { PetFormValues } from "../AddPetForm";
+
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 const BirthdayInputField: React.FC = () => {
   const { control, formState, watch } = useFormContext<PetFormValues>();
@@ -15,10 +29,10 @@ const BirthdayInputField: React.FC = () => {
   const isValidValue = birthday && birthday !== defaultBirthday;
 
   const borderColor = hasError
-    ? "#EF4444" // red-500
+    ? "border-red-500"
     : hasTouched && isValidValue
-    ? "#22C55E" // green-500
-    : "#D1D5DB"; // gray-300
+    ? "border-green-500"
+    : "border-gray-300";
 
   return (
     <div className="flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%] mt-4 mb-4 select-none">
@@ -33,43 +47,52 @@ const BirthdayInputField: React.FC = () => {
         name="birthday"
         control={control}
         defaultValue={defaultBirthday}
-        render={({ field }) => (
-          <DatePickerInput
-            dropdownType="popover"
-            placeholder="Pick a date"
-            value={field.value ? new Date(field.value) : null}
-            onChange={(date) => {
-              const formatted = date ? dayjs(date).format("YYYY-MM-DD") : "";
-              field.onChange(formatted);
-            }}
-            maxDate={new Date()}
-            className="w-full"
-            id="birthday"
-            name="birthday"
-            aria-label="Pet Birthday"
-            aria-invalid={hasError}
-            aria-describedby={hasError ? "birthday-error" : undefined}
-            aria-required="true"
-            role="textbox"
-            inputWrapperOrder={["label", "input", "description", "error"]}
-            error={hasError ? errors.birthday?.message : undefined}
-            tabIndex={0}
-            required
-            clearable
-            /** ✅ Use classNames for Tailwind dark mode */
-            classNames={{
-              input:
-                "rounded-xl h-[42px] bg-white dark:bg-zinc-700 text-black dark:text-white focus:ring-2 focus:ring-purple-400]",
-            }}
-            /** ✅ Keep dynamic border inline */
-            styles={{
-              input: {
-                border: `2px solid ${borderColor}`,
-              },
+        render={({ field }) => {
+          const selectedDate = field.value
+            ? dayjs(field.value).toDate()
+            : undefined;
 
-            }}
-          />
-        )}
+          return (
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  id="birthday"
+                  variant="outline"
+                  role="textbox"
+                  aria-invalid={hasError}
+                  aria-describedby={hasError ? "birthday-error" : undefined}
+                  className={cn(
+                    "w-full justify-start text-left font-normal h-[42px] rounded-xl border-2 dark:bg-zinc-800 text-white",
+                    borderColor,
+                    !selectedDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {selectedDate ? (
+                    format(selectedDate, "PPP")
+                  ) : (
+                    <span>Pick a date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent className="w-auto p-0" align="center">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    const formatted = date
+                      ? dayjs(date).format("YYYY-MM-DD")
+                      : "";
+                    field.onChange(formatted);
+                  }}
+                  disabled={(date) => date > new Date()}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          );
+        }}
       />
 
       {hasError && (
