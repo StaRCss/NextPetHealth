@@ -39,10 +39,15 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email.toLowerCase() },
         });
 
-        if (!user) return null;
+        // Fake bcrypt hash for timing attack prevention
+        const fakeHash = "$2a$12$C6UzMDM.H6dfI/f/IKcEeO"; // random bcrypt hash
+        const passwordHash = user?.password ?? fakeHash;
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isValid) return null;
+        // Always run bcrypt.compare to avoid timing attacks
+        const isValid = await bcrypt.compare(credentials.password, passwordHash);
+
+        // Only return user if they exist and password matches
+        if (!user || !isValid) return null;
 
         return {
           id: user.id,
