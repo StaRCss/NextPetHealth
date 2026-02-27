@@ -71,6 +71,7 @@ export function LoginForm() {
               type="email"
               placeholder="you@example.com"
               {...register('email')}
+                onFocus={() => setServerError(null)} // clears server error when user focuses the input
             />
             {errors.email && (
               <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -85,11 +86,12 @@ export function LoginForm() {
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               {...register('password')}
+              onFocus={() => setServerError(null)} // clears server error when user focuses the input
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-9 text-muted-foreground"
+              className="absolute right-3 top-7 text-muted-foreground"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
