@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
-
 import { loginSchema } from '@/lib/validations/LoginSchema';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,11 +39,11 @@ export function LoginForm() {
         redirect: false,
       });
 
-      if (res?.ok) {
-        window.location.href = '/dashboard';
-      } else {
-        setServerError(res?.error || 'Invalid email or password.');
+      if (!res || !res.ok) {
+        setServerError('Invalid email or password.');
+        return;
       }
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error(error);
       setServerError('Something went wrong.');
