@@ -17,12 +17,20 @@ export const signUpSchema = z
       .string()
       .min(8, { message: "Password should be at least 8 characters" })
       .max(50, { message: "Password should not exceed 50 characters" })
-      .trim(),
+      .trim()
+      .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+      "Password must include uppercase, lowercase, number, and special character"
+    ),
     confirmPassword: z
       .string()
       .min(8, { message: "Confirm Password should be at least 8 characters" })
       .max(50, { message: "Confirm Password should not exceed 50 characters" })
-      .trim(),
+      .trim()
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+        "Confirm Password must include uppercase, lowercase, number, and special character"
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
