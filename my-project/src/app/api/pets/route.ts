@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { petFormSchema } from '@/lib/validations/PetFormSchema';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/validations/auth/authOptions';// adjust the path as needed
+import { authOptions } from '@/lib/auth/authOptions';
 import { PrismaClient } from '@prisma/client';
 import { PetFormValues } from '@/components/pets/AddPetForm';
 
