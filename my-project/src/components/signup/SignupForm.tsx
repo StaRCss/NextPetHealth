@@ -1,15 +1,20 @@
 'use client';
+
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { signUpSchema } from "@/lib/validations/SignUpSchema";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react'; // Optional: You can use any icon lib
-import { signIn } from "next-auth/react"; // ⬅️ Add this
+import { Eye, EyeOff } from 'lucide-react';
+import { signIn } from "next-auth/react";
 
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-interface SignupFormProps {     
+interface SignupFormProps {
   onSuccess: () => void;
 }
 
@@ -32,8 +37,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     setIsLoading(true);
     setServerError({});
 
-    console.log('Submitting signup data:', data);
-
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -42,15 +45,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       });
 
       if (response.ok) {
-      // 🧠 Attempt login immediately after signup
-      const loginResult = await signIn("credentials", {
-        redirect: false,
-        email: data.email,
-        password: data.password,
-      });
+        const loginResult = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
 
         if (loginResult?.ok) {
-          onSuccess(); // ➕ Triggers modal and navigationdelayed 
+          onSuccess();
         } else {
           setServerError({ message: "Signup succeeded but login failed." });
         }
@@ -63,82 +65,115 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         }
       }
     } catch (error) {
-      console.error('Server error:' , error);
+      console.error('Server error:', error);
       setServerError({ message: 'An unexpected error occurred. Please try again later.' });
-    } 
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center gap-y-8 rounded-md border border-muted bg-white px-6 py-12 shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">
+          Sign up to get started
+        </p>
+      </CardHeader>
 
+      <CardContent className="space-y-4">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="block text-gray-600 text-sm mb-1">Name or Nickname</label>
-              <input
-               type="text"
-               placeholder="Enter your name"
-               {...register('name')}
-               className="w-full px-4 py-2 border rounded-lg "
-              />
-             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-              </div>
-            <div>
-            <label className="block text-gray-600 text-sm mb-1">Email</label>
-            <input
+
+          {/* Name */}
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="name">Name or Nickname</Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              {...register('name')}
+            />
+            {errors.name && (
+              <p className="text-sm text-destructive">{errors.name.message}</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
               type="email"
-              placeholder="Enter email"
-              className="w-full px-4 py-2 border rounded-lg"
+              placeholder="you@example.com"
               {...register('email', {
                 onChange: () => setServerError({}),
               })}
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-            {serverError.email && <p className="text-red-500 text-sm">{serverError.email}</p>}
-            {serverError.message && <p className="text-red-500 text-sm">{serverError.message}</p>}
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email.message}</p>
+            )}
+            {serverError.email && (
+              <p className="text-sm text-destructive">{serverError.email}</p>
+            )}
+            {serverError.message && (
+              <p className="text-sm text-destructive text-center">{serverError.message}</p>
+            )}
           </div>
 
-          <div className="relative">
-         <label className="block text-gray-600 text-sm mb-1">Password</label>
-           <input
-             type={showPassword ? 'text' : 'password'}
-            placeholder="Create password"
-            {...register('password')}
-             className="w-full px-4 py-2 border rounded-lg pr-10"
-                  />
-                <button
-             type="button"
-             onClick={() => setShowPassword(prev => !prev)}
-             className="absolute top-9 right-3 text-gray-600"
-             aria-label= {showPassword? 'Hide Password' : 'Show Password'}
-                >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          {/* Password */}
+          <div className="flex flex-col gap-1 relative">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Create password"
+              {...register('password')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute right-3 top-7 text-muted-foreground"
+              aria-label={showPassword ? 'Hide Password' : 'Show Password'}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
 
-             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-             {serverError.password && <p className="text-red-500 text-sm">{serverError.password}</p>}
-            </div>
+            {errors.password && (
+              <p className="text-sm text-destructive">{errors.password.message}</p>
+            )}
+            {serverError.password && (
+            <p className="text-sm text-destructive">{serverError.password}</p>
+            )}
+          </div>
 
-          <button
+          {/* Submit */}
+          <Button
             type="submit"
+            className="w-full"
             disabled={isLoading || Object.keys(serverError).length > 0}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Creating Account...' : 'Sign Up'}
-          </button>
+            {isLoading ? 'Creating Account…' : 'Sign Up'}
+          </Button>
         </form>
 
-        <p className="text-center text-gray-600 text-sm mt-4">
+         <Button variant="outline" type="button" className="w-full mt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                      d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                fill="currentColor"
+              />
+            </svg>
+            Login with Google
+          </Button>
+
+        <p className="mt-4 text-center text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link href="/login" className="text-primary underline">
             Login
           </Link>
         </p>
-      </div>
-    
+      </CardContent>
+    </Card>
   );
 };
 
