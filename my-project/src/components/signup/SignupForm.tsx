@@ -112,12 +112,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             {errors.email && (
               <p className="text-sm text-destructive">{errors.email.message}</p>
             )}
-            {serverError.email && (
-              <p className="text-sm text-destructive">{serverError.email}</p>
-            )}
-            {serverError.message && (
-              <p className="text-sm text-destructive text-center">{serverError.message}</p>
-            )}
           </div>
 
           {/* Password */}
@@ -141,10 +135,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             {errors.password && (
               <p className="text-sm text-destructive">{errors.password.message}</p>
             )}
-            {serverError.password && (
-            <p className="text-sm text-destructive">{serverError.password}</p>
-            )}
           </div>
+
+            {/* Server Error */}
+          {serverError.message && (
+            <p className="text-sm text-destructive text-center">{serverError.message}</p>
+          )}
 
           {/* Submit */}
           <Button
