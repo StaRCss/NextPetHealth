@@ -25,14 +25,18 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     register,
     handleSubmit,
     formState: { errors },
+    trigger, // to manually trigger validation
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
+    mode: 'onSubmit',
+   reValidateMode: 'onChange', // Re-validate on change to clear errors as user types
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<{ email?: string; password?: string; message?: string }>({});
   const [showPassword, setShowPassword] = useState(false);
-
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
     setIsLoading(true);
     setServerError({});
@@ -137,6 +141,33 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             )}
           </div>
 
+          {/*Confirm Password */}
+          <div className="flex flex-col gap-1 relative">
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+             <Input
+              id="confirmPassword"
+             type={showConfirmPassword ? "text" : "password"}
+             placeholder="Confirm your password"
+             {...register("confirmPassword", {
+             onChange: () => {
+             setServerError({});
+            trigger("confirmPassword"); // re-validate immediately
+    },
+  })}
+/>
+      {errors.confirmPassword && (
+  <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
+)}
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(prev => !prev)}
+              className="absolute right-3 top-7 text-muted-foreground"
+              aria-label={showConfirmPassword ? 'Hide Confirm Password' : 'Show Confirm Password'}
+            >
+              {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+
             {/* Server Error */}
           {serverError.message && (
             <p className="text-sm text-destructive text-center">{serverError.message}</p>
@@ -148,7 +179,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             className="w-full"
             disabled={isLoading || Object.keys(serverError).length > 0}
           >
-            {isLoading ? 'Creating Account…' : 'Sign Up'}
+            {isLoading ? 'Creating Account…' : 'Create Account'}
           </Button>
         </form>
 

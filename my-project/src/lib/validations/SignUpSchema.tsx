@@ -1,25 +1,30 @@
-import zod from "zod";
+import { z } from "zod";
 
-export const signUpSchema = zod.object({
-
-  name: zod 
-  .string()
-  .max(50 ,"Name should not exceed 50 characters")
-  .trim()
-  .transform((val) => (val === "" ? undefined : val))
-  .optional(),
-
-  email: zod
-    .string()
-    .email("Invalid email address")
-    .min(1, "Email is required")
-    .max(50, "Email should not exceed 50 characters")
-    .trim(),
-    
-  password: zod
-    .string()
-    .min(8, "Password should be at least 8 characters long")
-    .max(50, "Password should not exceed 50 characters")
-    .trim() 
-});
- 
+export const signUpSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, { message: "Name is required" })
+      .max(50, { message: "Name should not exceed 50 characters" })
+      .trim(),
+    email: z
+      .string()
+      .min(1, { message: "Email is required" })
+      .max(50, { message: "Email should not exceed 50 characters" })
+      .email({ message: "Invalid email address" })
+      .trim(),
+    password: z
+      .string()
+      .min(8, { message: "Password should be at least 8 characters" })
+      .max(50, { message: "Password should not exceed 50 characters" })
+      .trim(),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Confirm Password should be at least 8 characters" })
+      .max(50, { message: "Confirm Password should not exceed 50 characters" })
+      .trim(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
