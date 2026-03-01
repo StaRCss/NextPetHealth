@@ -1,8 +1,7 @@
-
 import { NextResponse } from 'next/server';
 import { petFormSchema } from '@/lib/validations/PetFormSchema';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/validations/auth/authOptions';
+import { authOptions } from '@/lib/auth/authOptions';
 import { z } from 'zod';
 import { PetFormValues } from '@/components/pets/AddPetForm';
 import prisma from '@/lib/prisma';
@@ -17,17 +16,21 @@ function normalizeData(data: PetFormValues): PetFormValues {
   };
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
-  const petId = params.id;
+  const petId = id;
 
   try {
-    const body = await req.json();
+    const body = await request.json();
     const parsed = petFormSchema.parse(body);
     const data = normalizeData(parsed);
 
