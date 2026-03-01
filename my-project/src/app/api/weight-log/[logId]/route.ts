@@ -10,19 +10,20 @@ const updateSchema = z.object({
   notes: z.string().optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { logId: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ logId: string }> }) {
+  const { logId } = await params;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await request.json();
     const parsed = updateSchema.parse(body);
 
     // Fetch log with pet owner
     const log = await prisma.weightLog.findUnique({
-      where: { id: params.logId },
+      where: { id: logId },
       include: { pet: true },
     });
 
@@ -31,7 +32,7 @@ export async function PUT(req: NextRequest, { params }: { params: { logId: strin
     }
 
     const updatedLog = await prisma.weightLog.update({
-      where: { id: params.logId },
+      where: { id: logId },
       data: {
         weight: parsed.weight,
         notes: parsed.notes,
@@ -45,7 +46,10 @@ export async function PUT(req: NextRequest, { params }: { params: { logId: strin
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { logId: string } }) {
+export async function DELETE
+(req: NextRequest, 
+  { params }: { params: Promise<{ logId: string }> }) {
+  const { logId } = await params;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -54,7 +58,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { logId: st
   try {
     // Fetch log with pet owner
     const log = await prisma.weightLog.findUnique({
-      where: { id: params.logId },
+      where: { id: (await params).logId },
       include: { pet: true },
     });
 
@@ -63,7 +67,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { logId: st
     }
 
     await prisma.weightLog.delete({
-      where: { id: params.logId },
+      where: { id: logId },
     });
 
     return NextResponse.json({ message: "Weight log deleted successfully" });
