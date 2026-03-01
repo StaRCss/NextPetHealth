@@ -13,14 +13,15 @@ const petIdSchema = z.uuid();
 export default async function PetSettingsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   // ----- SESSION CHECK -----
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect("/auth/login");
 
   // ----- VALIDATE PET ID -----
-  const parsedId = petIdSchema.safeParse(params.id);
+  const resolvedParams = await params;
+  const parsedId = petIdSchema.safeParse(resolvedParams.id);
   if (!parsedId.success) redirect("/dashboard/pets");
   const petId = parsedId.data;
 
