@@ -4,14 +4,6 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 
-interface PetFormFields {
-  name: string;
-  breed?: string | null;
-  gender?: string | null;
-  birthday: string;
-  role: "add" | "edit";
-}
-
 export const petFormSchema = z.object({
 
   name: z
