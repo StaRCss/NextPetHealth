@@ -21,17 +21,15 @@ interface WeightLog {
   createdAt: Date;
 }
 
-export default async function PetDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
   // ----- SESSION CHECK -----
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect("/auth/login");
 
   // ----- VALIDATE PET ID -----
-  const parsedId = petIdSchema.safeParse(params.id);
+  const parsedId = petIdSchema.safeParse(id);
   if (!parsedId.success) notFound();
   const petId = parsedId.data;
 
