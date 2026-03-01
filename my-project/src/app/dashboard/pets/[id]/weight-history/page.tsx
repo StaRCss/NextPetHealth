@@ -9,7 +9,7 @@ import NavigateBackButton from "@/components/pets/fields/NavigateBackButton";
 export default async function WeightHistory({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await getServerSession(authOptions);
 
@@ -18,7 +18,7 @@ export default async function WeightHistory({
   }
 
   // Validate pet ID
-  const petId = params.id;
+  const petId = (await params).id;
   if (!petId || typeof petId !== "string") {
     notFound();
   }
