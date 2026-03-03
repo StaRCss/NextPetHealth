@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AddPetButton from '../pets/AddPetButton';
+import { signOut } from 'next-auth/react';
 
 type NavItemProps = {
   href?: string;
@@ -13,35 +14,53 @@ type NavItemProps = {
 };
 
 // Reusable NavItem
-const NavItem: React.FC<NavItemProps> = ({ href, src, alt, component }) => {
-  if (component) return <>{component}</>;
-  if (!href || !src || !alt) return null;
-
-  return (
-    <Link
-      href={href}
-      className="flex flex-col items-center justify-center"
-      aria-label={alt}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={48}
-        height={48}
-        unoptimized // important for string paths from /public
-        className="w-10 h-10 md:w-14 md:h-14 object-contain hover:scale-125 transition-transform duration-200"
-        style={{ backfaceVisibility: 'hidden' }}
-      />
-      <span className="sr-only">{alt}</span>
-    </Link>
-  );
+const NavItem: React.FC<NavItemProps> = ({ component }) => {
+  if (!component) return null;
+  return <>{component}</>;
 };
 
 // Navigation items
 const navItems: NavItemProps[] = [
-  { href: '/dashboard/pets', src: '/petz.webp', alt: 'Go to My Pets Page' },
+  {
+    href: '/dashboard/pets',
+    src: '/petz.webp',
+    alt: 'Go to My Pets Page',
+    component: (
+      <Link
+        href="/dashboard/pets"
+        className="flex flex-col items-center justify-center"
+        aria-label="Go to My Pets Page"
+      >
+        <Image
+          src="/petz.webp"
+          alt="Go to My Pets Page"
+          width={48}
+          height={48}
+          unoptimized
+          className="w-10 h-10 md:w-14 md:h-14 object-contain hover:scale-125 transition-transform duration-200"
+        />
+      </Link>
+    ),
+  },
   { component: <AddPetButton /> },
-  { href: '/signout', src: '/settings.webp', alt: 'Go to Settings' },
+  {
+    component: (
+      <button
+        onClick={() => signOut({ callbackUrl: '/login' })}
+        className="flex flex-col items-center justify-center"
+        aria-label="Sign Out"
+      >
+        <Image
+          src="/settings.webp"
+          alt="Sign Out"
+          width={48}
+          height={48}
+          unoptimized
+          className="w-10 h-10 md:w-14 md:h-14 object-contain hover:scale-125 transition-transform duration-200"
+        />
+      </button>
+    ),
+  },
 ];
 
 const MobileMenu: React.FC = () => {
@@ -54,13 +73,7 @@ const MobileMenu: React.FC = () => {
         style={{ gridTemplateColumns: `repeat(${numberOfItems}, minmax(0, 1fr))` }}
       >
         {navItems.map((item, index) => (
-          <NavItem
-            key={index}
-            href={item.href}
-            src={item.src}
-            alt={item.alt}
-            component={item.component}
-          />
+          <NavItem key={index} component={item.component} />
         ))}
       </div>
     </nav>
